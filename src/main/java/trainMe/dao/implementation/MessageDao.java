@@ -52,8 +52,8 @@ public class MessageDao extends AbstractDao {
         session.getTransaction().commit();
 
         for (Message message: result){
-            resultWithSmallerMessages.add(new SmallerMessage(message.getUser().getId(),message.getText(),
-                    message.getUser().getFirstName(),message.getUser().getLastName()));
+            resultWithSmallerMessages.add(new SmallerMessage(message.getAuthor().getId(),message.getText(),
+                    message.getAuthor().getFirstName(),message.getAuthor().getLastName()));
         }
 
         return resultWithSmallerMessages;

@@ -4,7 +4,6 @@ import trainMe.model.Item;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import trainMe.hibernate.HibernateUtil;
-
 import java.io.Serializable;
 import java.util.List;
 

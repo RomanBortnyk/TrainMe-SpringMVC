@@ -14,16 +14,16 @@ public class Message implements Item{
     private String text;
     private Timestamp createdAt;
     private Chat chat;
-    private User user;
+    private User author;
 
     public Message(){
 
     }
 
-    public Message(String text, Chat chat, User user) {
+    public Message(String text, Chat chat, User author) {
         this.text = text;
         this.chat = chat;
-        this.user = user;
+        this.author = author;
         this.createdAt = new Timestamp(Calendar.getInstance().getTime().getTime());
 
     }
@@ -31,12 +31,12 @@ public class Message implements Item{
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User user) {
+        this.author = user;
     }
 
     @ManyToOne

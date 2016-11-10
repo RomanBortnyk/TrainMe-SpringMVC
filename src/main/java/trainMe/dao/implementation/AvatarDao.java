@@ -15,7 +15,6 @@ import java.util.List;
 public class AvatarDao extends AbstractDao {
 
 
-
     public List readAll() {
         return super.readAll(Avatar.class);
     }

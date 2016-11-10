@@ -74,7 +74,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     sessionBuilder.scanPackages("trainMe.model");
 
     sessionBuilder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-    sessionBuilder.setProperty("hibernate.show_sql", "true");
+//    sessionBuilder.setProperty("hibernate.show_sql", "true");
 
     return sessionBuilder.buildSessionFactory();
   }

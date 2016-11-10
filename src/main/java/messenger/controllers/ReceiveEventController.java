@@ -34,7 +34,7 @@ public class ReceiveEventController extends HttpServlet {
 
         Message receivedMessage = new Message();
 
-        receivedMessage.setUser(messageAuthor);
+        receivedMessage.setAuthor(messageAuthor);
         receivedMessage.setText(request.getParameter("messageText"));
 
         Date today = new Date();
