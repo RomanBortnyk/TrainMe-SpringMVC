@@ -1,6 +1,6 @@
 package trainMe.dao.interfaces;
 
-import model.Item;
+import trainMe.model.Item;
 
 import java.util.List;
 
@@ -26,7 +26,5 @@ public interface GenericDao<T extends Item> {
     void delete(T persistentObject);
 
     List readAll(Class<T> clazz);
-
-
 
 }

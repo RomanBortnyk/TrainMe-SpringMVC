@@ -1,13 +1,12 @@
 package trainMe.dao.implementation;
 
-
-import dao.interfaces.AbstractDao;
-import model.Chat;
-import model.Item;
-import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import persistence.HibernateUtil;
+import trainMe.dao.interfaces.AbstractDao;
+import trainMe.hibernate.HibernateUtil;
+import trainMe.model.Chat;
+import trainMe.model.Item;
+import trainMe.model.User;
 
 import java.util.List;
 

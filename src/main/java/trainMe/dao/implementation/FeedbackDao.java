@@ -1,10 +1,11 @@
 package trainMe.dao.implementation;
 
-import dao.interfaces.AbstractDao;
-import model.Feedback;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import persistence.HibernateUtil;
+import trainMe.dao.interfaces.AbstractDao;
+import trainMe.hibernate.HibernateUtil;
+import trainMe.model.Feedback;
+
 
 import java.util.List;
 
@@ -96,7 +97,6 @@ public class FeedbackDao extends AbstractDao {
                 session.close();
             }
         }
-
 
         return result;
     }

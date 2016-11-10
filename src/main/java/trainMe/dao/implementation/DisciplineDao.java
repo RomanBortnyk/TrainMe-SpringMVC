@@ -1,10 +1,12 @@
 package trainMe.dao.implementation;//package dao.implementation;
 
-import dao.interfaces.AbstractDao;
-import model.Discipline;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
-import persistence.HibernateUtil;
+import trainMe.dao.interfaces.AbstractDao;
+import trainMe.hibernate.HibernateUtil;
+import trainMe.model.Discipline;
+
 
 import java.io.File;
 import java.io.FileInputStream;

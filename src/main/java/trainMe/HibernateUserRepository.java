@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Feedback;
 import trainMe.model.User;
 
@@ -19,8 +20,7 @@ import java.io.Serializable;
 public class HibernateUserRepository {
 
 
-    @Autowired
-    SessionFactory sessionFactory;
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     private Session currentSession() {
         return sessionFactory.getCurrentSession();

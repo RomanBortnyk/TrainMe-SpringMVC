@@ -1,12 +1,13 @@
 package trainMe.dao.implementation;
 
-import dao.interfaces.AbstractDao;
-import model.Avatar;
-import model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import persistence.HibernateUtil;
+import trainMe.dao.interfaces.AbstractDao;
+import trainMe.hibernate.HibernateUtil;
+import trainMe.model.Avatar;
+import trainMe.model.User;
+
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,8 @@
 package trainMe.dao.implementation;
 
-import dao.interfaces.AbstractDao;
-import model.Avatar;
+import trainMe.dao.interfaces.AbstractDao;
+import trainMe.model.Avatar;
+
 
 import java.io.File;
 import java.io.FileInputStream;

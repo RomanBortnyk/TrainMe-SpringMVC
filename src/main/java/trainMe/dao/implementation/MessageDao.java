@@ -1,11 +1,12 @@
 package trainMe.dao.implementation;
 
-import dao.interfaces.AbstractDao;
+
 import messenger.SmallerMessage;
-import model.Message;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import persistence.HibernateUtil;
+import trainMe.dao.interfaces.AbstractDao;
+import trainMe.hibernate.HibernateUtil;
+import trainMe.model.Message;
 
 import java.util.ArrayList;
 import java.util.List;

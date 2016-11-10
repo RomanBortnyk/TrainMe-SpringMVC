@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import trainMe.HibernateUserRepository;
+import trainMe.hibernate.HibernateUtil;
 import trainMe.model.User;
 
 import javax.sql.DataSource;
@@ -43,15 +44,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     return htm;
   }
 
-//  @Override
-//  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//    // TODO Auto-generated method stub
-//    super.addResourceHandlers(registry);
-//  }
 
   @Bean
   public HibernateUserRepository hibUsrRepo (){
     return new HibernateUserRepository();
+  }
+
+  @Bean
+  public HibernateUtil hibernateUtil (){
+    HibernateUtil hibernateUtil = new HibernateUtil();
+    hibernateUtil.setSessionFactory(sessionFactory(dataSource()));
+    return hibernateUtil;
   }
 
   @Bean
@@ -64,20 +67,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     return ds;
   }
 
-
-//  @Bean
-//  public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
-//    LocalSessionFactoryBean sfb = new LocalSessionFactoryBean();
-//    sfb.setDataSource(dataSource);
-//    sfb.setPackagesToScan(new String[] { "trainMe.model" });
-//    Properties props = new Properties();
-//    props.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
-//    sfb.setHibernateProperties(props);
-//
-//    return sfb;
-//  }
-
-
   @Bean
   public SessionFactory sessionFactory(DataSource dataSource) {
 
@@ -89,12 +78,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     return sessionBuilder.buildSessionFactory();
   }
-//
-//  @Bean
-//  public BeanPostProcessor persistenceTranslation() {
-//    return new PersistenceExceptionTranslationPostProcessor();
-//  }
-//
 
 
 }
