@@ -3,6 +3,7 @@ package trainMe.dao.implementation;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Avatar;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Created by romab on 10/2/16.
  */
+@Repository
 public class UserDao extends AbstractDao {
 
     public User create(User user) {

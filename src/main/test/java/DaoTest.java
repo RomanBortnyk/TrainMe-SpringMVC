@@ -21,13 +21,15 @@ public class DaoTest {
     FeedbackDao feedbackDao;
     AvatarDao avatarDao;
 
+    ApplicationContext ctx;
 
     @Before
     public void initializeDAOs(){
 
-        ApplicationContext ctx = new AnnotationConfigApplicationContext("trainMe.config");
+        ctx = new AnnotationConfigApplicationContext("trainMe.config");
+        String [] a = ctx.getBeanDefinitionNames();
 
-        userDao = new UserDao();
+        userDao = (UserDao) ctx.getBean("userDao");
         avatarDao = new AvatarDao();
         chatDao = new ChatDao();
         messageDao = new MessageDao();

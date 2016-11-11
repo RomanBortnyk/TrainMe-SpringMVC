@@ -3,6 +3,7 @@ package trainMe.dao.implementation;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Discipline;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * Created by romab on 9/23/16.
  */
+@Repository
 public class DisciplineUserLinkDao extends AbstractDao {
 
 
@@ -33,7 +35,6 @@ public class DisciplineUserLinkDao extends AbstractDao {
     public void delete(DisciplineUserLink link) {
          super.delete(link);
     }
-
 
     public DisciplineUserLink read(int id) {
         return (DisciplineUserLink) super.read(DisciplineUserLink.class, id);
@@ -68,7 +69,6 @@ public class DisciplineUserLinkDao extends AbstractDao {
         return result;
 
     }
-
 
     public DisciplineUserLink read (User user, Discipline discipline){
 

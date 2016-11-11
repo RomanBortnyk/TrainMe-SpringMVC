@@ -4,6 +4,7 @@ package trainMe.dao.implementation;
 import messenger.SmallerMessage;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Message;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * Created by romab on 10/2/16.
  */
+@Repository
 public class MessageDao extends AbstractDao {
 
     public Message create(Message message) {
@@ -35,7 +37,6 @@ public class MessageDao extends AbstractDao {
     public List readAll() {
         return super.readAll(Message.class);
     }
-
 
     public List<SmallerMessage> getChatMessages(int chatId){
         List<Message> result;

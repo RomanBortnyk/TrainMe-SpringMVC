@@ -2,6 +2,7 @@ package trainMe.dao.implementation;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Chat;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * Created by romab on 10/2/16.
  */
+@Repository
 public class ChatDao extends AbstractDao {
 
     public Chat create(Chat chat) {

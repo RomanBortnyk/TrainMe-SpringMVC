@@ -1,5 +1,6 @@
 package trainMe.dao.implementation;
 
+import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.model.Avatar;
 
@@ -12,8 +13,8 @@ import java.util.List;
 /**
  * Created by romab on 10/2/16.
  */
+@Repository
 public class AvatarDao extends AbstractDao {
-
 
     public List readAll() {
         return super.readAll(Avatar.class);
@@ -31,7 +32,6 @@ public class AvatarDao extends AbstractDao {
     public Avatar create (Avatar avatar){
         return (Avatar) super.create(avatar);
     }
-
 
     public Avatar createFromFile (File image){
 
@@ -60,8 +60,7 @@ public class AvatarDao extends AbstractDao {
         return (Avatar) super.create(avatar);
     }
 
-
-//        recieve image from DB
+    // receive image from DB
     public void putAvatarToFile (int id, String path){
 
         Avatar avatar = this.read(id);
