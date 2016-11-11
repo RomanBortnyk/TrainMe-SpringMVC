@@ -2,6 +2,7 @@ package trainMe.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -40,6 +41,7 @@ public class WebConfig {
     hibernateUtil.setSessionFactory(sessionFactory(dataSource()));
     return hibernateUtil;
   }
+
 
   @Bean
   public DataSource dataSource() {

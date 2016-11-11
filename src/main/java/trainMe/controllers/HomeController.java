@@ -12,7 +12,12 @@ public class HomeController {
 
   @RequestMapping(method = GET)
   public String home(Model model) {
-    return "home";
+    return "index";
+  }
+
+  @RequestMapping(value = "registration",method = GET)
+  public String toRegistrationPage() {
+    return "registration";
   }
 
 }

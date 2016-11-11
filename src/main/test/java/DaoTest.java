@@ -26,7 +26,7 @@ public class DaoTest {
     @Before
     public void initializeDAOs(){
 
-        ctx = new AnnotationConfigApplicationContext("trainMe.trainMe.config");
+        ctx = new AnnotationConfigApplicationContext("trainMe.config");
         String [] a = ctx.getBeanDefinitionNames();
 
         userDao = (UserDao) ctx.getBean("userDao");
@@ -37,6 +37,8 @@ public class DaoTest {
         disciplineUserLinkDao = new DisciplineUserLinkDao();
         feedbackDao = new FeedbackDao();
     }
+
+
 
     @Test
     public void userDaoTest(){

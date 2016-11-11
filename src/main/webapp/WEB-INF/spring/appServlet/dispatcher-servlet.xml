@@ -17,15 +17,13 @@
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven />
 
+    <mvc:resources mapping="/resources/**" location="resources/" />
+
 
     <!--enables all requests forwarding to some default  servlet-->
     <!--<mvc:default-servlet-handler/>-->
 
     <context:component-scan base-package="trainMe.*" />
-
-
-
-
 
 
 

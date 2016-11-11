@@ -7,6 +7,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
+
 /**
  * Created by romab on 11/10/16.
  */
@@ -39,8 +41,10 @@ public class HibernateUtil {
     /**
      * Shuts down Hibernate, otherwise the Main thread may not be closed.
      */
+    @PreDestroy
     public static void shutdown() {
         sessionFactory.close();
+        System.out.println("session factory has been closed");
     }
 
 }
