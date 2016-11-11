@@ -1,4 +1,4 @@
-package messenger;
+package trainMe.messenger;
 
 /**
  * Created by romab on 11/1/16.

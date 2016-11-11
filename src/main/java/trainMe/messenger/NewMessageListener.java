@@ -1,4 +1,4 @@
-package messenger;
+package trainMe.messenger;
 
 
 import trainMe.model.Message;

@@ -1,6 +1,6 @@
-package messenger.controllers;
+package trainMe.messenger.controllers;
 
-import messenger.Database;
+import trainMe.messenger.Database;
 import trainMe.dao.implementation.ChatDao;
 import trainMe.dao.implementation.UserDao;
 import trainMe.model.Chat;

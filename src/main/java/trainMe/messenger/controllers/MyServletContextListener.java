@@ -1,6 +1,6 @@
-package messenger.controllers;
+package trainMe.messenger.controllers;
 
-import messenger.Database;
+import trainMe.messenger.Database;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

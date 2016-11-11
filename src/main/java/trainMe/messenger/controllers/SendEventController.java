@@ -1,10 +1,10 @@
-package messenger.controllers;
+package trainMe.messenger.controllers;
 
 
 
 import com.google.gson.Gson;
-import messenger.Database;
-import messenger.NewMessageListener;
+import trainMe.messenger.Database;
+import trainMe.messenger.NewMessageListener;
 import trainMe.model.User;
 
 
