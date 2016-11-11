@@ -1,18 +1,20 @@
 package trainMe.dao.implementation;
 
-import dao.interfaces.AbstractDao;
-import model.Feedback;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import persistence.HibernateUtil;
+import org.springframework.stereotype.Repository;
+import trainMe.dao.interfaces.AbstractDao;
+import trainMe.hibernate.HibernateUtil;
+import trainMe.model.Feedback;
+
 
 import java.util.List;
 
 /**
  * Created by romab on 9/21/16.
  */
+@Repository
 public class FeedbackDao extends AbstractDao {
-
 
     public Feedback create(Feedback feedback) {
         if (feedback != null ) {
@@ -26,7 +28,6 @@ public class FeedbackDao extends AbstractDao {
 
     }
 
-
     public Feedback update(Feedback feedback) {
         if (feedback != null && isExist(feedback)) {
             super.update(feedback);
@@ -38,7 +39,6 @@ public class FeedbackDao extends AbstractDao {
         }
     }
 
-
     public void delete(Feedback feedback) {
         if (isExist(feedback)) {
             super.delete(feedback);
@@ -49,11 +49,9 @@ public class FeedbackDao extends AbstractDao {
 
     }
 
-
     public Feedback read(int id) {
         return (Feedback) super.read(Feedback.class, id);
     }
-
 
     public List readAll() {
         return super.readAll(Feedback.class);
@@ -96,7 +94,6 @@ public class FeedbackDao extends AbstractDao {
                 session.close();
             }
         }
-
 
         return result;
     }

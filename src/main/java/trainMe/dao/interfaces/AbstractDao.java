@@ -1,10 +1,9 @@
 package trainMe.dao.interfaces;
 
-import model.Item;
+import trainMe.model.Item;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import persistence.HibernateUtil;
-
+import trainMe.hibernate.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 
