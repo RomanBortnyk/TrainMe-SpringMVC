@@ -148,6 +148,21 @@ public class UserDao extends AbstractDao {
 
     }
 
+    public boolean isExist (String login){
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query q = session.createQuery("from User where " +
+                "login = :login");
+        q.setString("login",login);
+        User newUser = (User)q.uniqueResult();
+
+        session.getTransaction().commit();
+        if (newUser == null) return false; else return true;
+
+    }
+
     public List readAllFullNames (){
 
         List result = null;

@@ -1,0 +1,11 @@
+<%@ page language="java" import="java.util.*" %>
+<%@ page import = "java.util.ResourceBundle" %>
+
+<footer class="container-fluid text-center">
+
+    <% ResourceBundle resource = ResourceBundle.getBundle("project");
+    String describe [] = resource.getString("describe").split("-");
+    String version=describe[0]; %>
+
+    <p>TrainMe service <%=version %> </p>
+</footer>
