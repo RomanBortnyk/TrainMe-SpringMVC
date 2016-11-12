@@ -44,7 +44,7 @@
 
         <div class="col-xs-10 col-xs-offset-1 col-lg-4 col-lg-offset-4 outer_form">
 
-            <form class="form-horizontal signInForm" action="/signIn" method="POST">
+            <form class="form-horizontal signInForm" action="signIn" method="POST">
 
                 <div class="form-group">
                     <div class="col-xs-12">

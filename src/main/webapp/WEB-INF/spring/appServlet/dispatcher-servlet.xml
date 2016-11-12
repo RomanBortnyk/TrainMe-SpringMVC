@@ -19,6 +19,13 @@
 
     <mvc:resources mapping="/resources/**" location="resources/" />
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/userPage"/>
+            <mvc:mapping path="/profile/*"/>
+            <bean class="trainMe.interceptors.AuthenticationFilter" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!--enables all requests forwarding to some default  servlet-->
     <!--<mvc:default-servlet-handler/>-->
