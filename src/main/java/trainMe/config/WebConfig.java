@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import trainMe.hibernate.HibernateUtil;
@@ -26,6 +27,13 @@ public class WebConfig {
     resolver.setPrefix("/WEB-INF/views/");
     resolver.setSuffix(".jsp");
     return resolver;
+  }
+
+  @Bean
+  public CommonsMultipartResolver multipartResolver (){
+    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+//    multipartResolver.setMaxUploadSize(100000);
+    return multipartResolver;
   }
 
   @Bean
