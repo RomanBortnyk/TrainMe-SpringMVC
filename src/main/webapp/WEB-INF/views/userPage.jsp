@@ -76,16 +76,18 @@
             <div class="well">
                 <h4>${currentSessionUser.userType.equals("customer") ? "Interests" : "Coach specialization"}</h4>
                 <ul id="disciplinesList" class="list-group">
-                    <c:forEach var="link" items="${disciplineLinks}">
-                        <li class="list-group-item">
-                            <img src="/image/icon/${link.getDiscipline().getId()}" height="35" width="35" alt="icon">
-                                ${link.getDiscipline().getName()}
-                        </li>
-                    </c:forEach>
+
+                    <%--<li class="list-group-item">--%>
+                        <%--<img src="/image/icon/${link.getDiscipline().getId()}" height="35" width="35" alt="icon">--%>
+                        <%--${link.getDiscipline().getName()}--%>
+                    <%--</li>--%>
+
                 </ul>
 
-                <button id= "changeInterestsButton" type="button" style="margin-bottom: 15px;" class="btn btn-default btn-sm" data-toggle="modal"
-                        data-target="#changeInterests">Change ${currentSessionUser.userType.equals("customer") ? "interests" : "specialization"}
+                <button id="changeInterestsButton" type="button" style="margin-bottom: 15px;"
+                        class="btn btn-default btn-sm" data-toggle="modal"
+                        data-target="#changeInterests">
+                    Change ${currentSessionUser.userType.equals("customer") ? "interests" : "specialization"}
                 </button>
                 <!-- Modal -->
                 <div class="modal fade" id="changeInterests" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -97,7 +99,8 @@
                                     <button type="button" class="close" data-dismiss="modal"><span
                                             aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                                     </button>
-                                    <h4 class="modal-title">Change ${currentSessionUser.userType.equals("customer") ? "interests" : "specialization"}</h4>
+                                    <h4 class="modal-title">
+                                        Change ${currentSessionUser.userType.equals("customer") ? "interests" : "specialization"}</h4>
                                 </div>
                                 <div class="modal-body interests-section">
                                     <div class="row" style="margin-top: 20px;">
@@ -116,10 +119,11 @@
                                         <form action="/modify/discipline/remove" method="post">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                 <select id="discToRemove" name="disciplineToRemove" class="form-control">
-                                                    <c:forEach var="link" items="${disciplineLinks}">
-                                                        <option disabled selected hidden>--</option>
-                                                        <option>${link.getDiscipline().getName()}</option>
-                                                    </c:forEach>
+                                                    <option disabled selected hidden>--</option>
+                                                    <%--<c:forEach var="link" items="${disciplineLinks}">--%>
+                                                        <%--<option disabled selected hidden>--</option>--%>
+                                                        <%--<option>${link.getDiscipline().getName()}</option>--%>
+                                                    <%--</c:forEach>--%>
 
                                                 </select>
                                             </div>
@@ -166,7 +170,9 @@
                                 <div class="row">
                                     <form action="/modify/description" method="post">
                                         <div class="form-group">
-                                            <textarea style="text-align: justify" class="form-control" name="newDescription" rows="5" id="comment">${currentSessionUser.description}</textarea>
+                                            <textarea style="text-align: justify" class="form-control"
+                                                      name="newDescription" rows="5"
+                                                      id="comment">${currentSessionUser.description}</textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-md" style="float: right;">
                                             Save
@@ -181,30 +187,28 @@
 
             <h3>Feedbacks</h3>
 
-            <c:forEach var="feedback" items="${usersFeedbacks}">
-                <div class="row">
-                    <div class="col-lg-12">
+            <div id="feedbacks" class="row">
+                <%--<div class="col-lg-12">--%>
 
-                        <div class="col-lg-3">
-                            <div class="well">
-                                <p>${feedback.getAuthor().getFirstName()}</p>
+                <%--<div  class="col-lg-3">--%>
+                <%--<div class="well">--%>
+                <%--<p id="authorName"></p>--%>
 
-                                <%--<a href="/profile/${feedback.getAuthor().getId()}">--%>
-                                    <%--<img src="/image/avatar/${feedback.getAuthor().getId()}" class="img-circle" height="65"--%>
-                                         <%--width="65" alt="Avatar">--%>
-                                <%--</a>--%>
+                <%--<a href="/profile/${feedback.getAuthor().getId()}">--%>
+                <%--<img src="/image/avatar/${feedback.getAuthor().getId()}" class="img-circle" height="65"--%>
+                <%--width="65" alt="Avatar">--%>
+                <%--</a>--%>
+                <%--</div>--%>
+                <%--</div>--%>
 
-                            </div>
-                        </div>
+                <%--<div class="col-lg-9">--%>
+                <%--<div class="well">--%>
+                <%--<p id="feedbackText" class="text-left"></p>--%>
+                <%--</div>--%>
+                <%--</div>--%>
+                <%--</div>--%>
+            </div>
 
-                        <div class="col-lg-9">
-                            <div class="well">
-                                <p id="feedbackText" class="text-left">${feedback.getText()}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
         </div>
     </div>
 </div>

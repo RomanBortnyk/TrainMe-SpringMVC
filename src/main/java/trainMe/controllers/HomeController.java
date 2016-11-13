@@ -25,8 +25,7 @@ public class HomeController {
   @Autowired
   FeedbackDao feedbackDao;
   @Autowired
-  DisciplineUserLinkDao disUslinkDao;
-
+  DisciplineUserLinkDao disUsrlinkDao;
 
   @RequestMapping(method = GET)
   public String home(Model model) {
@@ -53,10 +52,10 @@ public class HomeController {
 
       List feedbacks = feedbackDao.getUsersFeedbacks(user.getId());
 
-      List disciplineLinks = disUslinkDao.getUsersDisciplineLinks(user.getId());
+      List disciplineLinks = disUsrlinkDao.getUsersDisciplineLinks(user.getId());
 
-      session.setAttribute("disciplineLinks", disciplineLinks);
-      session.setAttribute("usersFeedbacks", feedbacks);
+      model.addAttribute("disciplineLinks", disciplineLinks);
+      model.addAttribute("usersFeedbacks", feedbacks);
 
       return "redirect:/userPage";
 
@@ -76,7 +75,6 @@ public class HomeController {
   public String authError(){
     return "notifications/authenticationError";
   }
-
 
 
 }
