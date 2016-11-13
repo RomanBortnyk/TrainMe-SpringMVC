@@ -38,6 +38,10 @@ $(document).ready(function () {
         });
     });
 
+    $("#add").on('click',function () {
+        console.log($("#discToAdd").val())
+    })
+
 
     
     

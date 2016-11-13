@@ -63,6 +63,7 @@ public class RestAPI{
         List allDisciplinesList =  disciplineDao.readAll();
 
         ArrayList<String> result = new ArrayList<String>();
+
         //create list of disciplines names
         for (Object discipline: allDisciplinesList){
             int i=0;

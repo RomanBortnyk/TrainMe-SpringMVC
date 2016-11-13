@@ -50,13 +50,6 @@ public class HomeController {
 
       session.setAttribute("currentSessionUser", user);
 
-      List feedbacks = feedbackDao.getUsersFeedbacks(user.getId());
-
-      List disciplineLinks = disUsrlinkDao.getUsersDisciplineLinks(user.getId());
-
-      model.addAttribute("disciplineLinks", disciplineLinks);
-      model.addAttribute("usersFeedbacks", feedbacks);
-
       return "redirect:/userPage";
 
     }else {
