@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import trainMe.model.Discipline;
 import trainMe.model.User;
 import trainMe.services.AvatarService;
+import trainMe.services.DescriptionService;
 import trainMe.services.DisciplineService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,8 @@ public class ModifyUsersDataController {
     DisciplineService disciplineService;
     @Autowired
     AvatarService avatarService;
+    @Autowired
+    DescriptionService descriptionService;
 
     @RequestMapping(value = "avatar", method = RequestMethod.POST)
     public String updateAvatar (HttpServletRequest request,
@@ -58,4 +61,17 @@ public class ModifyUsersDataController {
         return "redirect:/userPage";
 
     }
+
+    @RequestMapping(value = "description", method = RequestMethod.POST)
+    public String updateDescription(HttpServletRequest request,
+                                   @RequestParam(value="newDescription", required=false) String newDescription){
+
+        descriptionService.update((User)request.getSession().getAttribute("currentSessionUser"),
+                                    newDescription);
+
+        return "redirect:/userPage";
+
+    }
+
+
 }
