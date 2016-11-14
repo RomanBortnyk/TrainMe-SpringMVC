@@ -38,9 +38,9 @@ public class MessageDao extends AbstractDao {
         return super.readAll(Message.class);
     }
 
-    public List<SmallerMessage> getChatMessages(int chatId){
-        List<Message> result;
-        List<SmallerMessage> resultWithSmallerMessages = new ArrayList<SmallerMessage>();
+    public List <Message> getChatMessages(int chatId){
+
+        List<Message> result = new ArrayList<Message>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -52,12 +52,8 @@ public class MessageDao extends AbstractDao {
 
         session.getTransaction().commit();
 
-        for (Message message: result){
-            resultWithSmallerMessages.add(new SmallerMessage(message.getAuthor().getId(),message.getText(),
-                    message.getAuthor().getFirstName(),message.getAuthor().getLastName()));
-        }
 
-        return resultWithSmallerMessages;
+        return result;
 
     }
 }

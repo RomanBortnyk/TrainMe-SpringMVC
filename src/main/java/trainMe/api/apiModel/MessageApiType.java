@@ -1,21 +1,25 @@
 package trainMe.api.apiModel;
 
 /**
- * Created by romab on 11/13/16.
+ * Created by romab on 11/14/16.
  */
-public class FeedbackApiModel {
+public class MessageApiType {
 
     private int authorId;
     private String authorFirstName;
     private String authorLastName;
     private String text;
+    private int chatId;
 
-
-    public FeedbackApiModel(int authorId, String authorFirstName, String authorLastName, String text) {
+    public MessageApiType(int authorId, String text, String authorFirstName, String authorLastName) {
         this.authorId = authorId;
+        this.text = text;
         this.authorFirstName = authorFirstName;
         this.authorLastName = authorLastName;
-        this.text = text;
+    }
+
+    public MessageApiType() {
+
     }
 
     public int getAuthorId() {
@@ -24,6 +28,14 @@ public class FeedbackApiModel {
 
     public void setAuthorId(int authorId) {
         this.authorId = authorId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getAuthorFirstName() {
@@ -42,11 +54,11 @@ public class FeedbackApiModel {
         this.authorLastName = authorLastName;
     }
 
-    public String getText() {
-        return text;
+    public int getChatId() {
+        return chatId;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
     }
 }

@@ -37,6 +37,16 @@ public class HomeController {
     return "registration";
   }
 
+  @RequestMapping(value = "conversations",method = GET)
+  public String toConversationPage() {
+    return "conversations";
+  }
+
+  @RequestMapping(value = "search",method = GET)
+  public String toSearchPage() {
+    return "searchPage";
+  }
+
 
   @RequestMapping(value = "signIn", method = POST)
   public String signIn (HttpServletRequest request ,Model model,

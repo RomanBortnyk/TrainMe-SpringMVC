@@ -2,15 +2,12 @@ package trainMe.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import trainMe.api.apiModel.DisciplineApiModel;
-import trainMe.api.apiModel.FeedbackApiModel;
-import trainMe.dao.implementation.DisciplineDao;
-import trainMe.dao.implementation.DisciplineUserLinkDao;
-import trainMe.dao.implementation.FeedbackDao;
-import trainMe.dao.implementation.UserDao;
-import trainMe.model.Discipline;
-import trainMe.model.DisciplineUserLink;
-import trainMe.model.Feedback;
+import trainMe.api.apiModel.ChatApiType;
+import trainMe.api.apiModel.DisciplineApiType;
+import trainMe.api.apiModel.FeedbackApiType;
+import trainMe.api.apiModel.MessageApiType;
+import trainMe.dao.implementation.*;
+import trainMe.model.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,14 +27,18 @@ public class RestAPI{
     DisciplineUserLinkDao discUsrLnkDao;
     @Autowired
     DisciplineDao disciplineDao;
+    @Autowired
+    ChatDao chatDao;
+    @Autowired
+    MessageDao messageDao;
 
-    public ArrayList<FeedbackApiModel> getFeedbacksByUserId(int id){
+    public ArrayList<FeedbackApiType> getFeedbacksByUserId(int id){
 
-        ArrayList<FeedbackApiModel> result = new ArrayList<FeedbackApiModel>();
+        ArrayList<FeedbackApiType> result = new ArrayList<FeedbackApiType>();
         ArrayList<Feedback> feedbacks = (ArrayList<Feedback>) feedbackDao.getUsersFeedbacks(id);
 
         for (Feedback feedback: feedbacks){
-            result.add(new FeedbackApiModel(feedback.getAuthor().getId(),feedback.getAuthor().getFirstName(),
+            result.add(new FeedbackApiType(feedback.getAuthor().getId(),feedback.getAuthor().getFirstName(),
                     feedback.getAuthor().getLastName(),feedback.getText()));
         }
 
@@ -46,12 +47,12 @@ public class RestAPI{
 
     public List getDisciplinesByUserId(int id){
 
-        ArrayList<DisciplineApiModel> result = new ArrayList<DisciplineApiModel>();
+        ArrayList<DisciplineApiType> result = new ArrayList<DisciplineApiType>();
         List disciplinesLinks = discUsrLnkDao.getUsersDisciplineLinks(id);
 
         for (Object discLink : disciplinesLinks){
             Discipline discipline = ((DisciplineUserLink) discLink).getDiscipline();
-            result.add(new DisciplineApiModel(discipline.getId(),discipline.getName()));
+            result.add(new DisciplineApiType(discipline.getId(),discipline.getName()));
         }
 
         return result;
@@ -68,13 +69,37 @@ public class RestAPI{
         for (Object discipline: allDisciplinesList){
             int i=0;
             for (Object currentDiscipline: currentDisciplines){
-                if (((Discipline)discipline).getName().equals(((DisciplineApiModel)currentDiscipline).getName())) i++;
+                if (((Discipline)discipline).getName().equals(((DisciplineApiType)currentDiscipline).getName())) i++;
 
             }
             if (i==0) result.add(((Discipline)discipline).getName());
         }
         Collections.sort(result);
         return result;
+    }
+
+    public List getUsersChatsList (int id){
+        List<Chat> chats = chatDao.getUserChats (id);
+        ArrayList<ChatApiType> result = new ArrayList<ChatApiType>();
+        for (Chat chat : chats){
+            result.add( new ChatApiType(chat.getId(), chat.getUser2().getFirstName(),
+                        chat.getUser2().getLastName() ,chat.getUser2().getId() ));
+        }
+        return result;
+    }
+
+    public List getChatMessages (int id){
+
+        List<Message> messagesList = messageDao.getChatMessages(id);
+        List<MessageApiType> result = new ArrayList<MessageApiType>();
+
+        for (Message message: messagesList){
+            result.add(new MessageApiType(message.getAuthor().getId() , message.getText(),
+                    message.getAuthor().getFirstName(), message.getAuthor().getLastName()));
+        }
+
+        return result;
+
     }
 
 }

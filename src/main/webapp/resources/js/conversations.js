@@ -4,6 +4,7 @@
 
 $( document ).ready(function() {
 
+    
     $(window).resize(function(){
         $h = $(window).outerHeight()
         $('.chat').css({
@@ -27,13 +28,12 @@ $( document ).ready(function() {
 
             $("#chatTitle").text( $(this).find("#firstName").text() +" "
                 +$(this).find("#lastName").text());
-
         }
 
-        
     });
 
-
+    $("#sentIcon").on('click',send())
+    
     $("#inputMessageField").bind("enterKey", function () {
         send();
     });
@@ -45,10 +45,14 @@ $( document ).ready(function() {
         }
     });
 
-    $("#sentIcon").on('click',send())
+    
+
+
 
     
 });
+
+
 
 
 function send() {
@@ -64,8 +68,9 @@ function send() {
 
         $.ajax({
             url:'/sendEvent/message',
-            data: message,
-            dataType:"json",
+            method:"POST",
+            data: JSON.stringify(message),
+            contentType: "application/json",
             success:function(res){
                 console.log("message was sent");
             }
@@ -83,10 +88,9 @@ function cleanMessageList() {
 function refreshMessagesList() {
 
     var currentChatId = $(".activeUser").attr('id');
-    var url = "/messenger/chatMessages/";
 
     $.ajax({
-        url : "/messenger/chatMessages/"+currentChatId,
+        url : "/api/messages/"+currentChatId,
         type : "GET",
         dataType : "json",
         success : function(data) {
@@ -98,7 +102,7 @@ function refreshMessagesList() {
 function response(data) {
 
 
-     var activeUserName = $(".activeUser").find("#firstName").text();
+    var activeUserName = $(".activeUser").find("#firstName").text();
 
     $.each(data, function(index, element) {
 

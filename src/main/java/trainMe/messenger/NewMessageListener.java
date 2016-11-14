@@ -1,6 +1,7 @@
 package trainMe.messenger;
 
 
+import trainMe.api.apiModel.MessageApiType;
 import trainMe.model.Message;
 import trainMe.model.User;
 
@@ -9,16 +10,17 @@ import trainMe.model.User;
  */
 public class NewMessageListener implements Observer {
 
-    private SmallerMessage currentMessage;
+    private MessageApiType currentMessage;
 
 
     public void update(Message message) {
-        currentMessage = new SmallerMessage();
-        currentMessage.setAuthorId(message.getAuthor().getId());
+        currentMessage = new MessageApiType();
+        currentMessage.setAuthorId(message.getId());
         currentMessage.setAuthorFirstName(message.getAuthor().getFirstName());
         currentMessage.setAuthorLastName(message.getAuthor().getLastName());
-        currentMessage.setText(message.getText());
         currentMessage.setChatId(message.getChat().getId());
+        currentMessage.setText(message.getText());
+
     }
 
 
@@ -34,17 +36,11 @@ public class NewMessageListener implements Observer {
         }
     }
 
-    public String getMessageText() {
-        return currentMessage.getText();
-    }
-
-    public SmallerMessage getCurrentMessage() {
+    public MessageApiType getCurrentMessage() {
         return currentMessage;
     }
 
-    public void setCurrentMessage(SmallerMessage currentMessage) {
+    public void setCurrentMessage(MessageApiType currentMessage) {
         this.currentMessage = currentMessage;
     }
-
-
 }

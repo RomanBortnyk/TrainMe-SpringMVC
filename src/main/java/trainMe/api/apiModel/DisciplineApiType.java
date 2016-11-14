@@ -3,12 +3,12 @@ package trainMe.api.apiModel;
 /**
  * Created by romab on 11/13/16.
  */
-public class DisciplineApiModel {
+public class DisciplineApiType {
 
     private int id;
     private String name;
 
-    public DisciplineApiModel(int id, String name) {
+    public DisciplineApiType(int id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -154,7 +154,6 @@
         $.ajax({
             type: "POST",
             url: "/feedback/add",
-            encoding: "UTF-8",
             data: JSON.stringify(data),
             contentType: "application/json",
             success: function (response) {

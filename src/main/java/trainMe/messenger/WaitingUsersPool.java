@@ -1,6 +1,6 @@
 package trainMe.messenger;
 
-
+import org.springframework.stereotype.Service;
 import trainMe.dao.implementation.ChatDao;
 import trainMe.dao.implementation.MessageDao;
 import trainMe.model.Chat;
@@ -11,16 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by romab on 10/28/16.
+ * Created by romab on 11/14/16.
  */
-public class Database implements Observable {
+@Service
+public class WaitingUsersPool implements Observable {
+
 
     List<Observer> observers = new ArrayList<Observer>();
     List<User> waitingUsers = new ArrayList<User>();
-
-    public Database(){
-
-    }
 
 
     public void addMessage (Message message){
@@ -71,7 +69,6 @@ public class Database implements Observable {
             observer.update(newMessage);
     }
 
-
     public List<User> getWaitingUsers() {
         return waitingUsers;
     }
@@ -79,4 +76,5 @@ public class Database implements Observable {
     public void setWaitingUsers(List<User> waitingUsers) {
         this.waitingUsers = waitingUsers;
     }
+
 }

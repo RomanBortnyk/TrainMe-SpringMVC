@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -19,6 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("trainMe.*")
 @EnableTransactionManagement
+@EnableAsync
 public class WebConfig {
 
   @Bean
@@ -49,7 +51,6 @@ public class WebConfig {
     hibernateUtil.setSessionFactory(sessionFactory(dataSource()));
     return hibernateUtil;
   }
-
 
   @Bean
   public DataSource dataSource() {

@@ -3,7 +3,7 @@ package trainMe.api.apiModel;
 /**
  * Created by romab on 11/13/16.
  */
-public class UserApiModel {
+public class UserApiType {
 
     private int id;
     private String firstName;
@@ -11,7 +11,7 @@ public class UserApiModel {
 //    private String userType;
 
 
-    public UserApiModel(int id, String firstName, String lastName) {
+    public UserApiType(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

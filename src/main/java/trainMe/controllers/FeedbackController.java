@@ -26,9 +26,9 @@ public class FeedbackController {
         feedbackService.add(feedbackRequest.getDestinationUserId(),
                 (User)request.getSession().getAttribute("currentSessionUser"),
                 feedbackRequest.getNewFeedbackText());
+
         return new NewFeedbackRequest();
     }
-
 
 
 }
