@@ -25,7 +25,7 @@ public abstract class AbstractDao implements GenericDao,Serializable{
             System.out.println(e.getMessage());
         }finally {
                 if(session.isOpen()){
-                    System.out.println("Closing session");
+//                    System.out.println("Closing session");
                     session.close();
                 }
         }
@@ -46,7 +46,7 @@ public abstract class AbstractDao implements GenericDao,Serializable{
             System.out.println(e.getMessage());
         }finally {
             if(session.isOpen()){
-                System.out.println("Closing session");
+//                System.out.println("Closing session");
                 session.close();
             }
         }
@@ -68,7 +68,7 @@ public abstract class AbstractDao implements GenericDao,Serializable{
             System.out.println(e.getMessage());
         }finally {
             if(session.isOpen()){
-                System.out.println("Closing session");
+//                System.out.println("Closing session");
                 session.close();
             }
         }
@@ -89,7 +89,7 @@ public abstract class AbstractDao implements GenericDao,Serializable{
             System.out.println(e.getMessage());
         }finally {
             if(session.isOpen()){
-                System.out.println("Closing session");
+//                System.out.println("Closing session");
                 session.close();
             }
         }
@@ -109,7 +109,7 @@ public abstract class AbstractDao implements GenericDao,Serializable{
             System.out.println(e.getMessage());
         }finally {
             if(session.isOpen()){
-                System.out.println("Closing session");
+//                System.out.println("Closing session");
                 session.close();
             }
         }
