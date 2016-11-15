@@ -30,7 +30,6 @@ public class SearchService {
         if (requestObject.getSearchOption().equals("byFullName")) {
             String fullName[] = requestObject.getSearchString().split(" ");
 
-
             List<User> users = userDao.read(fullName[0], fullName[1], requestObject.getUserTypeOption());
 
             return generateResultList(users);

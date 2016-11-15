@@ -24,7 +24,7 @@ public class AuthenticationFilter implements HandlerInterceptor{
 
         User currentUser = (User)session.getAttribute("currentSessionUser");
 
-        if ((currentUser == null) || session == null){
+        if ((currentUser == null) || currentUser.getFirstName() == null || session == null){
             httpServletResponse.sendRedirect("/authenticationError");
             return false;
         } else {

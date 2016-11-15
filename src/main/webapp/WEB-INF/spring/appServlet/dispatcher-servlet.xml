@@ -23,6 +23,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/userPage"/>
             <mvc:mapping path="/profile/*"/>
+            <mvc:mapping path="/conversations"/>
             <bean class="trainMe.interceptors.AuthenticationFilter" />
         </mvc:interceptor>
     </mvc:interceptors>

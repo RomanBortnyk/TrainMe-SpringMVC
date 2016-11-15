@@ -2,6 +2,7 @@ package trainMe.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,5 +84,17 @@ public class HomeController {
   public String test(){
     return "TEST";
   }
+
+  @RequestMapping(value = "/logout" , method = GET)
+  public String loguot(HttpServletRequest request){
+
+
+      request.getSession().removeAttribute("currentSessionUser");
+      request.getSession().invalidate();
+
+    return "index";
+  }
+
+
 
 }
