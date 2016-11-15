@@ -15,7 +15,7 @@ public class NewMessageListener implements Observer {
 
     public void update(Message message) {
         currentMessage = new MessageApiType();
-        currentMessage.setAuthorId(message.getId());
+        currentMessage.setAuthorId(message.getAuthor().getId());
         currentMessage.setAuthorFirstName(message.getAuthor().getFirstName());
         currentMessage.setAuthorLastName(message.getAuthor().getLastName());
         currentMessage.setChatId(message.getChat().getId());

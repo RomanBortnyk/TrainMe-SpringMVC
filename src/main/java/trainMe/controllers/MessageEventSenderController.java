@@ -34,7 +34,7 @@ public class MessageEventSenderController {
         final DeferredResult<MessageApiType> result = new DeferredResult<MessageApiType>((long)0);
 
         User currentUser = (User) request.getSession().getAttribute("currentSessionUser");
-        usersPool.getWaitingUsers().add(currentUser);
+        usersPool.addWaitingUser(currentUser);
 
         NewMessageListener messageListener = new NewMessageListener();
 
@@ -44,7 +44,7 @@ public class MessageEventSenderController {
 
         result.setResult(messageListener.getCurrentMessage());
 
-        usersPool.getWaitingUsers().remove(currentUser);
+        usersPool.removeWaitingUser(currentUser);
         usersPool.removeObserver(messageListener);
 
         return result;

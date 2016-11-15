@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: romab
-  Date: 10/28/16
-  Time: 3:23 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
@@ -34,14 +27,6 @@
                 <h6>My conversations</h6>
                 <div class="chat">
                     <div id="chatList" class="chat-users" style="padding-top: 10px;">
-
-                        <%--<div id="${chat.getId()}" class="user">--%>
-                            <%--<div class="avatar">--%>
-                                <%--<img src="/image/avatar/${chat.getUser2().getId()}" alt="User name">--%>
-                            <%--</div>--%>
-                            <%--<div id="firstName" class="name">${chat.getUser2().getFirstName()}</div>--%>
-                            <%--<div id="lastName" class="name">${chat.getUser2().getLastName()}</div>--%>
-                        <%--</div>--%>
 
                     </div>
                 </div>
@@ -115,7 +100,6 @@
             objDiv.scrollTop = objDiv.scrollHeight;
 
         }
-
     }
 
     $(function fillChatList() {
@@ -144,8 +128,6 @@
             }
         });
     });
-
-
 
 </script>
 
