@@ -26,7 +26,7 @@
 <div class="container">
     <div class="row">
         <h1 class="text-center" style="margin-top: 50px;">TrainMe Search</h1>
-        <form action="" method="">
+
             <div class="col-lg-8 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
 
                 <div class="input-group" style="height: 40px;">
@@ -37,6 +37,7 @@
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false" style="height: 40px; border-radius: 0%"><span
                                 class="caret"></span></button>
+
                         <button id="btnSearch" type="submit" class="btn btn-default"
                                 style="height: 40px; border-bottom-right-radius: 4px; border-top-right-radius: 4px"><i
                                 class="fa fa-search" aria-hidden="true"></i></button>
@@ -53,7 +54,7 @@
                             <div class="form-group">
                                 <p style="float: left; margin-top: 10px;">User type</p>
 
-                                <select name="userTypeOption" class="form-control">
+                                <select id="userTypeOption" name="userTypeOption" class="form-control">
                                     <option selected>all</option>
                                     <option>coach</option>
                                     <option>customer</option>
@@ -67,42 +68,41 @@
 
                 </div>
             </div>
-        </form>
     </div>
 </div>
 
-<div class="container">
+<div id="resultContainer" class="container">
 
 
-    <div class="row well result-section">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="col-lg-2 col-md-2 col-sm-3">
-                <a href="/profile/${resultEntry.key.getId()}">
-                    <img id="avatar" src="/image/avatar/${resultEntry.key.getId()}"
-                         width="140px" height="140px" class="img-circle" alt="Avatar">
-                </a>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-3 name-result">
-                <p>${resultEntry.key.getFirstName()}</p>
-                <p>${resultEntry.key.getLastName()}</p>
-                <p>${resultEntry.key.getUserType()}</p>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 description-bkg">
-                <pre style="border: none; background: none; margin-bottom: 0; padding: 0%">${resultEntry.key.getDescription()}</pre>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-12">
-                <div class="pull-right disciplines-result">
+    <%--<div class="row well result-section">--%>
+        <%--<div class="col-lg-12 col-md-12 col-sm-12">--%>
+            <%--<div class="col-lg-2 col-md-2 col-sm-3">--%>
+                <%--<a href="/profile/${resultEntry.key.getId()}">--%>
+                    <%--<img id="avatar" src="/image/avatar/${resultEntry.key.getId()}"--%>
+                         <%--width="140px" height="140px" class="img-circle" alt="Avatar">--%>
+                <%--</a>--%>
+            <%--</div>--%>
+            <%--<div class="col-lg-2 col-md-2 col-sm-3 name-result">--%>
+                <%--<p>${resultEntry.key.getFirstName()}</p>--%>
+                <%--<p>${resultEntry.key.getLastName()}</p>--%>
+                <%--<p>${resultEntry.key.getUserType()}</p>--%>
+            <%--</div>--%>
+            <%--<div class="col-lg-6 col-md-6 col-sm-12 description-bkg">--%>
+                <%--<pre style="border: none; background: none; margin-bottom: 0; padding: 0%">${resultEntry.key.getDescription()}</pre>--%>
+            <%--</div>--%>
+            <%--<div class="col-lg-2 col-md-2 col-sm-12">--%>
+                <%--<div class="pull-right disciplines-result">--%>
 
-                    <div>
-                        <img height="35px" width="35px" src="/image/icon/${discipline.getId()}">
-                        <p>${discipline.getName()}</p>
-                    </div>
+                    <%--<div>--%>
+                        <%--<img height="35px" width="35px" src="/image/icon/${discipline.getId()}">--%>
+                        <%--<p>${discipline.getName()}</p>--%>
+                    <%--</div>--%>
 
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
 
-                </div>
-            </div>
-        </div>
-    </div>
+    <%--</div>--%>
 
 </div>
 

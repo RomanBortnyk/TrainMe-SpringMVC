@@ -45,27 +45,7 @@ public class ApiController {
         return restAPI.getChatMessages(chatId);
     }
 
-    @RequestMapping(value = "/users",method= RequestMethod.GET)
-    public List getUsers() {
 
-        ArrayList<UserSearchResponse> result = new ArrayList<UserSearchResponse>();
-
-        ArrayList<DisciplineApiType> disc = new ArrayList<DisciplineApiType>();
-        disc.add(new DisciplineApiType(1,"test"));
-        disc.add(new DisciplineApiType(2,"test"));
-
-        UserSearchResponse userSearchResponse = new UserSearchResponse(1,"TEST");
-        userSearchResponse.setDisciplines(disc);
-
-        UserSearchResponse userSearchResponse1 = new UserSearchResponse(2,"TEST2");
-        userSearchResponse1.setDisciplines(disc);
-
-        result.add(userSearchResponse);
-        result.add(userSearchResponse1);
-
-
-        return result;
-    }
 
     @RequestMapping(value = "/autocomplete/disciplines/{param}",method= RequestMethod.GET)
     public ArrayList<String> getDisciplines(@PathVariable("param") String parameter) {
@@ -76,9 +56,9 @@ public class ApiController {
     @RequestMapping(value = "/autocomplete/full_names/{param}",method= RequestMethod.GET)
     public ArrayList<String> getUsersFullNames(@PathVariable("param") String parameter) {
 
-
         return restAPI.getUsersFullNamesStartsWithParam(parameter);
 
     }
+
 
 }
