@@ -7,6 +7,7 @@ public class ReceivedMessageJson {
 
     private int chatId;
     private String messageText;
+    private int destinationUserId;
 
 
     public ReceivedMessageJson(int chatId, String massageText) {
@@ -15,6 +16,14 @@ public class ReceivedMessageJson {
     }
 
     public ReceivedMessageJson() {
+    }
+
+    public int getDestinationUserId() {
+        return destinationUserId;
+    }
+
+    public void setDestinationUserId(int destinationUserId) {
+        this.destinationUserId = destinationUserId;
     }
 
     public int getChatId() {

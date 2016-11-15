@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import trainMe.dao.implementation.ChatDao;
+import trainMe.dao.implementation.UserDao;
 import trainMe.jsonObjects.NewFeedbackRequest;
 import trainMe.jsonObjects.ReceivedMessageJson;
 import trainMe.messenger.WaitingUsersPool;
+import trainMe.model.Chat;
 import trainMe.model.Message;
 import trainMe.model.User;
 
@@ -28,30 +30,42 @@ public class MessageEventReceiverController {
     ChatDao chatDao;
     @Autowired
     WaitingUsersPool usersPool;
+    @Autowired
+    UserDao userDao;
 
     @RequestMapping(value = "message", method = RequestMethod.POST)
     public @ResponseBody
-    ReceivedMessageJson receiveMessage(HttpServletRequest request ,
+    ReceivedMessageJson receiveMessage(HttpServletRequest request,
                                     @RequestBody ReceivedMessageJson receivedMessage) {
 
         Message messageToAdd = new Message();
+        User currentUser = (User)request.getSession().getAttribute("currentSessionUser");
 
-        messageToAdd.setAuthor((User)request.getSession().getAttribute("currentSessionUser"));
+        messageToAdd.setAuthor(currentUser);
         messageToAdd.setText(receivedMessage.getMessageText());
-        messageToAdd.setChat(chatDao.read(receivedMessage.getChatId()));
-
         Date today = new java.util.Date();
         Timestamp timestamp = new Timestamp(today.getTime());
         messageToAdd.setCreatedAt(timestamp);
+
+        if (receivedMessage.getDestinationUserId() == 0){
+            messageToAdd.setChat(chatDao.read(receivedMessage.getChatId()));
+
+        }else {
+            int currUsrId = currentUser.getId();
+            int destUsrId = receivedMessage.getDestinationUserId();
+
+            if (chatDao.isExistByUsersId(currUsrId, destUsrId)){
+                messageToAdd.setChat(chatDao.readByUsersIds(currUsrId,destUsrId));
+            }else{
+
+                messageToAdd.setChat(chatDao.create(new Chat(currentUser,userDao.read(destUsrId))));
+            }
+        }
 
         usersPool.addMessage(messageToAdd);
 
         return new ReceivedMessageJson();
     }
-
-//
-//
-//    @RequestMapping(value = "doesChatExist", method = RequestMethod.POST)
 
 
 }

@@ -44,15 +44,8 @@ $( document ).ready(function() {
             $(this).trigger("enterKey");
         }
     });
-
-    
-
-
-
     
 });
-
-
 
 
 function send() {

@@ -194,22 +194,21 @@
             ${user.id}
 
             var message = {
-                messageText: messageField.val(),
-                destinationUserId: destinationUserId
+                destinationUserId: destinationUserId,
+                messageText: messageField.val()
             };
 
             $.ajax({
-                url: '/sendEvent/doesChatExist',
-                data: message,
-                dataType: "json",
+                type:"POST",
+                url: '/sendEvent/message',
+                data: JSON.stringify(message),
+                contentType: "application/json",
                 success: function (res) {
                     console.log("message was sent");
                 }
-
             });
             messageField.val("");
         }
-
     })
 
 </script>
