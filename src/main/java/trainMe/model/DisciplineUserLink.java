@@ -13,6 +13,10 @@ public class DisciplineUserLink  implements Item {
     private User user;
     private Discipline discipline;
 
+    public DisciplineUserLink(User user, Discipline discipline) {
+        this.user = user;
+        this.discipline = discipline;
+    }
 
     @ManyToOne
     @JoinColumn(name = "user_id")

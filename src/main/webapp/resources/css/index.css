@@ -1,0 +1,40 @@
+.form-horizontal{
+
+    padding-top: 10%;
+}
+
+body{
+
+    background: url('../images/background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+
+}
+
+
+h1{
+    font-weight: bold;
+    color: whitesmoke;
+}
+h2{
+    color: whitesmoke;
+}
+
+.outer_form {
+
+    /*background-color: whitesmoke;*/
+    /*background-color: whitesmoke;*/
+    background: rgb(254, 255, 253);
+
+        /* RGBa with 0.6 opacity */
+
+    background: rgba(255, 255, 255, 0.7);
+}
+
+
+.container{
+
+    padding-top: 5%;
+}

@@ -43,7 +43,7 @@ public class ChatDao extends AbstractDao {
 
         session.getTransaction().commit();
 
-
+        // every user with current userId parameter will be in first palce in chat object
         for (Chat chat : result) {
             if (chat.getUser1().getId() != userId) {
                 User tempUser = chat.getUser1();

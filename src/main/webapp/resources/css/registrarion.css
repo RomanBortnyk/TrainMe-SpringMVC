@@ -1,0 +1,31 @@
+.form-horizontal{
+
+    padding-top: 10%;
+}
+
+body{
+
+    background-image: linear-gradient(45deg, #0077b5,#008891);
+}
+
+
+h1{
+    font-weight: bold;
+    color: whitesmoke;
+}
+h2{
+    color: whitesmoke;
+}
+
+.signInForm{
+    padding-top: 20px;
+    padding-bottom: 5px;
+    background-color: whitesmoke;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+label{
+    font-weight: lighter;
+    color: grey;
+}

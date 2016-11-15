@@ -2,12 +2,15 @@ package trainMe.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import trainMe.hibernate.HibernateUtil;
@@ -17,6 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("trainMe.*")
 @EnableTransactionManagement
+@EnableAsync
 public class WebConfig {
 
   @Bean
@@ -25,6 +29,13 @@ public class WebConfig {
     resolver.setPrefix("/WEB-INF/views/");
     resolver.setSuffix(".jsp");
     return resolver;
+  }
+
+  @Bean
+  public CommonsMultipartResolver multipartResolver (){
+    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+//    multipartResolver.setMaxUploadSize(100000);
+    return multipartResolver;
   }
 
   @Bean
