@@ -79,5 +79,9 @@ public class HomeController {
     return "notifications/authenticationError";
   }
 
+  @RequestMapping(value = "test" , method = GET)
+  public String test(){
+    return "TEST";
+  }
 
 }

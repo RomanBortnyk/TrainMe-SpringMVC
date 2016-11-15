@@ -204,7 +204,7 @@
                 data: JSON.stringify(message),
                 contentType: "application/json",
                 success: function (res) {
-                    console.log("message was sent");
+//                    console.log("message was sent");
                 }
             });
             messageField.val("");
