@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import trainMe.aspects.OrchestraConcert;
+import trainMe.aspects.Performance;
 import trainMe.config.WebConfig;
 import trainMe.dao.implementation.*;
 import trainMe.model.Message;
@@ -34,6 +36,17 @@ public class DaoTest {
     FeedbackDao feedbackDao;
     @Autowired
     AvatarDao avatarDao;
+
+    @Autowired
+    Performance concert;
+
+    @Test
+    public void ertt(){
+
+
+        assertEquals("drin drin", concert.perform());
+
+    }
 
 
     @Test
