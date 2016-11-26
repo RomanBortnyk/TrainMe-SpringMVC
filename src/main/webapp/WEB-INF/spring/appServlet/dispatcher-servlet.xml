@@ -15,9 +15,9 @@
                            http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- Enables the Spring MVC @Controller programming model -->
-    <mvc:annotation-driven />
+    <!--<mvc:annotation-driven />-->
 
-    <mvc:resources mapping="/resources/**" location="resources/" />
+    <!--<mvc:resources mapping="/resources/**" location="resources/" />-->
 
     <mvc:interceptors>
         <mvc:interceptor>
@@ -31,7 +31,7 @@
     <!--enables all requests forwarding to some default  servlet-->
     <!--<mvc:default-servlet-handler/>-->
 
-    <context:component-scan base-package="trainMe.*" />
+    <!--<context:component-scan base-package="trainMe.*" />-->
 
 
 

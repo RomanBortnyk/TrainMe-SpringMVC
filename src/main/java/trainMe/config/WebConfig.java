@@ -9,23 +9,32 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import trainMe.aspects.Audience;
 import trainMe.hibernate.HibernateUtil;
 
 import javax.sql.DataSource;
 
+@EnableWebMvc
 @Configuration
-@ComponentScan("trainMe.*")
+@ComponentScan(basePackages = {"trainMe.*"})
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @EnableAsync
 
-public class WebConfig {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   public Audience audience(){
     return new Audience();
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/resources/**").addResourceLocations("resources/");
   }
 
   @Bean
