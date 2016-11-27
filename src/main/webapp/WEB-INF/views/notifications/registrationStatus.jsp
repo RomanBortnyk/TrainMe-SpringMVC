@@ -16,7 +16,7 @@
         <c:when test="${error == null}">
             <form class="form-signin">
                 <h3>User <%=request.getParameter("firstName")%> <%=request.getParameter("lastName")%> was successfully created</h3>
-                <button class="btn btn-lg btn-primary btn-block" type="submit"><a href="/">Now you can sign in</a></button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"><a href="/login">Now you can sign in</a></button>
             </form>
         </c:when>
 

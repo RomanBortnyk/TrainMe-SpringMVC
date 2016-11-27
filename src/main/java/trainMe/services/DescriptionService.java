@@ -15,12 +15,12 @@ public class DescriptionService {
     @Autowired
     UserDao userDao;
 
-    public void update(User user, String description){
+    public void update(String login, String description){
 
-//        User userToUpdate = user;
-//        userToUpdate.setDescription(description);
-        user.setDescription(description);
-        userDao.update(user);
+        User userToUpdate = userDao.read(login);
+        userToUpdate.setDescription(description);
+
+        userDao.update(userToUpdate);
     }
 
 }

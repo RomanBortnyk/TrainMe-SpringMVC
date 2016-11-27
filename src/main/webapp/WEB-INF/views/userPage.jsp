@@ -23,7 +23,6 @@
 <%--<jsp:useBean id="currentSessionUser" class="trainMe.model.User" scope="session"></jsp:useBean>--%>
 
 <%@ include file="header.html" %>
-
 <div class="container text-center">
     <div class="row">
         <div class="col-lg-4 well">
@@ -56,9 +55,10 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <form action="/modify/avatar" enctype="multipart/form-data" method="post">
+                                    <form action="/modify/avatar" enctype="multipart/form-data" method="POST">
                                         <input type="file" name="newAvatar" style="display: inline-block;">
                                         <button type="submit" class="btn btn-primary">Save changes</button>
+
                                     </form>
                                 </div>
 
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="modal-body interests-section">
                                     <div class="row" style="margin-top: 20px;">
-                                        <form action="/modify/discipline/add" method="post">
+                                        <form action="/modify/discipline/add" method="POST">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                 <select id="discToAdd" name="disciplineToAdd" class="form-control">
                                                     <option disabled selected hidden>--</option>
@@ -114,6 +114,8 @@
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <button class="btn btn-success" style="width: 100%;">Add</button>
                                             </div>
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
                                         </form>
                                     </div>
                                     <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
@@ -131,6 +133,8 @@
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <button class="btn btn-danger" style="width: 100%;">Delete</button>
                                             </div>
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
                                         </form>
                                     </div>
                                 </div>
@@ -178,6 +182,8 @@
                                         <button type="submit" class="btn btn-primary btn-md" style="float: right;">
                                             Save
                                         </button>
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
                                     </form>
                                 </div>
                             </div>
