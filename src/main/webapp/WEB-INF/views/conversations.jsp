@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -57,7 +59,7 @@
 
     long_polling();
 
-    var currentUserId = ${currentSessionUser.id};
+    var currentUserLogin = $("#login").text();
 
     function long_polling() {
         $.ajax({
@@ -104,10 +106,10 @@
     $(function fillChatList() {
 
         $.ajax({
-            url: '/api/chats/' + currentUserId,
+            type:"GET",
+            url: '/api/chats/byLogin/' + currentUserLogin,
             dataType: "json",
             success: function (result) {
-
 
                 var chatListDiv = $("#chatList");
 

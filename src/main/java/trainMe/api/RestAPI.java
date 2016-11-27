@@ -86,6 +86,17 @@ public class RestAPI {
         return result;
     }
 
+    public List getUsersChatsList(String login) {
+        List<Chat> chats = chatDao.getUserChats(login);
+        ArrayList<ChatApiType> result = new ArrayList<ChatApiType>();
+        for (Chat chat : chats) {
+            result.add(new ChatApiType(chat.getId(), chat.getUser2().getFirstName(),
+                    chat.getUser2().getLastName(), chat.getUser2().getId()));
+        }
+        return result;
+    }
+
+
     public List getChatMessages(int id) {
 
         List<Message> messagesList = messageDao.getChatMessages(id);

@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import trainMe.dao.implementation.DisciplineUserLinkDao;
 import trainMe.dao.implementation.FeedbackDao;
+import trainMe.dao.implementation.UserDao;
+import trainMe.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,8 @@ public class HomeController {
 
   @Autowired
   FeedbackDao feedbackDao;
+  @Autowired
+  UserDao userDao;
   @Autowired
   DisciplineUserLinkDao disUsrlinkDao;
 
@@ -49,12 +53,18 @@ public class HomeController {
   @RequestMapping(value = "login", method = POST)
   public String login (Model model){
 
-      return "redirect:/userPage";
+      return "redirect:/profile/me";
 
   }
 
-  @RequestMapping(value = "userPage", method = GET)
-  public String redirect(){
+  @RequestMapping(value = "profile/me", method = GET)
+  public String redirectToAuthenticadedUserProfile(Model model){
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    User user = authentication == null ? null : userDao.read( authentication.getName() );
+
+    model.addAttribute("authenticatedUser", user);
+
     return "userPage";
   }
 
@@ -65,11 +75,6 @@ public class HomeController {
 
   @RequestMapping(value = "test" , method = GET)
   public String test(){
-
-
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//    CustomUser custom = (CustomUser) authentication == null ? null : authentication.getPrincipal();
-
 
     return "TEST";
   }

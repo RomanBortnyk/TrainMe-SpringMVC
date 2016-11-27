@@ -35,9 +35,14 @@ public class ApiController {
         return restAPI.getSortedDisciplinesNamesToAdd(userId);
     }
 
-    @RequestMapping(value = "/chats/{userId}",method= RequestMethod.GET)
-    public List getUsersChatsList(@PathVariable("userId") int userId) {
+    @RequestMapping(value = "/chats/byId/{userId}",method= RequestMethod.GET)
+    public List getUsersChatsListByUserId(@PathVariable("userId") int userId) {
         return restAPI.getUsersChatsList(userId);
+    }
+
+    @RequestMapping(value = "/chats/byLogin/{userLogin}",method= RequestMethod.GET)
+    public List getUsersChatsListByUserLogin(@PathVariable("userLogin") String userLogin) {
+        return restAPI.getUsersChatsList(userLogin);
     }
 
     @RequestMapping(value = "/messages/{chatId}",method= RequestMethod.GET)

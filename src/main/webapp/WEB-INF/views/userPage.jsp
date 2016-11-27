@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -19,7 +20,7 @@
 </head>
 <body>
 <%@ page isELIgnored="false" %>
-<jsp:useBean id="currentSessionUser" class="trainMe.model.User" scope="session"></jsp:useBean>
+<%--<jsp:useBean id="currentSessionUser" class="trainMe.model.User" scope="session"></jsp:useBean>--%>
 
 <%@ include file="header.html" %>
 
@@ -29,7 +30,7 @@
             <div class="well">
 
                 <div class="col-lg-12 avatar">
-                    <img id="avatar" src="/image/avatar/${currentSessionUser.id}"
+                    <img id="avatar" src="/image/avatar/${authenticatedUser.id}"
                          width="265" height="265" class="img-circle" alt="Avatar">
                 </div>
 
@@ -66,15 +67,15 @@
                     </div>
                 </div>
                 <p></p>
-                <p>${currentSessionUser.firstName}</p>
-                <p>${currentSessionUser.lastName}</p>
-                <p>${currentSessionUser.birthdayDate}</p>
-                <p>${currentSessionUser.userType}</p>
+                <p>${authenticatedUser.firstName}</p>
+                <p>${authenticatedUser.lastName}</p>
+                <p>${authenticatedUser.birthdayDate}</p>
+                <p>${authenticatedUser.userType}</p>
 
             </div>
 
             <div class="well">
-                <h4>${currentSessionUser.userType.equals("customer") ? "Interests" : "Coach specialization"}</h4>
+                <h4>${authenticatedUser.userType.equals("customer") ? "Interests" : "Coach specialization"}</h4>
                 <ul id="disciplinesList" class="list-group">
 
                     <%--<li class="list-group-item">--%>
@@ -87,7 +88,7 @@
                 <button id="changeInterestsButton" type="button" style="margin-bottom: 15px;"
                         class="btn btn-default btn-sm" data-toggle="modal"
                         data-target="#changeInterests">
-                    Change ${currentSessionUser.userType.equals("customer") ? "interests" : "specialization"}
+                    Change ${authenticatedUser.userType.equals("customer") ? "interests" : "specialization"}
                 </button>
                 <!-- Modal -->
                 <div class="modal fade" id="changeInterests" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -100,7 +101,7 @@
                                             aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                                     </button>
                                     <h4 class="modal-title">
-                                        Change ${currentSessionUser.userType.equals("customer") ? "interests" : "specialization"}</h4>
+                                        Change ${authenticatedUser.userType.equals("customer") ? "interests" : "specialization"}</h4>
                                 </div>
                                 <div class="modal-body interests-section">
                                     <div class="row" style="margin-top: 20px;">
@@ -145,7 +146,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default text-left">
                         <div style="padding: 1%" class="panel-body">
-                            <pre style="border: none; background: none; padding: 0%">${currentSessionUser.description}</pre>
+                            <pre style="border: none; background: none; padding: 0%">${authenticatedUser.description}</pre>
                         </div>
                     </div>
                 </div>
@@ -172,7 +173,7 @@
                                         <div class="form-group">
                                             <textarea style="text-align: justify" class="form-control"
                                                       name="newDescription" rows="5"
-                                                      id="comment">${currentSessionUser.description}</textarea>
+                                                      id="comment">${authenticatedUser.description}</textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-md" style="float: right;">
                                             Save
