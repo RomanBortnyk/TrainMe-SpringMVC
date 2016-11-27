@@ -16,6 +16,7 @@
   <servlet>
     <servlet-name>dispatcher</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
     <!--<init-param>-->
       <!--<param-name>contextConfigLocation</param-name>-->
       <!--&lt;!&ndash;<param-value></param-value>&ndash;&gt;-->

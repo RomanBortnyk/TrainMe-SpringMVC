@@ -10,7 +10,7 @@
 
 <div class="wrapper">
     <form class="form-signin">
-        <h3>Error: ${error}</h3>
+        <h3>Login or password is invalid</h3>
         <button class="btn btn-lg btn-primary btn-block" type="submit"><a href="/">Back to the main page</a></button>
     </form>
 </div>

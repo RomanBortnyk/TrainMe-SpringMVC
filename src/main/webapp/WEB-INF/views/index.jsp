@@ -7,6 +7,8 @@
 --%>
 <%--<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
 
@@ -44,19 +46,35 @@
 
         <div class="col-xs-10 col-xs-offset-1 col-lg-4 col-lg-offset-4 outer_form">
 
-            <form class="form-horizontal signInForm" action="signIn" method="POST">
+            <form  style="padding-top: 7%;" class="form-horizontal signInForm" name="f" action="/login" method="POST">
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <c:if test="${param.error != null}">
+                            <div style="margin-bottom: 3%;" class="alert alert-danger">
+                                <p style="text-align: center;">Invalid username or password</p>
+                            </div>
+                        </c:if>
+                        <c:if test="${param.logout != null}">
+                            <div style="margin-bottom: 3%;" class="alert alert-success">
+                                <p style="text-align: center">You have been logged out successfully</p>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     <div class="col-xs-12">
                         <!--<label>Login:</label>-->
-                        <input type="text" class="form-control" name="login" value="vlad" placeholder="Enter login">
+                        <input type="text" class="form-control" id="username" name="username" value="vlad" placeholder="Enter login">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
                         <!--<label>Password:</label>-->
-                        <input type="password" name="password" class="form-control" id="pwd" value="vlad" placeholder="Enter password">
+                        <input type="password" name="password" class="form-control" id="password" value="vlad" placeholder="Enter password">
                     </div>
                 </div>
 
@@ -65,6 +83,8 @@
                         <button type="submit" class="btn btn-info">Sign In</button>
                     </div>
                 </div>
+
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             </form>
 

@@ -24,11 +24,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-                .antMatchers("/userPage").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/profile").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')")
-                .and().formLogin();
-
+        http
+                .authorizeRequests()
+                    .antMatchers("/userPage","/conversations","/profile/*").authenticated()
+                    .anyRequest().permitAll()
+                    .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/userPage")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .permitAll();
     }
 
     @Override
