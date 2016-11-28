@@ -15,7 +15,19 @@ input:focus{
     border-color: transparent;
     box-shadow: 0 0px 0px;
     outline: 0 none;
+
 }
+input::-webkit-input-placeholder {
+    color: whitesmoke;
+    opacity: 0.8;
+}
+input:focus::-webkit-input-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+}
+
+
 .row.row-broken {
     padding-bottom: 0;
 }
@@ -232,10 +244,7 @@ input:focus{
     -webkit-appearance: none;
     border-radius: 0;
 }
-.answer-add .answer-btn-1 {
-    background: url("http://91.234.35.26/iwiki-admin/v1.0.0/admin/img/icon-40.png") 50% 50% no-repeat;
-    right: 56px;
-}
+
 .answer-add .answer-btn {
     display: block;
     cursor: pointer;
@@ -246,24 +255,19 @@ input:focus{
     margin-top: -18px;
 }
 .answer-add .answer-btn-2 {
-    background: url("http://91.234.35.26/iwiki-admin/v1.0.0/admin/img/icon-41.png") 50% 50% no-repeat;
+    background: url("/resources/images/paper-plane.png") 50% 50% no-repeat;
     right: 20px;
 }
-input::-webkit-input-placeholder {
-    color: #fff;
+.answer-btn-2{
+    opacity: 0.5;
+    filter: alpha(opacity=50)
+}
+.answer-btn-2:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
 }
 
-input:-moz-placeholder { /* Firefox 18- */
-    color: #fff;
-}
 
-input::-moz-placeholder {  /* Firefox 19+ */
-    color: #fff;
-}
-
-input:-ms-input-placeholder {
-    color: #fff;
-}
 input {
     -webkit-appearance: none;
     border-radius: 0;

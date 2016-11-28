@@ -45,7 +45,6 @@
                 </div>
                 <div class="answer-add">
                     <input id="inputMessageField" placeholder="Write a message">
-                    <%--<span  class="answer-btn answer-btn-1"></span>--%>
                     <span id="sentIcon" class="answer-btn answer-btn-2"></span>
                 </div>
             </div>
