@@ -32,7 +32,7 @@
 
                 <div class="input-group" style="height: 40px;">
                     <input id="myInput1" name="searchString" type="text" class="form-control"
-                           placeholder="Start type user name" style="height: 40px;">
+                           placeholder="Start to type user's name, autocomplete will help you" style="height: 40px;">
 
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"

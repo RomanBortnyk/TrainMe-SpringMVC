@@ -114,7 +114,6 @@
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <button class="btn btn-success" style="width: 100%;">Add</button>
                                             </div>
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                                         </form>
                                     </div>
@@ -133,7 +132,6 @@
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <button class="btn btn-danger" style="width: 100%;">Delete</button>
                                             </div>
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                                         </form>
                                     </div>
@@ -182,7 +180,6 @@
                                         <button type="submit" class="btn btn-primary btn-md" style="float: right;">
                                             Save
                                         </button>
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                                     </form>
                                 </div>

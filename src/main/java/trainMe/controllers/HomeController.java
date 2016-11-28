@@ -21,15 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/")
 public class HomeController {
 
-
-  @Autowired
-  FeedbackDao feedbackDao;
   @Autowired
   UserDao userDao;
-  @Autowired
-  DisciplineUserLinkDao disUsrlinkDao;
 
-  @RequestMapping(value = {"/login"}, method = GET)
+  @RequestMapping(value = {"login"}, method = GET)
   public String home() {
     return "index";
   }
@@ -58,7 +53,7 @@ public class HomeController {
   }
 
   @RequestMapping(value = "profile/me", method = GET)
-  public String redirectToAuthenticadedUserProfile(Model model){
+  public String redirectToAuthentictedUserProfile(Model model){
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     User user = authentication == null ? null : userDao.read( authentication.getName() );
@@ -68,10 +63,6 @@ public class HomeController {
     return "userPage";
   }
 
-  @RequestMapping(value = "authenticationError" , method = {GET, POST})
-  public String authError(){
-    return "notifications/authenticationError";
-  }
 
   @RequestMapping(value = "test" , method = GET)
   public String test(){

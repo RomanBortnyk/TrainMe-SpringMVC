@@ -61,7 +61,9 @@ function displayResults(response) {
 
         var disciplines = val.disciplines;
 
-        console.log(val);
+        // console.log(val);
+        
+        var description = val.description === undefined ? "" : val.description ;
 
         var answerBlock = '<div class="row well result-section"> ' +
             '<div class="col-lg-12 col-md-12 col-sm-12"> ' +
@@ -74,7 +76,7 @@ function displayResults(response) {
             '<p>'+val.lastName+'</p> ' +
             '<p>'+val.userType+'</p> </div> ' +
             '<div class="col-lg-6 col-md-6 col-sm-12 description-bkg"> ' +
-            '<pre style="border: none; background: none; margin-bottom: 0; padding: 0%">'+val.description+'</pre> </div> ' +
+            '<pre style="border: none; background: none; margin-bottom: 0; padding: 0%">'+ description +'</pre> </div> ' +
             '<div class="col-lg-2 col-md-2 col-sm-12"> ' +
             '<div class="pull-right disciplines-result"> ' ;
 
@@ -98,12 +100,12 @@ function displayResults(response) {
 
 function changePlaceHolder() {
     if ($(this).val() == "byFullName") {
-        $("#myInput1").attr("placeholder","Start to type user name");
+        $("#myInput1").attr("placeholder","Start to type user name, autocomplete will help you");
         fullNamesAutocomplete();
     }
 
     if ($(this).val() == "byDiscipline") {
-        $("#myInput1").attr("placeholder","Start to type discipline name");
+        $("#myInput1").attr("placeholder","Start to type discipline name, autocomplete will help you");
         disciplinesAutocomplete();
     }
 }

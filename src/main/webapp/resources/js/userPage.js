@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
 
     $("#add").on('click',function () {
-        console.log($("#discToAdd").val())
+        // console.log($("#discToAdd").val())
     })
 
 
@@ -55,7 +55,7 @@ function fillFeedbackList(data) {
 
     $.each(data, function (key, val) {
 
-        console.log(val.authorFirstName);
+        // console.log(val.authorFirstName);
 
         var feedbackBlock = '<div class="col-lg-12"> ' +
             '<div  class="col-lg-3"> ' +
