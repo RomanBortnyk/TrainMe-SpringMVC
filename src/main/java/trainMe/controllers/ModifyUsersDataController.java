@@ -1,6 +1,8 @@
 package trainMe.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,31 +36,33 @@ public class ModifyUsersDataController {
     public String updateAvatar (HttpServletRequest request,
                                 @RequestParam("newAvatar") MultipartFile file) throws IOException{
 
-        avatarService.update((User)request.getSession().getAttribute("currentSessionUser"), file);
-        return "redirect:/userPage";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        avatarService.update(authentication.getName(), file);
+        return "redirect:/profile/me";
     }
 
 
 
     @RequestMapping(value = "discipline/add", method = RequestMethod.POST)
-    public String addDiscipline(HttpServletRequest request,
-                                @RequestParam(value="disciplineToAdd", required=false) String disciplineToAdd){
+    public String addDiscipline(@RequestParam(value="disciplineToAdd", required=false) String disciplineToAdd){
 
-        disciplineService.addDiscipline((User)request.getSession().getAttribute("currentSessionUser"),
-                                            disciplineToAdd);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return "redirect:/userPage";
+        disciplineService.addDiscipline(authentication.getName(), disciplineToAdd);
+
+        return "redirect:/profile/me";
 
     }
 
     @RequestMapping(value = "discipline/remove", method = RequestMethod.POST)
-    public String removeDiscipline(HttpServletRequest request,
-                                @RequestParam(value="disciplineToRemove", required=false) String disciplineToRemove){
+    public String removeDiscipline(@RequestParam(value="disciplineToRemove", required=false) String disciplineToRemove){
 
-        disciplineService.removeDiscipline((User)request.getSession().getAttribute("currentSessionUser"),
-                disciplineToRemove);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return "redirect:/userPage";
+        disciplineService.removeDiscipline(authentication.getName(), disciplineToRemove);
+
+        return "redirect:/profile/me";
 
     }
 
@@ -66,10 +70,12 @@ public class ModifyUsersDataController {
     public String updateDescription(HttpServletRequest request,
                                    @RequestParam(value="newDescription", required=false) String newDescription){
 
-        descriptionService.update((User)request.getSession().getAttribute("currentSessionUser"),
-                                    newDescription);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return "redirect:/userPage";
+
+        descriptionService.update(authentication.getName(), newDescription);
+
+        return "redirect:/profile/me";
 
     }
 

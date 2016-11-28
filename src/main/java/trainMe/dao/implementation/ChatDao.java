@@ -56,6 +56,35 @@ public class ChatDao extends AbstractDao {
 
     }
 
+    public List<Chat> getUserChats(String login) {
+
+        List<Chat> result;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query q = session.createQuery("from Chat where user1.login =:login " +
+                "or user2.login =:login");
+
+        q.setString("login", login);
+
+        result = q.list();
+
+        session.getTransaction().commit();
+
+        // every user with current login parameter will be in first palce in chat object
+        for (Chat chat : result) {
+            if (chat.getUser1().getLogin() != login) {
+                User tempUser = chat.getUser1();
+                chat.setUser1(chat.getUser2());
+                chat.setUser2(tempUser);
+            }
+        }
+
+        return result;
+
+    }
+
     public Chat readByUsersIds(int user1Id, int user2Id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

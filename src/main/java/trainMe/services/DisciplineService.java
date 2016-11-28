@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.test.context.transaction.AfterTransaction;
 import trainMe.dao.implementation.DisciplineDao;
 import trainMe.dao.implementation.DisciplineUserLinkDao;
+import trainMe.dao.implementation.UserDao;
 import trainMe.model.DisciplineUserLink;
 import trainMe.model.User;
 
@@ -18,17 +19,19 @@ public class DisciplineService {
     DisciplineUserLinkDao discUsrLnkDao;
     @Autowired
     DisciplineDao disciplineDao;
+    @Autowired
+    UserDao userDao;
 
-    public void addDiscipline (User user, String discipline){
+    public void addDiscipline (String login, String discipline){
 
 
-        discUsrLnkDao.create(new DisciplineUserLink(user,disciplineDao.read(discipline)));
+        discUsrLnkDao.create(new DisciplineUserLink(userDao.read(login),disciplineDao.read(discipline)));
 
     }
 
-    public void removeDiscipline (User user, String discipline){
+    public void removeDiscipline (String login, String discipline){
 
-        discUsrLnkDao.delete(discUsrLnkDao.read(user,disciplineDao.read(discipline)));
+        discUsrLnkDao.delete(discUsrLnkDao.read(userDao.read(login),disciplineDao.read(discipline)));
 
     }
 

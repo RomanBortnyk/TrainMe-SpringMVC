@@ -6,14 +6,14 @@
         <div class="collapse navbar-collapse" id="myNavbar">
 
             <ul class="nav navbar-nav">
-                <li><a id="userPage" href="/userPage"><i class="fa fa-home"></i> Home</a></li>
+                <li><a id="profile" href="/profile/me"><i class="fa fa-home"></i> Home</a></li>
                 <li><a id="conversations" href="/conversations"><i class="fa fa-envelope-o"></i> Messages</a></li>
-                <li><a id="searchPage" href="/search"> <i class="fa fa-search"></i> Search </a> </li>
+                <li><a id="search" href="/search"> <i class="fa fa-search"></i> Search </a> </li>
                 <li><a href="/logout"> <i class="fa fa-sign-out"></i> Log out</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a><span class="glyphicon glyphicon-user"></span> ${currentSessionUser.login}</a></li>
+                <li><a id="login"><span class="glyphicon glyphicon-user"></span><security:authentication property="principal.username" /></a></li>
             </ul>
 
         </div>

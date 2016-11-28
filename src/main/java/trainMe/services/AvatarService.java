@@ -15,17 +15,26 @@ import java.io.IOException;
  */
 @Service
 public class AvatarService {
-//
-//    @Autowired
-//    UserDao userDao;
+
+    @Autowired
+    UserDao userDao;
     @Autowired
     AvatarDao avatarDao;
 
-    public void update (User user, MultipartFile file) throws IOException{
+    public void update (String login, MultipartFile file) throws IOException{
 
-        Avatar avatar = user.getAvatar();
-        avatar.setImage(file.getBytes());
-        avatarDao.update(avatar);
+
+        User user = userDao.read(login);
+
+        if(user.getAvatar() == null){
+            Avatar newAvatar = avatarDao.create(new Avatar(file.getBytes()));
+            user.setAvatar(newAvatar);
+            userDao.update(user);
+        }else {
+            Avatar avatarToUpdate = user.getAvatar();
+            avatarToUpdate.setImage(file.getBytes());
+            avatarDao.update(avatarToUpdate);
+        }
 
     }
 }

@@ -110,12 +110,27 @@
       <version>1.9.13</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+    <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
     <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>9.1-901-1.jdbc4</version>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>4.0.0.RELEASE</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>4.0.0.RELEASE</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>4.0.0.RELEASE</version>
+    </dependency>
+
 
     <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
     <dependency>
@@ -123,6 +138,14 @@
       <artifactId>aspectjrt</artifactId>
       <version>1.7.3</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
+      <version>4.0.0.RELEASE</version>
+    </dependency>
+
 
     <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
     <dependency>

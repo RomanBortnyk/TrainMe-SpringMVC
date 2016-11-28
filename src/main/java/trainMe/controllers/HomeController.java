@@ -2,34 +2,30 @@ package trainMe.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import trainMe.dao.implementation.DisciplineUserLinkDao;
 import trainMe.dao.implementation.FeedbackDao;
+import trainMe.dao.implementation.UserDao;
 import trainMe.model.User;
-import trainMe.services.CheckUsersRegistrationService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
   @Autowired
-  CheckUsersRegistrationService registrationService;
-  @Autowired
-  FeedbackDao feedbackDao;
-  @Autowired
-  DisciplineUserLinkDao disUsrlinkDao;
+  UserDao userDao;
 
-  @RequestMapping(method = GET)
-  public String home(Model model) {
+  @RequestMapping(value = {"login"}, method = GET)
+  public String home() {
     return "index";
   }
 
@@ -49,52 +45,41 @@ public class HomeController {
   }
 
 
-  @RequestMapping(value = "signIn", method = POST)
-  public String signIn (HttpServletRequest request ,Model model,
-                        @RequestParam(value="login", required=false) String login,
-                        @RequestParam(value="password", required=false) String password){
+  @RequestMapping(value = "login", method = POST)
+  public String login (Model model){
 
-    if (registrationService.check(login, password)){
-
-      HttpSession session = request.getSession(true);
-      User user = registrationService.getRegisteredUser();
-
-      session.setAttribute("currentSessionUser", user);
-
-      return "redirect:/userPage";
-
-    }else {
-      model.addAttribute("error", registrationService.getErrorMessage());
-      return "notifications/signInError";
-    }
+      return "redirect:/profile/me";
 
   }
 
-  @RequestMapping(value = "userPage", method = GET)
-  public String redirect(){
+  @RequestMapping(value = "profile/me", method = GET)
+  public String redirectToAuthentictedUserProfile(Model model){
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    User user = authentication == null ? null : userDao.read( authentication.getName() );
+
+    model.addAttribute("authenticatedUser", user);
+
     return "userPage";
   }
 
-  @RequestMapping(value = "authenticationError" , method = GET)
-  public String authError(){
-    return "notifications/authenticationError";
-  }
 
   @RequestMapping(value = "test" , method = GET)
   public String test(){
+
     return "TEST";
   }
 
-  @RequestMapping(value = "/logout" , method = GET)
-  public String loguot(HttpServletRequest request){
 
+  @RequestMapping(value="/logout", method = GET)
+  public String logout (HttpServletRequest request, HttpServletResponse response) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-      request.getSession().removeAttribute("currentSessionUser");
-      request.getSession().invalidate();
+    if (auth != null){
+      new SecurityContextLogoutHandler().logout(request, response, auth);
+    }
 
-    return "index";
+    return "redirect:/login?logout";
   }
-
-
 
 }

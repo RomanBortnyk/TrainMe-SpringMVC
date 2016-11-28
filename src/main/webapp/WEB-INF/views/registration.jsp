@@ -38,58 +38,58 @@
 
         <div class="col-xs-10 col-xs-offset-1 col-lg-4 col-lg-offset-4">
 
-            <form class="form-horizontal signInForm" action="register" method="POST">
+            <form class="form-horizontal signInForm" onsubmit="return validate()" action="register" method="POST">
 
                 <div class="form-group">
                     <div class="col-xs-12">
                         <div id="warningMessage"  style="display: none;" class="alert alert-warning">
                             <strong>Warning!</strong>
-                            <p>warning text</p>
+                            <%--<p>warning text</p>--%>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input name="firstName" placeholder="First name" type="text" class="form-control" >
+                        <input id="firstName" name="firstName" placeholder="First name" type="text" class="form-control" >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input name="lastName" placeholder="Last name" class="form-control"  >
+                        <input id="lastName" name="lastName" placeholder="Last name" class="form-control"  >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input type="text" name="birthdayDate" class="form-control" placeholder="Birthday date">
+                        <input type="text" id="birthday" name="birthdayDate" class="form-control" placeholder="Birthday date">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" name="email" placeholder="Email">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-xs-12">
-
-                        <input class="form-control" name="login"  placeholder="Login (at least 4 characters)">
+                        <input class="form-control" id="email" name="email" placeholder="Email">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
 
-                        <input type="password" name="password" class="form-control"  placeholder="Enter password (at least 6 characters)">
+                        <input class="form-control" id="login" name="login"  placeholder="Login (at least 4 characters)">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input type="password"  class="form-control"  placeholder="Repeat password">
+
+                        <input type="password" id="password" name="password" class="form-control"  placeholder="Enter password (at least 6 characters)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input type="password" id="repeatPass" class="form-control"  placeholder="Repeat password">
                     </div>
                 </div>
 
@@ -118,6 +118,8 @@
                         <button type="submit" class="btn btn-primary">Register</button>
                     </div>
                 </div>
+
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             </form>
 
