@@ -1,7 +1,10 @@
 package trainMe.model;
 
-import org.codehaus.jackson.annotate.JsonGetter;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import trainMe.jacksonProfiles.View;
 
 import javax.persistence.*;
 
@@ -10,25 +13,28 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "feedback")
+//@JsonIgnoreProperties({"author","user"})
+@JsonIgnoreProperties({"author","user"})
 public class Feedback implements Item {
+
 
     private int id;
 
     @JsonIgnore
     private User author;
-
     @JsonIgnore
     private User user;
 
     private String text;
 
-    //Json fields
 
-    @JsonGetter("authorId")
-    public int authorId() { return this.author.getId(); }
+    @JsonProperty(value = "authorId")
+    public int authorId() {
+        return this.author.getId();
+    }
 
-    @JsonGetter("userId")
-    public int userId() { return this.user.getId(); }
+    @JsonProperty(value = "authorFirstName")
+    public String authorFirstNameId(){return this.user.getFirstName(); }
 
 
 

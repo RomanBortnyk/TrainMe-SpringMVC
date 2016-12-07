@@ -2,6 +2,9 @@ package trainMe.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.*;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
@@ -18,6 +21,7 @@ import trainMe.aspects.Audience;
 import trainMe.hibernate.HibernateUtil;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @EnableWebMvc
 @Configuration
@@ -27,6 +31,14 @@ import javax.sql.DataSource;
 
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+  @Override
+  public void configureMessageConverters(
+          List<HttpMessageConverter<?>> converters) {
+
+    converters.add(new MappingJackson2HttpMessageConverter());
+
+    super.configureMessageConverters(converters);
+  }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {

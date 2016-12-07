@@ -18,8 +18,6 @@
 </head>
 <body>
 <%@ page isELIgnored="false" %>
-<%--<jsp:useBean id="user" class="model.User" scope="request"></jsp:useBean>--%>
-<jsp:useBean id="currentSessionUser" class="trainMe.model.User" scope="session"></jsp:useBean>
 
 <%@ include file="header.html" %>
 
@@ -151,6 +149,16 @@
             newFeedbackText: newFeedbackTxt
         };
 
+//        $.each(data, function (key, val) {
+//
+//            var disciplineLi = '<li class="list-group-item"> ' +
+//                    '<img src="/image/icon/' + val.id + '" ' +
+//                    'height="35" width="35" alt="icon">' + val.name + ' </li>';
+//
+//            disciplinesDiv.append(disciplineLi);
+//
+//        });
+
         $.ajax({
             type: "POST",
             url: "/feedback/add",
@@ -160,22 +168,27 @@
 
                 $("#newFeedbackTextWindow").modal("hide");
 
-                $("<div id='feedbackRow' class='row'> <div class='col-lg-12'>" +
-                        "<div class='col-lg-3'>" +
-                        "<div class='well'>" +
-                        "<p>${currentSessionUser.firstName}</p>" +
-                        "<a href='/profile/${currentSessionUser.id}'>" +
-                        "<img src='/image/avatar/${currentSessionUser.id}' class='img-circle' height='65'" +
-                        "width='65' alt='Avatar'> </a>" +
-                        "</div>" +
-                        "</div>" +
-                        "<div class='col-lg-9'>" +
-                        "<div class='well'>" +
-                        "<p id='feedbackText' class='text-left'>" + newFeedbackTxt + "</p>" +
-                        "</div>" +
-                        "</div>" +
-                        "</div>" +
-                        "</div>").insertBefore("#addFeedback");
+                var authorFirstName = response.authorFirstName;
+                var authorId = response.authorId;
+                var text = response.text;
+
+                $('<div id="feedbackRow" class="row"> <div class="col-lg-12">' +
+                        '<div class="col-lg-3">' +
+                        '<div class="well">' +
+                        '<p>'+ authorFirstName +'</p>' +
+                        '<a href="/profile/'+ authorId +'">' +
+                        '<img src="/image/avatar/' +authorId+ '" class="img-circle" height="65" ' +
+                        'width="65" alt="Avatar"> </a>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-lg-9">' +
+                        '<div class="well">' +
+                        '<p id="feedbackText" class="text-left">' + text + '</p>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>').insertBefore("#addFeedback");
+
 
                 $("#newFeedbackText").val("");
 
@@ -190,8 +203,7 @@
         var messageField = $('#newMessageText');
         if (messageField.val() !== "") {
 
-            var destinationUserId =
-            ${user.id}
+            var destinationUserId =${user.id}
 
             var message = {
                 destinationUserId: destinationUserId,
@@ -199,7 +211,7 @@
             };
 
             $.ajax({
-                type:"POST",
+                type: "POST",
                 url: '/sendEvent/message',
                 data: JSON.stringify(message),
                 contentType: "application/json",

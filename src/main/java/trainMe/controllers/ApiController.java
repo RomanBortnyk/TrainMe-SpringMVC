@@ -1,9 +1,12 @@
 package trainMe.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import trainMe.api.RestAPIService;
 import trainMe.api.apiModel.FeedbackApiType;
+import trainMe.jacksonProfiles.View;
+import trainMe.jsonObjects.TestObject;
 import trainMe.model.Feedback;
 
 import java.util.ArrayList;
@@ -18,6 +21,14 @@ public class ApiController {
 
     @Autowired
     private RestAPIService restAPIService;
+
+    @RequestMapping(value = "/test",method= RequestMethod.GET)
+    public TestObject getTest() {
+
+        TestObject test = new TestObject(3,"name","alias",213214);
+
+        return test;
+    }
 
     @RequestMapping(value = "/feedback/{feedbackId}",method= RequestMethod.GET)
     public Feedback getFeedback(@PathVariable("feedbackId") int feedbackId) {

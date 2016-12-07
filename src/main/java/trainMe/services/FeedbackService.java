@@ -19,10 +19,10 @@ public class FeedbackService {
     private UserDao userDao;
 
 
-    public void add(int destUsrId, User currentUser, String text){
+    public Feedback add(int destUsrId, User currentUser, String text){
 
         Feedback feedback = new Feedback(currentUser,userDao.read(destUsrId),text);
 
-        feedbackDao.create(feedback);
+        return feedbackDao.create(feedback);
     }
 }
