@@ -15,7 +15,7 @@ import java.util.*;
  * Created by romab on 11/13/16.
  */
 @Service
-public class RestAPI {
+public class RestAPIService {
 
     @Autowired
     UserDao userDao;
@@ -29,6 +29,11 @@ public class RestAPI {
     ChatDao chatDao;
     @Autowired
     MessageDao messageDao;
+
+    public Feedback getFeedbackById(int feedbackId){
+
+        return feedbackDao.read(feedbackId);
+    }
 
     public ArrayList<FeedbackApiType> getFeedbacksByUserId(int id) {
 

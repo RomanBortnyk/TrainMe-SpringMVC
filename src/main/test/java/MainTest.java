@@ -1,5 +1,9 @@
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import trainMe.dao.implementation.DisciplineDao;
+import trainMe.model.Discipline;
+
+import java.io.File;
 
 
 /**
@@ -9,6 +13,8 @@ public class MainTest {
 
 
     public static void main(String[] args) {
+
+
 
 
     }

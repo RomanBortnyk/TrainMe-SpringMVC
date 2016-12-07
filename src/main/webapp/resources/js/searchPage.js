@@ -68,7 +68,7 @@ function displayResults(response) {
         var answerBlock = '<div class="row well result-section"> ' +
             '<div class="col-lg-12 col-md-12 col-sm-12"> ' +
             '<div class="col-lg-2 col-md-2 col-sm-3"> ' +
-            '<a href="/profile/${resultEntry.key.getId()}"> ' +
+            '<a href="/profile/'+val.id+'"> ' +
             '<img id="avatar" src="/image/avatar/'+val.id+'"width="140px" height="140px" class="img-circle" alt="Avatar"> ' +
             '</a> </div> ' +
             '<div class="col-lg-2 col-md-2 col-sm-3 name-result"> ' +

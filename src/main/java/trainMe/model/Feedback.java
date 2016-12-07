@@ -1,5 +1,8 @@
 package trainMe.model;
 
+import org.codehaus.jackson.annotate.JsonGetter;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -10,9 +13,24 @@ import javax.persistence.*;
 public class Feedback implements Item {
 
     private int id;
+
+    @JsonIgnore
     private User author;
+
+    @JsonIgnore
     private User user;
+
     private String text;
+
+    //Json fields
+
+    @JsonGetter("authorId")
+    public int authorId() { return this.author.getId(); }
+
+    @JsonGetter("userId")
+    public int userId() { return this.user.getId(); }
+
+
 
     public Feedback(){
 

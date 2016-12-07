@@ -21,21 +21,16 @@ import javax.sql.DataSource;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"trainMe.*"})
-@EnableAspectJAutoProxy
-@EnableTransactionManagement
+@ComponentScan(basePackages = {"trainMe.controllers", "trainMe.api", "trainMe.messenger"})
 @EnableAsync
+@Import({SecurityConfig.class, RootConfig.class})
 
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Bean
-  public Audience audience(){
-    return new Audience();
-  }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/resources/**").addResourceLocations("resources/");
+    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
   }
 
   @Bean
@@ -53,41 +48,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     return multipartResolver;
   }
 
-  @Bean
-  public HibernateTransactionManager hibernateTransactionManager(){
-    HibernateTransactionManager htm = new HibernateTransactionManager();
-    htm.setSessionFactory(sessionFactory(dataSource()));
-    return htm;
-  }
 
-  @Bean
-  public HibernateUtil hibernateUtil (){
-    HibernateUtil hibernateUtil = new HibernateUtil();
-    hibernateUtil.setSessionFactory(sessionFactory(dataSource()));
-    return hibernateUtil;
-  }
-
-  @Bean
-  public DataSource dataSource() {
-    DriverManagerDataSource ds = new DriverManagerDataSource();
-    ds.setDriverClassName("com.mysql.jdbc.Driver");
-    ds.setUrl("jdbc:mysql://localhost:3306/TrainMe");
-    ds.setUsername("root");
-    ds.setPassword("root");
-    return ds;
-  }
-
-  @Bean
-  public SessionFactory sessionFactory(DataSource dataSource) {
-
-    LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
-    sessionBuilder.scanPackages("trainMe.model");
-
-    sessionBuilder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-//    sessionBuilder.setProperty("hibernate.show_sql", "true");
-
-    return sessionBuilder.buildSessionFactory();
-  }
 
 
 }
