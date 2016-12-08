@@ -12,6 +12,8 @@
     <script src="/resources/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/resources/css/font-awesome.min.css">
     <script src="/resources/js/conversations.js"></script>
+    <script src="/resources/js/sockjs-0.3.4min.js"></script>
+    <script src="/resources/js/stomp.js"></script>
 
     <link rel="stylesheet" href="/resources/css/conversations.css">
 
@@ -45,7 +47,7 @@
                 </div>
                 <div class="answer-add">
                     <input id="inputMessageField" placeholder="Write a message">
-                    <span id="sentIcon" class="answer-btn answer-btn-2"></span>
+                    <span id="sendIcon" class="answer-btn answer-btn-2"></span>
                 </div>
             </div>
         </div>
@@ -56,78 +58,7 @@
 
 <script type="text/javascript">
 
-    long_polling();
 
-    var currentUserLogin = $("#login").text();
-
-    function long_polling() {
-        $.ajax({
-            url: "/listen",
-            method:"POST",
-            dataType: "json",
-            success: function (message) {
-                processMessage(message);
-                long_polling();
-            }
-        });
-    }
-
-    function processMessage(message) {
-
-        console.log(message.text);
-
-
-        var id = message.authorId;
-        var firstName = message.authorFirstName;
-        var lastName = message.authorLastName;
-        var text = message.text;
-        var chatId = message.chatId;
-
-        var activeChatId = $(".activeUser").attr("id");
-
-        if (message.chatId.toString() === activeChatId) {
-
-            var messageBlock = '<div class="answer left ' + (currentUserId === id ? "" : "bkg") + '"> ' +
-                    '<div class="avatar"> ' +
-                    '<img src="/image/avatar/' + id + '" alt="User name"> ' +
-                    '</div> ' +
-                    '<div class="name">' + firstName + '</div> ' +
-                    '<div class="text">' + text + '</div> ';
-
-            $('.chat-body').append(messageBlock);
-
-            var objDiv = document.getElementById("chat");
-            objDiv.scrollTop = objDiv.scrollHeight;
-
-        }
-    }
-
-    $(function fillChatList() {
-
-        $.ajax({
-            type:"GET",
-            url: '/api/chats/byLogin/' + currentUserLogin,
-            dataType: "json",
-            success: function (result) {
-
-                var chatListDiv = $("#chatList");
-
-                $.each(result, function (key, val) {
-
-                    console.log(val.id);
-
-                    var chatBlock = '<div id="'+val.chatId+'" class="user">' +
-                            '<div class="avatar"> ' +
-                            '<img src="/image/avatar/'+val.userId+'" alt="User name"> ' +
-                            '</div> <div id="firstName" class="name">'+val.firstName+'</div> ' +
-                            '<div id="lastName" class="name">'+val.lastName+'</div> </div>';
-
-                    chatListDiv.append(chatBlock);
-
-                });
-            }
-        });
-    });
 
 </script>
 

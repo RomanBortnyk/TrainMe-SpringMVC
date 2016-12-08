@@ -6,6 +6,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -27,7 +28,7 @@ import java.util.List;
 @Configuration
 @ComponentScan(basePackages = {"trainMe.controllers", "trainMe.api", "trainMe.messenger"})
 @EnableAsync
-@Import({SecurityConfig.class, RootConfig.class})
+@Import({SecurityConfig.class, RootConfig.class, WebSocketStompConfig.class})
 
 public class WebConfig extends WebMvcConfigurerAdapter {
 
@@ -44,6 +45,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
   }
+
+//  @Bean
+//  public SimpMessagingTemplate simpMessagingTemplate (){
+//      return new SimpMessagingTemplate();
+//  }
 
   @Bean
   public ViewResolver viewResolver() {

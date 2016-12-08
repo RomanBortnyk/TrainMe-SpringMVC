@@ -74,7 +74,7 @@ public class ChatDao extends AbstractDao {
 
         // every user with current login parameter will be in first palce in chat object
         for (Chat chat : result) {
-            if (chat.getUser1().getLogin() != login) {
+            if ( !chat.getUser1().getLogin().equals(login) ) {
                 User tempUser = chat.getUser1();
                 chat.setUser1(chat.getUser2());
                 chat.setUser2(tempUser);
