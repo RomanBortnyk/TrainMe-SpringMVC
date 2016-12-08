@@ -16,11 +16,25 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.min.css">
     <script type="text/javascript" src="/resources/js/userPage.js"></script>
 
+    <style>
+        #userAvatar {
+            display: inline-block;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+
+        }
+    </style>
 
 </head>
+<script>
+    setCurrentUserId(${authenticatedUser.id});
+</script>
 <body>
 <%@ page isELIgnored="false" %>
-<%--<jsp:useBean id="currentSessionUser" class="trainMe.model.User" scope="session"></jsp:useBean>--%>
 
 <%@ include file="header.html" %>
 <div class="container text-center">
@@ -29,8 +43,11 @@
             <div class="well">
 
                 <div class="col-lg-12 avatar">
-                    <img id="avatar" src="/image/avatar/${authenticatedUser.id}"
-                         width="265" height="265" class="img-circle" alt="Avatar">
+                    <div id="userAvatar" style="background-image: url('/image/avatar/${authenticatedUser.id}')">
+
+                    </div>
+                    <%--<img id="avatar" src="/image/avatar/${authenticatedUser.id}"--%>
+                         <%--width="265" height="265" class="img-circle" alt="Avatar">--%>
                 </div>
 
                 <button type="button" id="addButton" class=" btn btn-default btn-sm" data-toggle="modal"
@@ -49,7 +66,7 @@
                                             aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                                     </button>
                                     <h4 class="modal-title">Change photo</h4>
-                                    <h6 class="modal-title" id="">
+                                    <h6 class="modal-title">
                                         image size should be less than 2 MB
                                     </h6>
                                 </div>
@@ -192,30 +209,13 @@
             <h3>Feedbacks</h3>
 
             <div id="feedbacks" class="row">
-                <%--<div class="col-lg-12">--%>
 
-                <%--<div  class="col-lg-3">--%>
-                <%--<div class="well">--%>
-                <%--<p id="authorName"></p>--%>
-
-                <%--<a href="/profile/${feedback.getAuthor().getId()}">--%>
-                <%--<img src="/image/avatar/${feedback.getAuthor().getId()}" class="img-circle" height="65"--%>
-                <%--width="65" alt="Avatar">--%>
-                <%--</a>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-
-                <%--<div class="col-lg-9">--%>
-                <%--<div class="well">--%>
-                <%--<p id="feedbackText" class="text-left"></p>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
             </div>
 
         </div>
     </div>
 </div>
+
 <%@include file="footer.html" %>
 </body>
 </html>

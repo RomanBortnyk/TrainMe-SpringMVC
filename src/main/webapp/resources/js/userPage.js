@@ -5,6 +5,9 @@
 // autocompletion for search page
 $(document).ready(function () {
 
+    
+
+    
     $(function () {
         $.ajax({
             url: "/api/disciplinesToAdd/" + currentUserId + "",
@@ -15,8 +18,8 @@ $(document).ready(function () {
         });
     });
 
-    var src = $("#avatar").attr("src");
-    var currentUserId = src.split("/")[3];
+    
+    
 
     $(function () {
         $.ajax({
@@ -43,11 +46,14 @@ $(document).ready(function () {
     })
 
 
-    
-    
-
 });
 
+var currentUserId;
+
+function setCurrentUserId(id){
+    currentUserId = id;
+    console.log("dfd");   
+}
 
 function fillFeedbackList(data) {
 
@@ -68,9 +74,7 @@ function fillFeedbackList(data) {
 
         feedbacksDiv.append(feedbackBlock);
 
-
     });
-
 }
 
 
