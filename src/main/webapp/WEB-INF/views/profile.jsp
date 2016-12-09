@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -18,8 +19,6 @@
 </head>
 <body>
 <%@ page isELIgnored="false" %>
-<%--<jsp:useBean id="user" class="model.User" scope="request"></jsp:useBean>--%>
-<jsp:useBean id="currentSessionUser" class="trainMe.model.User" scope="session"></jsp:useBean>
 
 <%@ include file="header.html" %>
 
@@ -141,75 +140,7 @@
 
 <script>
     //send new feedback text to server
-    $("#saveFeedback").on("click", function () {
 
-        var destUsrId = ${user.id};
-        var newFeedbackTxt = $("#newFeedbackText").val();
-
-        var data = {
-            destinationUserId: destUsrId,
-            newFeedbackText: newFeedbackTxt
-        };
-
-        $.ajax({
-            type: "POST",
-            url: "/feedback/add",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            success: function (response) {
-
-                $("#newFeedbackTextWindow").modal("hide");
-
-                $("<div id='feedbackRow' class='row'> <div class='col-lg-12'>" +
-                        "<div class='col-lg-3'>" +
-                        "<div class='well'>" +
-                        "<p>${currentSessionUser.firstName}</p>" +
-                        "<a href='/profile/${currentSessionUser.id}'>" +
-                        "<img src='/image/avatar/${currentSessionUser.id}' class='img-circle' height='65'" +
-                        "width='65' alt='Avatar'> </a>" +
-                        "</div>" +
-                        "</div>" +
-                        "<div class='col-lg-9'>" +
-                        "<div class='well'>" +
-                        "<p id='feedbackText' class='text-left'>" + newFeedbackTxt + "</p>" +
-                        "</div>" +
-                        "</div>" +
-                        "</div>" +
-                        "</div>").insertBefore("#addFeedback");
-
-                $("#newFeedbackText").val("");
-
-            }
-        });
-
-    });
-
-    $("#sendMessage").on('click', function () {
-
-
-        var messageField = $('#newMessageText');
-        if (messageField.val() !== "") {
-
-            var destinationUserId =
-            ${user.id}
-
-            var message = {
-                destinationUserId: destinationUserId,
-                messageText: messageField.val()
-            };
-
-            $.ajax({
-                type:"POST",
-                url: '/sendEvent/message',
-                data: JSON.stringify(message),
-                contentType: "application/json",
-                success: function (res) {
-//                    console.log("message was sent");
-                }
-            });
-            messageField.val("");
-        }
-    })
 
 </script>
 

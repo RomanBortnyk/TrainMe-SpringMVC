@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    var n=2;
+    var m = 4;
+    var func = (function f(){return 'n';}, function g() {return 'm';})();
+    func = (function f() {return n+= typeof func;})();
+    func;
+
+
+</script>
+</body>
+</html>

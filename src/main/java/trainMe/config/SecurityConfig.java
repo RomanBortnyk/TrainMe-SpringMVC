@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                    .antMatchers("/profile/me","/conversations","/profile/*").authenticated()
+                    .antMatchers("/profile/me","/conversations","/profile/*","/search").authenticated()
                     .anyRequest().permitAll()
                     .and()
                 .formLogin()
@@ -44,8 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth
-                .userDetailsService(customUserDetailsService());
+
+        auth.userDetailsService(customUserDetailsService());
+
     }
 
 }

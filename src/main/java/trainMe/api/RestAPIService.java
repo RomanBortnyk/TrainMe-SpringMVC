@@ -15,7 +15,7 @@ import java.util.*;
  * Created by romab on 11/13/16.
  */
 @Service
-public class RestAPI {
+public class RestAPIService {
 
     @Autowired
     UserDao userDao;
@@ -29,6 +29,11 @@ public class RestAPI {
     ChatDao chatDao;
     @Autowired
     MessageDao messageDao;
+
+    public Feedback getFeedbackById(int feedbackId){
+
+        return feedbackDao.read(feedbackId);
+    }
 
     public ArrayList<FeedbackApiType> getFeedbacksByUserId(int id) {
 
@@ -77,35 +82,25 @@ public class RestAPI {
     }
 
     public List getUsersChatsList(int id) {
-        List<Chat> chats = chatDao.getUserChats(id);
-        ArrayList<ChatApiType> result = new ArrayList<ChatApiType>();
-        for (Chat chat : chats) {
-            result.add(new ChatApiType(chat.getId(), chat.getUser2().getFirstName(),
-                    chat.getUser2().getLastName(), chat.getUser2().getId()));
-        }
+        List<Chat> result = chatDao.getUserChats(id);
+//        ArrayList<ChatApiType> result = new ArrayList<ChatApiType>();
+//        for (Chat chat : chats) {
+//            result.add(new ChatApiType(chat.getId(), chat.getUser2().getFirstName(),
+//                    chat.getUser2().getLastName(), chat.getUser2().getId()));
+//        }
         return result;
     }
 
     public List getUsersChatsList(String login) {
-        List<Chat> chats = chatDao.getUserChats(login);
-        ArrayList<ChatApiType> result = new ArrayList<ChatApiType>();
-        for (Chat chat : chats) {
-            result.add(new ChatApiType(chat.getId(), chat.getUser2().getFirstName(),
-                    chat.getUser2().getLastName(), chat.getUser2().getId()));
-        }
+        List<Chat> result = chatDao.getUserChats(login);
+
         return result;
     }
 
 
     public List getChatMessages(int id) {
 
-        List<Message> messagesList = messageDao.getChatMessages(id);
-        List<MessageApiType> result = new ArrayList<MessageApiType>();
-
-        for (Message message : messagesList) {
-            result.add(new MessageApiType(message.getAuthor().getId(), message.getText(),
-                    message.getAuthor().getFirstName(), message.getAuthor().getLastName()));
-        }
+        List<Message> result = messageDao.getChatMessages(id);
 
         return result;
 

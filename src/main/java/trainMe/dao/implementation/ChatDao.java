@@ -43,9 +43,9 @@ public class ChatDao extends AbstractDao {
 
         session.getTransaction().commit();
 
-        // every user with current userId parameter will be in first palce in chat object
+        // every user with current userId parameter will be in second place in chat object
         for (Chat chat : result) {
-            if (chat.getUser1().getId() != userId) {
+            if (chat.getUser2().getId() != (userId)) {
                 User tempUser = chat.getUser1();
                 chat.setUser1(chat.getUser2());
                 chat.setUser2(tempUser);
@@ -72,9 +72,9 @@ public class ChatDao extends AbstractDao {
 
         session.getTransaction().commit();
 
-        // every user with current login parameter will be in first palce in chat object
+        // every user with current login parameter will be in second place in chat object
         for (Chat chat : result) {
-            if (chat.getUser1().getLogin() != login) {
+            if ( !chat.getUser2().getLogin().equals(login) ) {
                 User tempUser = chat.getUser1();
                 chat.setUser1(chat.getUser2());
                 chat.setUser2(tempUser);

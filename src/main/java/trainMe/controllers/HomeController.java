@@ -52,17 +52,6 @@ public class HomeController {
 
   }
 
-  @RequestMapping(value = "profile/me", method = GET)
-  public String redirectToAuthentictedUserProfile(Model model){
-
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    User user = authentication == null ? null : userDao.read( authentication.getName() );
-
-    model.addAttribute("authenticatedUser", user);
-
-    return "userPage";
-  }
-
 
   @RequestMapping(value = "test" , method = GET)
   public String test(){

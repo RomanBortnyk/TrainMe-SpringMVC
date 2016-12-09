@@ -15,6 +15,10 @@ public class SearchRequestObject {
         this.searchString = searchString;
     }
 
+    public SearchRequestObject() {
+
+    }
+
     public String getSearchOption() {
         return searchOption;
     }

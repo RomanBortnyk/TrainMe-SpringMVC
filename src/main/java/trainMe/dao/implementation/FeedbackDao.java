@@ -90,7 +90,7 @@ public class FeedbackDao extends AbstractDao {
             System.out.println(e.getMessage());
         }finally {
             if(session.isOpen()){
-                System.out.println("Closing session");
+//                System.out.println("Closing session");
                 session.close();
             }
         }

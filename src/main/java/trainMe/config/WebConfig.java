@@ -2,7 +2,11 @@ package trainMe.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.*;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -18,25 +22,34 @@ import trainMe.aspects.Audience;
 import trainMe.hibernate.HibernateUtil;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"trainMe.*"})
-@EnableAspectJAutoProxy
-@EnableTransactionManagement
+@ComponentScan(basePackages = {"trainMe.controllers", "trainMe.api", "trainMe.messenger"})
 @EnableAsync
+@Import({SecurityConfig.class, RootConfig.class, WebSocketStompConfig.class})
 
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Bean
-  public Audience audience(){
-    return new Audience();
+  @Override
+  public void configureMessageConverters(
+          List<HttpMessageConverter<?>> converters) {
+
+    converters.add(new MappingJackson2HttpMessageConverter());
+
+    super.configureMessageConverters(converters);
   }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/resources/**").addResourceLocations("resources/");
+    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
   }
+
+//  @Bean
+//  public SimpMessagingTemplate simpMessagingTemplate (){
+//      return new SimpMessagingTemplate();
+//  }
 
   @Bean
   public ViewResolver viewResolver() {
@@ -53,41 +66,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     return multipartResolver;
   }
 
-  @Bean
-  public HibernateTransactionManager hibernateTransactionManager(){
-    HibernateTransactionManager htm = new HibernateTransactionManager();
-    htm.setSessionFactory(sessionFactory(dataSource()));
-    return htm;
-  }
 
-  @Bean
-  public HibernateUtil hibernateUtil (){
-    HibernateUtil hibernateUtil = new HibernateUtil();
-    hibernateUtil.setSessionFactory(sessionFactory(dataSource()));
-    return hibernateUtil;
-  }
-
-  @Bean
-  public DataSource dataSource() {
-    DriverManagerDataSource ds = new DriverManagerDataSource();
-    ds.setDriverClassName("com.mysql.jdbc.Driver");
-    ds.setUrl("jdbc:mysql://localhost:3306/TrainMe");
-    ds.setUsername("root");
-    ds.setPassword("root");
-    return ds;
-  }
-
-  @Bean
-  public SessionFactory sessionFactory(DataSource dataSource) {
-
-    LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
-    sessionBuilder.scanPackages("trainMe.model");
-
-    sessionBuilder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-//    sessionBuilder.setProperty("hibernate.show_sql", "true");
-
-    return sessionBuilder.buildSessionFactory();
-  }
 
 
 }

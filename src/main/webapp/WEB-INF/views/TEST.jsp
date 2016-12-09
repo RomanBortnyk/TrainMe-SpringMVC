@@ -13,60 +13,49 @@
     <script src="/resources/js/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="/resources/css/jquery-ui.min.css">
     <script src="/resources/js/tst.js"></script>
+    <script src="/resources/js/sockjs-0.3.min.js"></script>
+    <script src="/resources/js/stomp.js"></script>
+
+
 </head>
 <body>
 
-<input id="myInput1">
+<input id="myInput1" value="tettegdgdfgd">
+<input type="submit" id="send" value="message"/>
 
 <script>
 
+    var url = 'http://' + window.location.host + '/messenger';
+    var sock = new SockJS(url);
+    var stomp = Stomp.over(sock);
 
 
+    stomp.connect({},function (frame) {
+        console.log('Connected: ' + frame);
 
-//    $("#myInput1").autocomplete({
-//        source : function(request, response) {
-//            $.ajax({
-//                url : "api/autocomplete/disciplines/"+request.term,
-//                type : "GET",
-//                dataType : "json",
-//                success : function(data) {
-//                    response(data);
-//                }
-//            });
-//        }
-//
-//    });
+    });
 
-//    $("#myInput1").autocomplete({
-//        source : function(request, response) {
-//            $.ajax({
-//                url : "api/autocomplete/full_names/"+request.term,
-//                type : "GET",
-//                dataType : "json",
-//                success : function(data) {
-//                    response(data);
-//                }
-//            });
-//        }
-//
-//    });
-//
-//
-//    $(function () {
-//        $.ajax({
-//            url: "/api/users/",
-//            dataType: "json",
-//            success: function (data) {
-//                $.each(data, function (key, val) {
-//
-//                    var array = val.disciplines;
-//                    var t = array[0].id;
-//                    console.log(val);
-//
-//                });
-//            }
+
+    $("#send").on('click',function () {
+
+        var message = {
+            chatId:1,
+            messageText:$("#myInput1").val(),
+            destinationUserId: 1
+        };
+
+        var payload = JSON.stringify(message);
+
+//        stomp.connect('guest', 'guest', function(frame) {
+            stomp.send("/app/message", {}, payload);
 //        });
-//    });
+
+
+        $("#myInput1").val("");
+
+    });
+
+
 
 
 </script>
