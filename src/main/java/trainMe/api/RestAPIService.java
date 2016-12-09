@@ -2,10 +2,7 @@ package trainMe.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import trainMe.api.apiModel.ChatApiType;
 import trainMe.api.apiModel.DisciplineApiType;
-import trainMe.api.apiModel.FeedbackApiType;
-import trainMe.api.apiModel.MessageApiType;
 import trainMe.dao.implementation.*;
 import trainMe.model.*;
 
@@ -35,17 +32,11 @@ public class RestAPIService {
         return feedbackDao.read(feedbackId);
     }
 
-    public ArrayList<FeedbackApiType> getFeedbacksByUserId(int id) {
+    public ArrayList<Feedback> getFeedbacksByUserId(int id) {
 
-        ArrayList<FeedbackApiType> result = new ArrayList<FeedbackApiType>();
         ArrayList<Feedback> feedbacks = (ArrayList<Feedback>) feedbackDao.getUsersFeedbacks(id);
 
-        for (Feedback feedback : feedbacks) {
-            result.add(new FeedbackApiType(feedback.getAuthor().getId(), feedback.getAuthor().getFirstName(),
-                    feedback.getAuthor().getLastName(), feedback.getText()));
-        }
-
-        return result;
+        return feedbacks;
     }
 
     public List getDisciplinesByUserId(int id) {

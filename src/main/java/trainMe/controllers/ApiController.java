@@ -4,7 +4,6 @@ package trainMe.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import trainMe.api.RestAPIService;
-import trainMe.api.apiModel.FeedbackApiType;
 import trainMe.jsonObjects.TestObject;
 import trainMe.model.Feedback;
 
@@ -35,7 +34,7 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/feedbacks/{userId}",method= RequestMethod.GET)
-    public ArrayList<FeedbackApiType> getFeedbacks(@PathVariable("userId") int userId) {
+    public ArrayList<Feedback> getFeedbacks(@PathVariable("userId") int userId) {
         return restAPIService.getFeedbacksByUserId(userId);
     }
 

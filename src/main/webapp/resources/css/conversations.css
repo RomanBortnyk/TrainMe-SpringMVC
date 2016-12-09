@@ -72,13 +72,13 @@ input:focus::-webkit-input-placeholder {
     border: 1px solid #5a5a5a;
     background: #ffffff;
 }
-.chat .avatar .status.online {
-    background: #4caf50;
-}
-.chat .avatar .status.busy {
-    background: #ffc107;
-}
-.chat .avatar .status.offline {
+/*.chat .avatar .status.online {*/
+    /*background: #4caf50;*/
+/*}*/
+/*.chat .avatar .status.busy {*/
+    /*background: #ffc107;*/
+/*}*/
+.chat .avatar .status.notification {
     background: #ed4e6e;
 }
 .chat-users .user .status {
