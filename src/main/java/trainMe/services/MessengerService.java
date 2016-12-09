@@ -7,6 +7,7 @@ import trainMe.dao.implementation.ChatDao;
 import trainMe.dao.implementation.MessageDao;
 import trainMe.dao.implementation.UserDao;
 import trainMe.jsonObjects.ReceivedMessageJson;
+import trainMe.model.Chat;
 import trainMe.model.Message;
 import trainMe.model.User;
 import java.sql.Timestamp;
@@ -39,9 +40,8 @@ public class MessengerService {
 
         outcomingMessage.setAuthor(author);
 
-        Date today = new Date();
-        Timestamp timestamp = new Timestamp(today.getTime());
-        outcomingMessage.setCreatedAt(timestamp);
+
+        outcomingMessage.setCreatedAt(generateCurrentTimestamp());
 
 
         messageDao.create(outcomingMessage);
@@ -58,9 +58,53 @@ public class MessengerService {
                                                 outcomingMessage);
 
 
+    }
 
+    public String checkDoesChatExistAndSendToUser(ReceivedMessageJson incoming, String authorUsername){
+
+        User author = userDao.read(authorUsername);
+
+        //chatId here is destination user id
+        User destinationUser = userDao.read(incoming.getChatId());
+
+        Message outcomingMessage = new Message();
+
+        outcomingMessage.setAuthor(author);
+        outcomingMessage.setText(incoming.getMessageText());
+        outcomingMessage.setCreatedAt(generateCurrentTimestamp());
+
+
+        if ( chatDao.isExistByUsersId(author.getId(),destinationUser.getId()) ){
+            outcomingMessage.setChat(chatDao.readByUsersIds(author.getId() , destinationUser.getId()));
+
+        }else {
+
+            Chat chat = new Chat(author,destinationUser);
+            outcomingMessage.setChat(chatDao.create(chat));
+
+        }
+
+        messageDao.create(outcomingMessage);
+
+        if (! destinationUser.getLogin().equals(authorUsername)){
+
+            messagingTemplate.convertAndSendToUser(authorUsername,
+                    "/queue/messages-updates",
+                    outcomingMessage);
+        }
+
+
+        messagingTemplate.convertAndSendToUser(destinationUser.getLogin(),
+                                                "/queue/messages-updates",
+                                                outcomingMessage);
+
+        return "success";
 
     }
 
+    public Timestamp generateCurrentTimestamp(){
+        Date today = new Date();
+        return new Timestamp(today.getTime());
+    }
 
 }

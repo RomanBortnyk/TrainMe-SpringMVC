@@ -142,32 +142,6 @@
     //send new feedback text to server
 
 
-    $("#sendMessage").on('click', function () {
-
-
-        var messageField = $('#newMessageText');
-        if (messageField.val() !== "") {
-
-            var destinationUserId =${user.id}
-
-            var message = {
-                destinationUserId: destinationUserId,
-                messageText: messageField.val()
-            };
-
-            $.ajax({
-                type: "POST",
-                url: '/sendEvent/message',
-                data: JSON.stringify(message),
-                contentType: "application/json",
-                success: function (res) {
-//                    console.log("message was sent");
-                }
-            });
-            messageField.val("");
-        }
-    })
-
 </script>
 
 </body>

@@ -35,6 +35,11 @@ $(document).ready(function() {
         addNewFeedback();
 
     });
+
+    $("#sendMessage").on('click', function () {
+
+        sendMessageAndCheck();
+    });
     
 });
 
@@ -124,4 +129,36 @@ function addNewFeedback() {
         }
     });
 }
+
+//function sends a message and  checks does conversation already exist
+// if not - creates new conversation with current user
+function sendMessageAndCheck() {
+
+    var messageField = $('#newMessageText');
+    if (messageField.val() !== "") {
+
+        
+        var message = {
+            
+            //actualy current profile user id
+            //because on server side json of this object has chatId field
+            chatId: currentProfileUserId,
+            
+            messageText: messageField.val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/profile/message',
+            data: JSON.stringify(message),
+            contentType: "application/json",
+            success: function (res) {
+                   console.log(res);
+            }
+        });
+        messageField.val("");
+    }
+}
+
+
 
