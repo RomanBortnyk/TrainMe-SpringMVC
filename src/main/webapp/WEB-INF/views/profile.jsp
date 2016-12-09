@@ -140,63 +140,7 @@
 
 <script>
     //send new feedback text to server
-    $("#saveFeedback").on("click", function () {
 
-        var destUsrId = ${user.id};
-        var newFeedbackTxt = $("#newFeedbackText").val();
-
-        var data = {
-            destinationUserId: destUsrId,
-            newFeedbackText: newFeedbackTxt
-        };
-
-//        $.each(data, function (key, val) {
-//
-//            var disciplineLi = '<li class="list-group-item"> ' +
-//                    '<img src="/image/icon/' + val.id + '" ' +
-//                    'height="35" width="35" alt="icon">' + val.name + ' </li>';
-//
-//            disciplinesDiv.append(disciplineLi);
-//
-//        });
-
-        $.ajax({
-            type: "POST",
-            url: "/feedback/add",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            success: function (response) {
-
-                $("#newFeedbackTextWindow").modal("hide");
-
-                var authorFirstName = response.authorFirstName;
-                var authorId = response.authorId;
-                var text = response.text;
-
-                $('<div id="feedbackRow" class="row"> <div class="col-lg-12">' +
-                        '<div class="col-lg-3">' +
-                        '<div class="well">' +
-                        '<p>'+ authorFirstName +'</p>' +
-                        '<a href="/profile/'+ authorId +'">' +
-                        '<img src="/image/avatar/' +authorId+ '" class="img-circle" height="65" ' +
-                        'width="65" alt="Avatar"> </a>' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="col-lg-9">' +
-                        '<div class="well">' +
-                        '<p id="feedbackText" class="text-left">' + text + '</p>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>').insertBefore("#addFeedback");
-
-
-                $("#newFeedbackText").val("");
-
-            }
-        });
-
-    });
 
     $("#sendMessage").on('click', function () {
 

@@ -59,41 +59,71 @@ $(document).ready(function () {
 
     $("#sendIcon").on('click', function () {
 
-        var messageText = $("#inputMessageField").val();
-        if (messageText !== "" && activeChatId !== undefined) {
+        var inputField = $("#inputMessageField");
 
-            var message = {
-                chatId: activeChatId,
-                messageText: messageText,
-                destinationUserId: 1
-            };
+        if (inputField.val() !== "" && activeChatId !== undefined) {
 
-            var payload = JSON.stringify(message);
-            sendOverWebSocket(payload);
+            sendOverWebSocket(inputField.val());
+            inputField.val("");
         }
 
+        
 
     });
 
     $('#inputMessageField').keypress(function (event) {
-        if (event.keyCode == 13 && activeChatId !== undefined) {
-            alert('Entered');
+        var inputField = $("#inputMessageField");
+        
+        if (event.keyCode == 13 && activeChatId !== undefined && inputField.val() !== "") {
+            sendOverWebSocket(inputField.val());
+            inputField.val("");
         }
+        
     });
 
 
 });
 
-function sendOverWebSocket(message) {
 
-    // stomp.send("/app/message", {}, payload);
-    // stomp.send('/user/'+currentUserLogin+'/queue/messages-updates',{},message);
-    stomp.send('/app/send', {}, message);
+// var inputMessageField = $("#inputMessageField");
 
-    $("#inputMessageField").val("");
+function sendOverWebSocket(messageText) {
+
+    var destinationUserLogin;
+    for (var i=0; i< conversations.length; i++){
+        if (conversations[i].chatId == activeChatId){
+            destinationUserLogin = conversations[i].login;
+        }
+    }
+
+    var message = {
+        chatId: activeChatId,
+        messageText: messageText,
+        destinationUserLogin: destinationUserLogin
+    };
+
+    var payload = JSON.stringify(message);
+
+    stomp.send('/app/send', {}, payload);
+
+    // if(activeChatId != message.chatId){
+    //     var messageBlock = '<div class="answer left"> ' +
+    //         '<div class="avatar"> ' +
+    //         '<img src="/image/avatar/' + id + '" alt="User name"> ' +
+    //         '</div> ' +
+    //         '<div class="name">' + firstName + '</div> ' +
+    //         '<div class="text">' + text + '</div> ';
+    //
+    //     $('.chat-body').append(messageBlock);
+    //
+    //     var objDiv = document.getElementById("chat");
+    //     objDiv.scrollTop = objDiv.scrollHeight;
+    // }
+
 
 }
 
+var conversations = [];
 
 function fillChatList() {
 
@@ -107,13 +137,25 @@ function fillChatList() {
 
             $.each(result, function (key, val) {
 
-                // console.log(val.id);
+                var chatId = val.id;
+                var userId = val.userId;
+                var firstname = val.firstname;
+                var lastname = val.lastname;
+                var login = val.login;
 
-                var chatBlock = '<div id="' + val.chatId + '" class="user">' +
+                conversations.push({
+                    chatId: chatId,
+                    userId: userId,
+                    login:login,
+                    firstname:firstname,
+                    lastname:lastname
+                });
+
+                var chatBlock = '<div id="' + chatId + '" class="user">' +
                     '<div class="avatar"> ' +
-                    '<img src="/image/avatar/' + val.userId + '" alt="User name"> ' +
-                    '</div> <div id="firstName" class="name">' + val.firstName + '</div> ' +
-                    '<div id="lastName" class="name">' + val.lastName + '</div> </div>';
+                    '<img src="/image/avatar/' + userId + '" alt="User name"> ' +
+                    '</div> <div id="firstName" class="name">' + firstname + '</div> ' +
+                    '<div id="lastName" class="name">' + lastname + '</div> </div>';
 
                 chatListDiv.append(chatBlock);
 
@@ -128,16 +170,17 @@ function processIncomingMessage(message) {
 
     var content = JSON.parse(message.body);
 
-    var id = message.authorId;
-    var firstName = message.authorFirstName;
-    var lastName = message.authorLastName;
-    var text = message.text;
-    var chatId = message.chatId;
+    var id = content.authorId;
+    var firstName = content.authorFirstName;
+    var lastName = content.authorLastName;
+    var text = content.text;
+    var chatId = content.chatId;
+    var authorLogin = content.authorLogin;
 
 
-    if (message.chatId.toString() === activeChatId) {
+    if (content.chatId.toString() === activeChatId) {
 
-        var messageBlock = '<div class="answer left ' + (currentUserId === id ? "" : "bkg") + '"> ' +
+        var messageBlock = '<div class="answer left ' + (currentUserLogin == authorLogin ? "" : "bkg") + '"> ' +
             '<div class="avatar"> ' +
             '<img src="/image/avatar/' + id + '" alt="User name"> ' +
             '</div> ' +
@@ -153,31 +196,6 @@ function processIncomingMessage(message) {
 }
 
 
-// function send() {
-//
-//     var messageField = $('#inputMessageField');
-//     if (messageField.val() !== "") {
-//         var chatId = $(".activeUser").attr("id");
-//
-//         var message = {
-//             chatId: chatId,
-//             messageText: messageField.val()
-//         };
-//
-//         $.ajax({
-//             url: '/sendEvent/message',
-//             method: "POST",
-//             data: JSON.stringify(message),
-//             contentType: "application/json",
-//             success: function (res) {
-//                 console.log("message was sent");
-//             }
-//
-//         });
-//         messageField.val("");
-//     }
-//
-// }
 
 function cleanMessageList() {
     $(".chat-body").empty()
@@ -200,8 +218,9 @@ function refreshMessagesList() {
                 var id = element.authorId;
                 var name = element.authorFirstName;
                 var text = element.text;
+                var authorLogin = element.authorLogin;
 
-                var large = '<div class="answer left ' + (activeUserName === name ? "bkg" : "") + '"> ' +
+                var large = '<div class="answer left ' + (currentUserLogin == authorLogin ? "" : "bkg") + '"> ' +
                     '<div class="avatar"> ' +
                     '<img src="/image/avatar/' + id + '" alt="User name"> ' +
                     '</div> ' +

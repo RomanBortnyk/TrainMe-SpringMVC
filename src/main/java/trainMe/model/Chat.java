@@ -1,5 +1,8 @@
 package trainMe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 /**
@@ -10,9 +13,28 @@ import javax.persistence.*;
 public class Chat implements Item{
 
     private int id;
+    @JsonIgnore
     private String name;
+    @JsonIgnore
     private User user1;
+    @JsonIgnore
     private User user2;
+
+    @JsonProperty(value = "login")
+    public String login() {
+        return this.user1.getLogin();
+    }
+
+    @JsonProperty(value = "firstname")
+    public String firstName() {return this.user1.getFirstName(); }
+
+    @JsonProperty(value = "lastname")
+    private  String lastName(){return  this.user1.getLastName(); }
+
+    @JsonProperty(value = "userId")
+    private int userId(){return  this.user1.getId(); }
+
+
 
     public Chat (){
 

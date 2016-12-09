@@ -4,7 +4,7 @@ package trainMe.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import trainMe.jacksonProfiles.View;
+
 
 import javax.persistence.*;
 
@@ -34,7 +34,7 @@ public class Feedback implements Item {
     }
 
     @JsonProperty(value = "authorFirstName")
-    public String authorFirstNameId(){return this.user.getFirstName(); }
+    public String authorFirstNameId(){return this.author.getFirstName(); }
 
 
 

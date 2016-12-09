@@ -1,14 +1,18 @@
 /**
  * Created by romab on 10/27/16.
  */
+
+var currentProfileUserId;
+
 $(document).ready(function() {
 
-    var src = $("#avatar").attr("src");
-    var currentUserId = src.split("/")[3];
+    var pathname = window.location.pathname;
+    currentProfileUserId = pathname.split("/")[2];
+    
     
     $(function () {
         $.ajax({
-            url: "/api/disciplines/" + currentUserId + "",
+            url: "/api/disciplines/" + currentProfileUserId + "",
             dataType: "json",
             success: function (data) {
                 fillDisciplinesList(data)
@@ -18,12 +22,18 @@ $(document).ready(function() {
 
     $(function () {
         $.ajax({
-            url: "/api/feedbacks/" + currentUserId + "",
+            url: "/api/feedbacks/" + currentProfileUserId + "",
             dataType: "json",
             success: function (data) {
                 fillFeedbackList(data)
             }
         });
+    });
+
+    $("#saveFeedback").on("click", function () {
+        
+        addNewFeedback();
+
     });
     
 });
@@ -56,7 +66,7 @@ function fillFeedbackList(data) {
             '<div  class="col-lg-3"> ' +
             '<div class="well"> <p id="authorName">' + val.authorFirstName + '</p> ' +
             '<a href="/profile/' + val.authorId + '"> ' +
-            '<img src="/image/avatar/' + val.authorId + '" class="img-circle" height="65"width="65" alt="Avatar"> </a> </div> </div> ' +
+            '<img src="/image/avatar/' + val.authorId + '" class="img-circle" height="65" width="65" alt="Avatar"> </a> </div> </div> ' +
             '<div class="col-lg-9"> ' +
             '<div class="well"> ' +
             '<p id="feedbackText" class="text-left">' + val.text + '</p> </div> </div> </div>';
@@ -65,7 +75,53 @@ function fillFeedbackList(data) {
 
 
     });
-
     
+}
+
+function addNewFeedback() {
+    var destUsrId = currentProfileUserId;
+    var newFeedbackTxt = $("#newFeedbackText").val();
+
+    var data = {
+        destinationUserId: destUsrId,
+        newFeedbackText: newFeedbackTxt
+    };
+
+
+    $.ajax({
+        type: "POST",
+        url: "/feedback/add",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function (response) {
+
+            $("#newFeedbackTextWindow").modal("hide");
+
+            var authorFirstName = response.authorFirstName;
+            var authorId = response.authorId;
+            var text = response.text;
+
+            $('<div id="feedbackRow" class="row"> <div class="col-lg-12">' +
+                '<div class="col-lg-3">' +
+                '<div class="well">' +
+                '<p>'+ authorFirstName +'</p>' +
+                '<a href="/profile/'+ authorId +'">' +
+                '<img src="/image/avatar/' +authorId+ '" class="img-circle" height="65" ' +
+                'width="65" alt="Avatar"> </a>' +
+                '</div>' +
+                '</div>' +
+                '<div class="col-lg-9">' +
+                '<div class="well">' +
+                '<p id="feedbackText" class="text-left">' + text + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>').insertBefore("#addFeedback");
+
+
+            $("#newFeedbackText").val("");
+
+        }
+    });
 }
 

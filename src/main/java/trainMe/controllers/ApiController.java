@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import trainMe.api.RestAPIService;
 import trainMe.api.apiModel.FeedbackApiType;
-import trainMe.jacksonProfiles.View;
 import trainMe.jsonObjects.TestObject;
 import trainMe.model.Feedback;
 
@@ -62,9 +61,9 @@ public class ApiController {
 
     @RequestMapping(value = "/messages/{chatId}",method= RequestMethod.GET)
     public List getChatMessages(@PathVariable("chatId") int chatId) {
+
         return restAPIService.getChatMessages(chatId);
     }
-
 
 
     @RequestMapping(value = "/autocomplete/disciplines/{param}",method= RequestMethod.GET)

@@ -27,18 +27,9 @@ public class MessageController {
 
     @MessageMapping("/send")
 //    @SendToUser("/queue/messages-updates")
-    public void handle (@Payload ReceivedMessageJson msg, Principal principal){
+    public void handle (@Payload ReceivedMessageJson incoming, Principal principal){
 
-
-        messengerService.sendMessageToUser(msg, principal.getName());
-
-        int i =0;
-
-
-
-//        messagingTemplate.convertAndSendToUser("vlad","/queue/messages-updates",
-//                new MessageApiType(1,"sdfdsf","sdfdsf","sdfdsf"));
-
+        messengerService.sendMessageToUser(incoming, principal.getName());
 
     }
 

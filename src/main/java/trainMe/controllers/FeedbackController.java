@@ -26,14 +26,14 @@ public class FeedbackController {
     UserDao userDao;
 
     @RequestMapping(value="add", method = RequestMethod.POST)
-    public @ResponseBody Feedback addFeedback(@RequestBody NewFeedbackRequest feedbackRequest) {
+    public @ResponseBody Feedback addFeedback(@RequestBody NewFeedbackRequest newFeedbackRequest) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = authentication == null ? null : userDao.read( authentication.getName() );
 
-        return feedbackService.add(feedbackRequest.getDestinationUserId(),
+        return feedbackService.add(newFeedbackRequest.getDestinationUserId(),
                 currentUser,
-                feedbackRequest.getNewFeedbackText());
+                newFeedbackRequest.getNewFeedbackText());
     }
 
 
