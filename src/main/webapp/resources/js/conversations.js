@@ -89,7 +89,7 @@ var audio = new Audio("/resources/sounds/filling-your-inbox.mp3");
 
 function processIncomingMessage(message) {
 
-    console.log(message.text);
+    // console.log(message.text);
 
     var content = JSON.parse(message.body);
 
@@ -100,6 +100,7 @@ function processIncomingMessage(message) {
     var chatId = content.chatId;
     var authorLogin = content.authorLogin;
     var time = content.time;
+    var authorId = content.authorId;
 
 
     if (content.chatId.toString() === activeChatId) {
@@ -118,16 +119,57 @@ function processIncomingMessage(message) {
         objDiv.scrollTop = objDiv.scrollHeight;
 
     }else {
-
-        var notificationDiv = '<div class="status notification"></div>';
-
-        var v = $(".chat-users #"+chatId+" .avatar");
-        v.append(notificationDiv);
         
-
+        setNotificationLabel(chatId);
+        
     }
 
+    var isNewChat = false;
+    for (var i=0; i< conversations.length; i++){
+        if (conversations[i].chatId == chatId){
+            isNewChat = true;
+        }
+    }
+    
+    if (!isNewChat){
+        
+        // create new chat
+        var chatListDiv = $("#chatList");
+
+        var chatBlock = '<div id="' + chatId + '" class="user">' +
+            '<div class="avatar"> ' +
+            '<img src="/image/avatar/' + authorId + '" alt="User name"> ' +
+            '</div> <div id="firstName" class="name">' + firstName + '</div> ' +
+            '<div id="lastName" class="name">' + lastName + '</div> </div>';
+
+        chatListDiv.append(chatBlock);
+
+        conversations.push({
+            chatId: chatId,
+            userId: authorId,
+            login: authorLogin,
+            firstname: firstName,
+            lastname: lastName
+        });
+
+        setNotificationLabel(message.chatId);
+    }
+    
     if (currentUserLogin != authorLogin) audio.play();
+
+}
+
+function setNotificationLabel(chatId) {
+    var notificationDiv = '<div class="status notification"></div>';
+
+    var v = $(".chat-users #"+chatId+" .avatar");
+    v.append(notificationDiv);
+}
+
+function createNewChat(message) {
+
+
+    
 
 }
 
