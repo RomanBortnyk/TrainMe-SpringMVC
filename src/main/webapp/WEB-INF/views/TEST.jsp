@@ -9,57 +9,23 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script src="/resources/js/jquery-3.1.1.min.js"></script>
+    <script src="/resources/js/bootstrap.min.js"></script>
+    <link href="/resources/css/userPage.css" rel="stylesheet">
+    <link href="/resources/css/font-awesome.css" rel="stylesheet">
     <script src="/resources/js/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="/resources/css/jquery-ui.min.css">
-    <script src="/resources/js/tst.js"></script>
-    <script src="/resources/js/sockjs-0.3.min.js"></script>
-    <script src="/resources/js/stomp.js"></script>
-
+    <%--<script type="text/javascript" src="/resources/js/userPage.js"></script>--%>
 
 </head>
 <body>
 
-<input id="myInput1" value="tettegdgdfgd">
-<input type="submit" id="send" value="message"/>
-
-<script>
-
-    var url = 'http://' + window.location.host + '/messenger';
-    var sock = new SockJS(url);
-    var stomp = Stomp.over(sock);
-
-
-    stomp.connect({},function (frame) {
-        console.log('Connected: ' + frame);
-
-    });
-
-
-    $("#send").on('click',function () {
-
-        var message = {
-            chatId:1,
-            messageText:$("#myInput1").val(),
-            destinationUserId: 1
-        };
-
-        var payload = JSON.stringify(message);
-
-//        stomp.connect('guest', 'guest', function(frame) {
-            stomp.send("/app/message", {}, payload);
-//        });
-
-
-        $("#myInput1").val("");
-
-    });
-
-
-
-
-</script>
-
+<div class="answer left ">
+    <div class="avatar"><img src="/image/avatar/1" alt="User name"></div>
+    <div class="name">Vladislav</div>
+    <div class="text">';</div>
+</div>
 
 </body>
 </html>

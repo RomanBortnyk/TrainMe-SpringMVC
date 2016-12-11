@@ -153,10 +153,12 @@ function sendMessageAndCheck() {
             data: JSON.stringify(message),
             contentType: "application/json",
             success: function (res) {
-                   console.log(res);
+                   // console.log(res);
+                
             }
         });
         messageField.val("");
+        $("#newMessage").modal("hide");
     }
 }
 

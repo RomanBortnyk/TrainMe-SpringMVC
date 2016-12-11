@@ -55,6 +55,11 @@ $(document).ready(function () {
             activeChatId = $(".activeUser").attr("id");
         }
 
+        // var notificationDiv = '<div class="status notification"></div>';
+
+        var v = $(".chat-users #"+activeChatId+" .avatar .status");
+        v.remove();
+
     });
 
     $("#sendIcon").on('click', function () {
@@ -67,8 +72,6 @@ $(document).ready(function () {
             inputField.val("");
         }
 
-        
-
     });
 
     $('#inputMessageField').keypress(function (event) {
@@ -80,12 +83,97 @@ $(document).ready(function () {
         }
         
     });
-
-
 });
 
+var audio = new Audio("/resources/sounds/filling-your-inbox.mp3");
 
-// var inputMessageField = $("#inputMessageField");
+function processIncomingMessage(message) {
+
+    // console.log(message.text);
+
+    var content = JSON.parse(message.body);
+
+    var id = content.authorId;
+    var firstName = content.authorFirstName;
+    var lastName = content.authorLastName;
+    var text = content.text;
+    var chatId = content.chatId;
+    var authorLogin = content.authorLogin;
+    var time = content.time;
+    var authorId = content.authorId;
+
+
+    if (content.chatId.toString() === activeChatId) {
+
+        var messageBlock = '<div class="answer left ' + (currentUserLogin == authorLogin ? "" : "bkg") + '"> ' +
+            '<div class="avatar"> ' +
+            '<img src="/image/avatar/' + id + '" alt="User name"> ' +
+            '</div> ' +
+            '<div class="name">' + firstName + '</div> ' +
+            '<div  style="font-size: small ; display:inline; opacity: 0.4">' + time + '</div> ' +
+            '<div class="text">' + text + '</div> ';
+
+        $('.chat-body').append(messageBlock);
+
+        var objDiv = document.getElementById("chat");
+        objDiv.scrollTop = objDiv.scrollHeight;
+
+    }else {
+        
+        setNotificationLabel(chatId);
+        
+    }
+
+    var isNewChat = false;
+    for (var i=0; i< conversations.length; i++){
+        if (conversations[i].chatId == chatId){
+            isNewChat = true;
+        }
+    }
+    
+    if (!isNewChat){
+        
+        // create new chat
+        var chatListDiv = $("#chatList");
+
+        var chatBlock = '<div id="' + chatId + '" class="user">' +
+            '<div class="avatar"> ' +
+            '<img src="/image/avatar/' + authorId + '" alt="User name"> ' +
+            '</div> <div id="firstName" class="name">' + firstName + '</div> ' +
+            '<div id="lastName" class="name">' + lastName + '</div> </div>';
+
+        chatListDiv.append(chatBlock);
+
+        conversations.push({
+            chatId: chatId,
+            userId: authorId,
+            login: authorLogin,
+            firstname: firstName,
+            lastname: lastName
+        });
+
+        setNotificationLabel(message.chatId);
+    }
+    
+    if (currentUserLogin != authorLogin) audio.play();
+
+}
+
+function setNotificationLabel(chatId) {
+    var notificationDiv = '<div class="status notification"></div>';
+
+    var v = $(".chat-users #"+chatId+" .avatar");
+    v.append(notificationDiv);
+}
+
+function createNewChat(message) {
+
+
+    
+
+}
+
+
 
 function sendOverWebSocket(messageText) {
 
@@ -105,22 +193,7 @@ function sendOverWebSocket(messageText) {
     var payload = JSON.stringify(message);
 
     stomp.send('/app/send', {}, payload);
-
-    // if(activeChatId != message.chatId){
-    //     var messageBlock = '<div class="answer left"> ' +
-    //         '<div class="avatar"> ' +
-    //         '<img src="/image/avatar/' + id + '" alt="User name"> ' +
-    //         '</div> ' +
-    //         '<div class="name">' + firstName + '</div> ' +
-    //         '<div class="text">' + text + '</div> ';
-    //
-    //     $('.chat-body').append(messageBlock);
-    //
-    //     var objDiv = document.getElementById("chat");
-    //     objDiv.scrollTop = objDiv.scrollHeight;
-    // }
-
-
+    
 }
 
 var conversations = [];
@@ -154,6 +227,7 @@ function fillChatList() {
                 var chatBlock = '<div id="' + chatId + '" class="user">' +
                     '<div class="avatar"> ' +
                     '<img src="/image/avatar/' + userId + '" alt="User name"> ' +
+                    // '<div class="status notification"></div>'+
                     '</div> <div id="firstName" class="name">' + firstname + '</div> ' +
                     '<div id="lastName" class="name">' + lastname + '</div> </div>';
 
@@ -163,38 +237,6 @@ function fillChatList() {
         }
     });
 }
-
-function processIncomingMessage(message) {
-
-    console.log(message.text);
-
-    var content = JSON.parse(message.body);
-
-    var id = content.authorId;
-    var firstName = content.authorFirstName;
-    var lastName = content.authorLastName;
-    var text = content.text;
-    var chatId = content.chatId;
-    var authorLogin = content.authorLogin;
-
-
-    if (content.chatId.toString() === activeChatId) {
-
-        var messageBlock = '<div class="answer left ' + (currentUserLogin == authorLogin ? "" : "bkg") + '"> ' +
-            '<div class="avatar"> ' +
-            '<img src="/image/avatar/' + id + '" alt="User name"> ' +
-            '</div> ' +
-            '<div class="name">' + firstName + '</div> ' +
-            '<div class="text">' + text + '</div> ';
-
-        $('.chat-body').append(messageBlock);
-
-        var objDiv = document.getElementById("chat");
-        objDiv.scrollTop = objDiv.scrollHeight;
-
-    }
-}
-
 
 
 function cleanMessageList() {
@@ -219,13 +261,16 @@ function refreshMessagesList() {
                 var name = element.authorFirstName;
                 var text = element.text;
                 var authorLogin = element.authorLogin;
+                var time = element.time;
 
                 var large = '<div class="answer left ' + (currentUserLogin == authorLogin ? "" : "bkg") + '"> ' +
                     '<div class="avatar"> ' +
                     '<img src="/image/avatar/' + id + '" alt="User name"> ' +
                     '</div> ' +
-                    '<div class="name">' + name + '</div> ' +
-                    '<div class="text">' + text + '</div> ';
+                    '<div class="name" >' + name + '</div> ' +
+                    '<div class="text">' + text + '</div> '+
+                    '<div class="time" style="opacity: 0.4; font-size: small" >' + time + '</div>';
+
 
                 $('.chat-body').append(large)
 

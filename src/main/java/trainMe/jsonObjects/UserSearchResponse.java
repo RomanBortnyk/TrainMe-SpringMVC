@@ -1,6 +1,6 @@
 package trainMe.jsonObjects;
 
-import trainMe.api.apiModel.DisciplineApiType;
+import trainMe.model.Discipline;
 
 import java.util.ArrayList;
 
@@ -14,13 +14,13 @@ public class UserSearchResponse {
     private String lastName;
     private String userType;
     private String description;
-    private ArrayList<DisciplineApiType> disciplines;
+    private ArrayList<Discipline> disciplines;
 
 
     public UserSearchResponse() {
     }
 
-    public UserSearchResponse(int id, String firstName, String lastName, String userType, ArrayList<DisciplineApiType> disciplines) {
+    public UserSearchResponse(int id, String firstName, String lastName, String userType, ArrayList<Discipline> disciplines) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,11 +68,11 @@ public class UserSearchResponse {
         this.userType = userType;
     }
 
-    public ArrayList<DisciplineApiType> getDisciplines() {
+    public ArrayList<Discipline> getDisciplines() {
         return disciplines;
     }
 
-    public void setDisciplines(ArrayList<DisciplineApiType> disciplines) {
+    public void setDisciplines(ArrayList<Discipline> disciplines) {
         this.disciplines = disciplines;
     }
 }

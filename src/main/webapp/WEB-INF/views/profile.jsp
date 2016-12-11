@@ -55,7 +55,6 @@
                                 </div>
                                 <div class="modal-body interests-section">
                                     <div class="row">
-                                        <form action="">
                                             <div class="form-group">
                                                 <textarea id="newMessageText" style="text-align: justify"
                                                           class="form-control" rows="5"></textarea>
@@ -64,7 +63,6 @@
                                                     style="float: right;">
                                                 Send
                                             </button>
-                                        </form>
                                     </div>
                                 </div>
                             </div>

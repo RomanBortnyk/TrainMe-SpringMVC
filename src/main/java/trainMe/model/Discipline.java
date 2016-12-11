@@ -1,5 +1,7 @@
 package trainMe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -8,8 +10,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "discipline")
 public class Discipline implements Item {
+
     private int id;
     private String name;
+    @JsonIgnore
     private byte[] icon;
 
     public Discipline (){

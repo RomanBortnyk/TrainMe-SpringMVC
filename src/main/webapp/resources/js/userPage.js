@@ -5,9 +5,6 @@
 // autocompletion for search page
 $(document).ready(function () {
 
-    
-
-    
     $(function () {
         $.ajax({
             url: "/api/disciplinesToAdd/" + currentUserId + "",
@@ -19,8 +16,6 @@ $(document).ready(function () {
     });
 
     
-    
-
     $(function () {
         $.ajax({
             url: "/api/feedbacks/" + currentUserId + "",
