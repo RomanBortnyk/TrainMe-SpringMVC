@@ -7,6 +7,7 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.TimeZone;
 
 
@@ -26,6 +27,10 @@ public class MainTest {
 
 
         System.out.println(sdf.format(date));
+
+        ResourceBundle resource = ResourceBundle.getBundle("project");
+        String describe  = resource.getString("describe");
+        System.out.println(describe);
 
 
 
