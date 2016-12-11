@@ -50,12 +50,12 @@ public class ApiController {
 
     @RequestMapping(value = "/chats/byId/{userId}",method= RequestMethod.GET)
     public List getUsersChatsListByUserId(@PathVariable("userId") int userId) {
-        return restAPIService.getUsersChatsList(userId);
+        return restAPIService.getUsersChatList(userId);
     }
 
     @RequestMapping(value = "/chats/byLogin/{userLogin}",method= RequestMethod.GET)
     public List getUsersChatsListByUserLogin(@PathVariable("userLogin") String userLogin) {
-        return restAPIService.getUsersChatsList(userLogin);
+        return restAPIService.getUsersChatList(userLogin);
     }
 
     @RequestMapping(value = "/messages/{chatId}",method= RequestMethod.GET)

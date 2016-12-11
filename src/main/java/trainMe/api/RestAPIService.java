@@ -2,7 +2,6 @@ package trainMe.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import trainMe.api.apiModel.DisciplineApiType;
 import trainMe.dao.implementation.*;
 import trainMe.model.*;
 
@@ -41,12 +40,12 @@ public class RestAPIService {
 
     public List getDisciplinesByUserId(int id) {
 
-        ArrayList<DisciplineApiType> result = new ArrayList<DisciplineApiType>();
+        ArrayList<Discipline> result = new ArrayList<Discipline>();
         List disciplinesLinks = discUsrLnkDao.getUsersDisciplineLinks(id);
 
         for (Object discLink : disciplinesLinks) {
             Discipline discipline = ((DisciplineUserLink) discLink).getDiscipline();
-            result.add(new DisciplineApiType(discipline.getId(), discipline.getName()));
+            result.add(discipline);
         }
 
         return result;
@@ -63,7 +62,7 @@ public class RestAPIService {
         for (Object discipline : allDisciplinesList) {
             int i = 0;
             for (Object currentDiscipline : currentDisciplines) {
-                if (((Discipline) discipline).getName().equals(((DisciplineApiType) currentDiscipline).getName())) i++;
+                if (((Discipline) discipline).getName().equals(((Discipline) currentDiscipline).getName())) i++;
 
             }
             if (i == 0) result.add(((Discipline) discipline).getName());
@@ -72,7 +71,7 @@ public class RestAPIService {
         return result;
     }
 
-    public List getUsersChatsList(int id) {
+    public List getUsersChatList(int id) {
         List<Chat> result = chatDao.getUserChats(id);
 //        ArrayList<ChatApiType> result = new ArrayList<ChatApiType>();
 //        for (Chat chat : chats) {
@@ -82,7 +81,7 @@ public class RestAPIService {
         return result;
     }
 
-    public List getUsersChatsList(String login) {
+    public List getUsersChatList(String login) {
         List<Chat> result = chatDao.getUserChats(login);
 
         return result;

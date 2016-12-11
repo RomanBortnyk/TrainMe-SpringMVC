@@ -2,11 +2,11 @@ package trainMe.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import trainMe.api.apiModel.DisciplineApiType;
 import trainMe.dao.implementation.DisciplineUserLinkDao;
 import trainMe.dao.implementation.UserDao;
 import trainMe.jsonObjects.SearchRequestObject;
 import trainMe.jsonObjects.UserSearchResponse;
+import trainMe.model.Discipline;
 import trainMe.model.DisciplineUserLink;
 import trainMe.model.User;
 
@@ -50,13 +50,14 @@ public class SearchService {
         ArrayList<UserSearchResponse> result = new ArrayList<UserSearchResponse>();
 
         for (User user: usersList){
+
             List<DisciplineUserLink> links = discUsrLnkDao.getUsersDisciplineLinks(user.getId());
 
             UserSearchResponse userSearchResponse = new UserSearchResponse();
-            ArrayList<DisciplineApiType> disciplines = new ArrayList<DisciplineApiType>();
+            ArrayList<Discipline> disciplines = new ArrayList<Discipline>();
 
             for (DisciplineUserLink link: links){
-                disciplines.add(new DisciplineApiType(link.getDiscipline().getId(),link.getDiscipline().getName()));
+                disciplines.add(link.getDiscipline());
             }
             userSearchResponse.setDisciplines(disciplines);
             userSearchResponse.setId(user.getId());
