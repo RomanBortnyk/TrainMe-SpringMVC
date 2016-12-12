@@ -1,6 +1,6 @@
 #TrainMe
 
-Service which provides easy hiring of coaches, communication between coaches(sport instructors) and their clients. Feedback and search systems helps to find the best coach for client's requirements. Messenger provides an opportunity to users to communicate. Technology stack: SpringMVC, JSP, Bootstrap, Hibernate, WebSockets, AJAX, REST.
+Service which provides easy hiring of coaches, communication between coaches(sport instructors) and their clients. Feedback and search systems helps to find the best coach for client's requirements. Messenger provides an opportunity to users to communicate. Technology stack: Spring(MVC, Security), JSP, Bootstrap, Hibernate, WebSockets, AJAX, REST.
 
 ##Getting started
 ###Requirements:
