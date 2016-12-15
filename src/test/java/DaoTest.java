@@ -9,8 +9,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import trainMe.config.DAOTestConfig;
 
 import trainMe.dao.implementation.*;
+import trainMe.model.Chat;
+import trainMe.model.Feedback;
 import trainMe.model.Message;
 import trainMe.model.User;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -70,14 +74,32 @@ public class DaoTest {
 
         assertNull(userDao.read(1));
 
-
-
-
     }
 
 
     @Test
     public void messageDaoTest(){
+
+        Message message = new Message();
+        message.setText("text");
+
+        messageDao.create(message);
+
+        List<Message> messages = messageDao.readAll();
+
+        assertEquals("text",messageDao.read(1).getText());
+//        assertEquals("text", messages.get(1).getText());
+
+    }
+
+    @Test
+    public void feedbackDaoTest(){
+
+        Feedback feedback = new Feedback();
+        feedback.setText("testtest");
+        feedbackDao.create(feedback);
+
+        assertEquals("testtest",feedbackDao.read(1).getText());
 
     }
 
