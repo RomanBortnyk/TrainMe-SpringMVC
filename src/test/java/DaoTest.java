@@ -103,4 +103,15 @@ public class DaoTest {
 
     }
 
+    @Test
+    public void chatDaoTest(){
+
+        Chat chat = new Chat();
+        chat.setName("name");
+        chatDao.create(chat);
+
+        assertEquals("name", chatDao.read(1).getName());
+
+    }
+
 }
