@@ -1,7 +1,6 @@
 package trainMe.dao.implementation;
 
 
-import trainMe.messenger.SmallerMessage;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
