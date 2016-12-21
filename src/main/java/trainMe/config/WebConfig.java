@@ -1,32 +1,24 @@
 package trainMe.config;
 
-import org.hibernate.SessionFactory;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import trainMe.aspects.Audience;
-import trainMe.hibernate.HibernateUtil;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"trainMe.controllers", "trainMe.api", "trainMe.messenger"})
+@ComponentScan(basePackages = {"trainMe.controllers", "trainMe.api"})
 @EnableAsync
 @Import({SecurityConfig.class, RootConfig.class, WebSocketStompConfig.class})
 
@@ -46,10 +38,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
   }
 
-//  @Bean
-//  public SimpMessagingTemplate simpMessagingTemplate (){
-//      return new SimpMessagingTemplate();
-//  }
 
   @Bean
   public ViewResolver viewResolver() {

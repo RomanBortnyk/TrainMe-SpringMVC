@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Message;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +38,8 @@ public class MessageDao extends AbstractDao {
 
     public List <Message> getChatMessages(int chatId){
 
-        List<Message> result = new ArrayList<Message>();
+//        List<Message> result = new ArrayList<Message>();
+        List<Message> result;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
