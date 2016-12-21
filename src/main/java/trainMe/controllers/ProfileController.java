@@ -13,6 +13,7 @@ import trainMe.dao.implementation.UserDao;
 import trainMe.jsonObjects.ReceivedMessageJson;
 import trainMe.model.User;
 import trainMe.services.MessengerService;
+import trainMe.services.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -30,16 +31,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class ProfileController {
 
     @Autowired
-    UserDao userDao;
+    UserService userService;
+
     @Autowired
     MessengerService messengerService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String renderProfilePage (HttpServletRequest request, Model model,
-                                     @PathVariable ("id") int userId){
+    public String renderProfilePage ( Model model, @PathVariable ("id") int userId){
 
-        User user = userDao.read(userId);
-        model.addAttribute("user", user);
+//        User user = userService.readById(userId);
+        model.addAttribute("user", userService.readById(userId));
 
         return "profile";
 
@@ -49,7 +50,7 @@ public class ProfileController {
     public String redirectToAuthentictedUserProfile(Model model){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = authentication == null ? null : userDao.read( authentication.getName() );
+        User user = authentication == null ? null : userService.readByLogin( authentication.getName() );
 
         model.addAttribute("authenticatedUser", user);
 
@@ -58,7 +59,6 @@ public class ProfileController {
 
     @RequestMapping(value = "/message", method = POST)
     public String handleNewMessage (@RequestBody ReceivedMessageJson incoming, Principal principal){
-
 
         messengerService.checkDoesChatExistAndSendToUser(incoming,principal.getName());
 
