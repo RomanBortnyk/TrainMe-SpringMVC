@@ -33,8 +33,7 @@ public class ModifyUsersDataController {
     DescriptionService descriptionService;
 
     @RequestMapping(value = "avatar", method = RequestMethod.POST)
-    public String updateAvatar (HttpServletRequest request,
-                                @RequestParam("newAvatar") MultipartFile file) throws IOException{
+    public String updateAvatar (@RequestParam("newAvatar") MultipartFile file) throws IOException{
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

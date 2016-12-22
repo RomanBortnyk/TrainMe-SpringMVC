@@ -20,7 +20,7 @@ public class MessageController {
 
 
     @MessageMapping("/send")
-//    @SendToUser("/queue/messages-updates")
+
     public void handle (@Payload ReceivedMessageJson incoming, Principal principal){
 
         messengerService.sendMessageToUser(incoming, principal.getName());

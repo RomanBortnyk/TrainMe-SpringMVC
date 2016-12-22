@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by romab on 11/15/16.
  */
-public class UserSearchResponse {
+public class SearchResponseObject {
 
     private int id;
     private String firstName;
@@ -17,10 +17,10 @@ public class UserSearchResponse {
     private ArrayList<Discipline> disciplines;
 
 
-    public UserSearchResponse() {
+    public SearchResponseObject() {
     }
 
-    public UserSearchResponse(int id, String firstName, String lastName, String userType, ArrayList<Discipline> disciplines) {
+    public SearchResponseObject(int id, String firstName, String lastName, String userType, ArrayList<Discipline> disciplines) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

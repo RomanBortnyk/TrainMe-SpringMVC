@@ -7,10 +7,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import trainMe.api.RestAPIService;
 import trainMe.jsonObjects.NewFeedbackRequest;
+import trainMe.jsonObjects.SearchRequestObject;
+import trainMe.jsonObjects.SearchResponseObject;
 import trainMe.jsonObjects.TestObject;
 import trainMe.model.Feedback;
 import trainMe.model.User;
 import trainMe.services.FeedbackService;
+import trainMe.services.SearchService;
 import trainMe.services.UserService;
 
 import java.util.ArrayList;
@@ -33,6 +36,9 @@ public class ApiController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    SearchService searchService;
+
 
     @RequestMapping(value = "/test",method= RequestMethod.GET)
     public TestObject getTest() {
@@ -41,6 +47,8 @@ public class ApiController {
 
         return test;
     }
+
+    //feedback api's
 
     @RequestMapping(value="/feedback", method = RequestMethod.POST)
     public @ResponseBody Feedback addFeedback(@RequestBody NewFeedbackRequest newFeedbackRequest) {
@@ -64,6 +72,9 @@ public class ApiController {
         return restAPIService.getFeedbacksByUserId(userId);
     }
 
+
+    //discipline api's
+
     @RequestMapping(value = "/disciplines/{userId}",method= RequestMethod.GET)
     public List getDisciplinesByUserId(@PathVariable("userId") int userId) {
         return restAPIService.getDisciplinesByUserId(userId);
@@ -73,6 +84,9 @@ public class ApiController {
     public List getSortedDisciplinesNamesToAdd(@PathVariable("userId") int userId) {
         return restAPIService.getSortedDisciplinesNamesToAdd(userId);
     }
+
+
+    //chat api's
 
     @RequestMapping(value = "/chats/byId/{userId}",method= RequestMethod.GET)
     public List getUsersChatsListByUserId(@PathVariable("userId") int userId) {
@@ -84,12 +98,17 @@ public class ApiController {
         return restAPIService.getUsersChatList(userLogin);
     }
 
+    // message api's
+
+
     @RequestMapping(value = "/messages/{chatId}",method= RequestMethod.GET)
     public List getChatMessages(@PathVariable("chatId") int chatId) {
 
         return restAPIService.getChatMessages(chatId);
     }
 
+
+    // autocomplete api's
 
     @RequestMapping(value = "/autocomplete/disciplines/{param}",method= RequestMethod.GET)
     public ArrayList<String> getDisciplines(@PathVariable("param") String parameter) {
@@ -102,6 +121,14 @@ public class ApiController {
 
         return restAPIService.getUsersFullNamesStartsWithParam(parameter);
 
+    }
+
+    // search api's
+
+    @RequestMapping (value = "/search", method = RequestMethod.POST)
+    public @ResponseBody List<SearchResponseObject> search (@RequestBody SearchRequestObject requestObject){
+
+        return searchService.search(requestObject);
     }
 
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import trainMe.jsonObjects.SearchRequestObject;
-import trainMe.jsonObjects.UserSearchResponse;
+import trainMe.jsonObjects.SearchResponseObject;
 import trainMe.services.SearchService;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class SearchController {
     SearchService searchService;
 
     @RequestMapping (value = "/searchRequest", method = RequestMethod.POST)
-    public @ResponseBody List<UserSearchResponse> search (@RequestBody SearchRequestObject requestObject){
+    public @ResponseBody List<SearchResponseObject> search (@RequestBody SearchRequestObject requestObject){
 
         return searchService.search(requestObject);
     }

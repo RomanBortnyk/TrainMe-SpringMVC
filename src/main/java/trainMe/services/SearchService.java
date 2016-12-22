@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import trainMe.dao.implementation.DisciplineUserLinkDao;
 import trainMe.dao.implementation.UserDao;
 import trainMe.jsonObjects.SearchRequestObject;
-import trainMe.jsonObjects.UserSearchResponse;
+import trainMe.jsonObjects.SearchResponseObject;
 import trainMe.model.Discipline;
 import trainMe.model.DisciplineUserLink;
 import trainMe.model.User;
@@ -24,7 +24,7 @@ public class SearchService {
     @Autowired
     DisciplineUserLinkDao discUsrLnkDao;
 
-    public ArrayList<UserSearchResponse> search(SearchRequestObject requestObject) {
+    public ArrayList<SearchResponseObject> search(SearchRequestObject requestObject) {
 
 
         if (requestObject.getSearchOption().equals("byFullName")) {
@@ -45,28 +45,28 @@ public class SearchService {
 
     }
 
-    public ArrayList<UserSearchResponse> generateResultList (List<User> usersList){
+    public ArrayList<SearchResponseObject> generateResultList (List<User> usersList){
 
-        ArrayList<UserSearchResponse> result = new ArrayList<UserSearchResponse>();
+        ArrayList<SearchResponseObject> result = new ArrayList<SearchResponseObject>();
 
         for (User user: usersList){
 
             List<DisciplineUserLink> links = discUsrLnkDao.getUsersDisciplineLinks(user.getId());
 
-            UserSearchResponse userSearchResponse = new UserSearchResponse();
+            SearchResponseObject searchResponseObject = new SearchResponseObject();
             ArrayList<Discipline> disciplines = new ArrayList<Discipline>();
 
             for (DisciplineUserLink link: links){
                 disciplines.add(link.getDiscipline());
             }
-            userSearchResponse.setDisciplines(disciplines);
-            userSearchResponse.setId(user.getId());
-            userSearchResponse.setFirstName(user.getFirstName());
-            userSearchResponse.setLastName(user.getLastName());
-            userSearchResponse.setUserType(user.getUserType());
-            userSearchResponse.setDescription(user.getDescription());
+            searchResponseObject.setDisciplines(disciplines);
+            searchResponseObject.setId(user.getId());
+            searchResponseObject.setFirstName(user.getFirstName());
+            searchResponseObject.setLastName(user.getLastName());
+            searchResponseObject.setUserType(user.getUserType());
+            searchResponseObject.setDescription(user.getDescription());
 
-            result.add(userSearchResponse);
+            result.add(searchResponseObject);
 
         }
 

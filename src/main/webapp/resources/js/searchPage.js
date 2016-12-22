@@ -43,7 +43,7 @@ function sendSearchRequest() {
 
     $.ajax({
         type: "POST",
-        url: "/searchRequest",
+        url: "/api/search",
         data: JSON.stringify(requestParameters),
         contentType: "application/json",
         success: function (response) {
