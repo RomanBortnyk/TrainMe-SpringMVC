@@ -6,6 +6,7 @@ import org.springframework.test.context.transaction.AfterTransaction;
 import trainMe.dao.implementation.DisciplineDao;
 import trainMe.dao.implementation.DisciplineUserLinkDao;
 import trainMe.dao.implementation.UserDao;
+import trainMe.model.Discipline;
 import trainMe.model.DisciplineUserLink;
 import trainMe.model.User;
 
@@ -33,6 +34,10 @@ public class DisciplineService {
 
         discUsrLnkDao.delete(discUsrLnkDao.read(userDao.read(login),disciplineDao.read(discipline)));
 
+    }
+
+    public Discipline readById (int id){
+        return disciplineDao.read(id);
     }
 
 }

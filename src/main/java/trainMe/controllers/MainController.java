@@ -19,8 +19,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/")
 public class MainController {
 
-  @Autowired
-  UserDao userDao;
 
   @RequestMapping(value = {"login"}, method = GET)
   public String home() {
@@ -56,7 +54,6 @@ public class MainController {
 
     return "TEST";
   }
-
 
   @RequestMapping(value="/logout", method = GET)
   public String logout (HttpServletRequest request, HttpServletResponse response) {
