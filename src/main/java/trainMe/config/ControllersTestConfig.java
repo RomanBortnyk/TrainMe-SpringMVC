@@ -23,8 +23,8 @@ import java.util.List;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {})
-@EnableAsync
+//@ComponentScan(basePackages = {})
+//@EnableAsync
 public class ControllersTestConfig {
 
 

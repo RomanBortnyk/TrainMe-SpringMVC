@@ -2,10 +2,16 @@ package trainMe.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import trainMe.api.RestAPIService;
+import trainMe.jsonObjects.NewFeedbackRequest;
 import trainMe.jsonObjects.TestObject;
 import trainMe.model.Feedback;
+import trainMe.model.User;
+import trainMe.services.FeedbackService;
+import trainMe.services.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +23,16 @@ import java.util.List;
 @RequestMapping("/api")
 public class ApiController {
 
+
     @Autowired
     private RestAPIService restAPIService;
+
+    @Autowired
+    FeedbackService feedbackService;
+
+    @Autowired
+    UserService userService;
+
 
     @RequestMapping(value = "/test",method= RequestMethod.GET)
     public TestObject getTest() {
@@ -26,6 +40,18 @@ public class ApiController {
         TestObject test = new TestObject(3,"name","alias",213214);
 
         return test;
+    }
+
+    @RequestMapping(value="/feedback", method = RequestMethod.POST)
+    public @ResponseBody Feedback addFeedback(@RequestBody NewFeedbackRequest newFeedbackRequest) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = authentication == null ? null : userService.readByLogin( authentication.getName() );
+
+        return feedbackService.add(newFeedbackRequest.getDestinationUserId(),
+                currentUser,
+                newFeedbackRequest.getNewFeedbackText());
+
     }
 
     @RequestMapping(value = "/feedback/{feedbackId}",method= RequestMethod.GET)

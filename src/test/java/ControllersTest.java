@@ -56,10 +56,7 @@ public class ControllersTest {
         user.setEmail("email");
         user.setPassword("password");
 
-
-
         when(userServiceMock.readById(1)).thenReturn(user);
-
 
 
         mockMvc.perform(get("/profile/{id}", 1))

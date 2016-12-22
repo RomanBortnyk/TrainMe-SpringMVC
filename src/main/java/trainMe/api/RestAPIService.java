@@ -73,11 +73,7 @@ public class RestAPIService {
 
     public List getUsersChatList(int id) {
         List<Chat> result = chatDao.getUserChats(id);
-//        ArrayList<ChatApiType> result = new ArrayList<ChatApiType>();
-//        for (Chat chat : chats) {
-//            result.add(new ChatApiType(chat.getId(), chat.getUser2().getFirstName(),
-//                    chat.getUser2().getLastName(), chat.getUser2().getId()));
-//        }
+
         return result;
     }
 

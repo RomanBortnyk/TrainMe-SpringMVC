@@ -95,7 +95,7 @@ function addNewFeedback() {
 
     $.ajax({
         type: "POST",
-        url: "/feedback/add",
+        url: "/api/feedback",
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function (response) {
