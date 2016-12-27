@@ -33,7 +33,7 @@
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>
-        trainMe.config.WebConfig
+        trainMe.config.app.WebConfig
       </param-value>
     </init-param>
 

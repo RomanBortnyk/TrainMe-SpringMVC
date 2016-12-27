@@ -33,8 +33,8 @@ public class ProfileController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    MessengerService messengerService;
+//    @Autowired
+//    MessengerService messengerService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String renderProfilePage ( Model model, @PathVariable ("id") int userId){
@@ -60,7 +60,7 @@ public class ProfileController {
     @RequestMapping(value = "/message", method = POST)
     public String handleNewMessage (@RequestBody ReceivedMessageJson incoming, Principal principal){
 
-        messengerService.checkDoesChatExistAndSendToUser(incoming,principal.getName());
+//        messengerService.checkDoesChatExistAndSendToUser(incoming,principal.getName());
 
         return "success";
 

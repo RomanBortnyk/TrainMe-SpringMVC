@@ -1,4 +1,4 @@
-package trainMe.config;
+package trainMe.config.app;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
@@ -23,7 +23,6 @@ public class WebSocketStompConfig extends AbstractWebSocketMessageBrokerConfigur
         registry.enableSimpleBroker("/queue", "/topic","/user");
         registry.setApplicationDestinationPrefixes("/app");
     }
-
 
 
 

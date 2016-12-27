@@ -9,8 +9,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import trainMe.config.ControllersTestConfig;
-import trainMe.config.WebConfig;
+import trainMe.config.app.WebConfig;
+import trainMe.config.test.WebTestConfiguration;
 import trainMe.model.User;
 import trainMe.services.UserService;
 
@@ -20,9 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ControllersTestConfig.class})
+@ContextConfiguration(classes = {WebTestConfiguration.class})
 @WebAppConfiguration
-public class ControllersTest {
+public class ProfileControllerTest {
 
     private MockMvc mockMvc;
 
@@ -36,6 +36,7 @@ public class ControllersTest {
 
     @Before
     public void setup() {
+        Mockito.reset(userServiceMock);
 
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }

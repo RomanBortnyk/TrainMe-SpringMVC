@@ -1,12 +1,11 @@
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import trainMe.config.DAOTestConfig;
+import trainMe.config.test.DAOTestConfig;
 
 import trainMe.dao.implementation.*;
 import trainMe.model.Chat;

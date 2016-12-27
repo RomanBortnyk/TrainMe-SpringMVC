@@ -1,4 +1,4 @@
-package trainMe.config;
+package trainMe.config.test;
 
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;

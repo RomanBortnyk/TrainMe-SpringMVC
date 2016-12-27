@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import trainMe.api.RestAPIService;
+import trainMe.services.RestAPIService;
 import trainMe.jsonObjects.NewFeedbackRequest;
 import trainMe.jsonObjects.SearchRequestObject;
 import trainMe.jsonObjects.SearchResponseObject;
@@ -28,7 +28,7 @@ public class ApiController {
 
 
     @Autowired
-    private RestAPIService restAPIService;
+    RestAPIService restAPIService;
 
     @Autowired
     FeedbackService feedbackService;

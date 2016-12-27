@@ -1,4 +1,4 @@
-package trainMe.config;
+package trainMe.config.app;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,9 +18,8 @@ import java.util.List;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"trainMe.controllers", "trainMe.api"})
+@ComponentScan(basePackages = {"trainMe.controllers", "trainMe.api", "trainMe.config.app"})
 @EnableAsync
-@Import({SecurityConfig.class, RootConfig.class, WebSocketStompConfig.class})
 
 public class WebConfig extends WebMvcConfigurerAdapter {
 

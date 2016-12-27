@@ -1,4 +1,4 @@
-package trainMe.config;
+package trainMe.config.app;
 
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan(basePackages = {"trainMe.dao","trainMe.hibernate","trainMe.services"})
 @EnableTransactionManagement
-//@Import({WebConfig.class})
+
 
 public class RootConfig {
 

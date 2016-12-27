@@ -21,6 +21,7 @@ public class MessengerService {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
     @Autowired
     UserDao userDao;
     @Autowired
