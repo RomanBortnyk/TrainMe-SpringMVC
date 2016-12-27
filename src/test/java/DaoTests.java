@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DAOTestConfig.class)
-public class DaoTest {
+public class DaoTests {
 
     @Autowired
     UserDao userDao;

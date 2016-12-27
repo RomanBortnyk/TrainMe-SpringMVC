@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import trainMe.controllers.MainController;
 import trainMe.controllers.ProfileController;
 import trainMe.dao.implementation.ChatDao;
 import trainMe.dao.implementation.MessageDao;
@@ -50,6 +51,8 @@ public class WebTestConfiguration extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+    // dao's mocks
+    //--------------------------------------
     @Bean
     public UserDao userDao (){
         return Mockito.mock(UserDao.class);
@@ -64,12 +67,15 @@ public class WebTestConfiguration extends WebMvcConfigurerAdapter {
     public ChatDao chatDao(){
         return Mockito.mock(ChatDao.class);
     }
+    //---------------------------------------
 
     @Bean
     public SimpMessagingTemplate messagingTemplate(){
         return Mockito.mock(SimpMessagingTemplate.class);
     }
 
+    // services mocks
+    //----------------------------------------
     @Bean
     public MessengerService messengerService (){
         return Mockito.mock(MessengerService.class);
@@ -80,12 +86,18 @@ public class WebTestConfiguration extends WebMvcConfigurerAdapter {
         return Mockito.mock(UserService.class);
     }
 
+    //----------------------------------------
+
+    // controller's mocks
     @Bean
     public ProfileController profileController(){
         return new ProfileController();
     }
 
-
+    @Bean
+    public MainController mainController(){
+        return new MainController();
+    }
 
 
 
