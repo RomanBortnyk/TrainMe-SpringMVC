@@ -13,6 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
 import trainMe.config.test.WebTestConfiguration;
 import trainMe.model.Feedback;
 import trainMe.model.User;
+import trainMe.services.DisciplineService;
 import trainMe.services.FeedbackService;
 import trainMe.services.UserService;
 import java.util.ArrayList;
