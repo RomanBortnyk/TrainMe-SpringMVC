@@ -16,19 +16,7 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.min.css">
     <script type="text/javascript" src="/resources/js/userPage.js"></script>
 
-    <style>
-        #userAvatar {
-            display: inline-block;
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-
-        }
-    </style>
-
+   
 </head>
 <script>
     setCurrentUserId(${authenticatedUser.id});
