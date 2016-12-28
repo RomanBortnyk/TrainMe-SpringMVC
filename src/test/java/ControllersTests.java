@@ -176,6 +176,26 @@ public class ControllersTests {
                 .andExpect(status().isOk())
                 .andExpect(view().name("searchPage"))
                 .andExpect(forwardedUrl("/WEB-INF/views/searchPage.jsp"));
+        
+    
+        mockMvc.perform(get("/expotential-backoff"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("expotentialBackoff"))
+                .andExpect(forwardedUrl("/WEB-INF/views/expotentialBackoff.jsp"));
+
+
+        mockMvc.perform(post("/login"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/profile/me"));
+
+        mockMvc.perform(post("/logout"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login?logout"));
+
+
+
+
+
 
 
     }
