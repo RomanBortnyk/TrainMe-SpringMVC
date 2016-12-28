@@ -16,6 +16,9 @@ import trainMe.model.User;
 import trainMe.services.FeedbackService;
 import trainMe.services.UserService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -46,7 +49,7 @@ public class ControllersTests {
     }
 
     @Test
-    public void feedbackAPITest () throws Exception{
+    public void feedbackAPIgetByIdTest () throws Exception{
 
         Feedback feedback = new Feedback();
         feedback.setText("feedback");
@@ -76,6 +79,48 @@ public class ControllersTests {
                 .andExpect(jsonPath("$.authorFirstName", is("firstName")));
 
         verify(feedbackServiceMock, times(1)).getFeedbackById(1);
+        verifyNoMoreInteractions(feedbackServiceMock);
+    }
+
+    @Test
+    public void feedbackAPIgetAllByUserIdTest () throws Exception{
+
+        Feedback feedback = new Feedback();
+        feedback.setText("feedback");
+        feedback.setId(1);
+        User user = new User(
+                "firstName",
+                "lastName",
+                "10/10/2000",
+                "login",
+                "pass",
+                "email",
+                "coach"
+        );
+        user.setId(1);
+        feedback.setAuthor(user);
+
+        ArrayList<Feedback>  list = new ArrayList<>();
+        list.add(feedback);
+        list.add(feedback);
+
+        when(feedbackServiceMock.getFeedbacksByUserId(1)).thenReturn(list);
+
+
+        mockMvc.perform(get("/api/feedbacks/{id}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].text", is("feedback")))
+                .andExpect(jsonPath("$[0].authorId", is(1)))
+                .andExpect(jsonPath("$[0].authorFirstName", is("firstName")))
+
+                .andExpect(jsonPath("$[1].id", is(1)))
+                .andExpect(jsonPath("$[1].text", is("feedback")))
+                .andExpect(jsonPath("$[1].authorId", is(1)))
+                .andExpect(jsonPath("$[1].authorFirstName", is("firstName")));
+
+        verify(feedbackServiceMock, times(1)).getFeedbacksByUserId(1);
         verifyNoMoreInteractions(feedbackServiceMock);
     }
 
