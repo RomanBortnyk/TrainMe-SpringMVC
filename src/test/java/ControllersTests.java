@@ -38,7 +38,7 @@ public class ControllersTests {
     private FeedbackService feedbackServiceMock;
     
     @Autowired
-    DisciplineService disciplineServiceMock;
+    private DisciplineService disciplineServiceMock;
     
     @Autowired
     private WebApplicationContext context;
@@ -49,6 +49,8 @@ public class ControllersTests {
 
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
+    
+    // feedback api tests
 
     @Test
     public void feedbackAPIgetByIdTest () throws Exception{
@@ -84,38 +86,6 @@ public class ControllersTests {
         verifyNoMoreInteractions(feedbackServiceMock);
     }
     
-   
-    @Test
-    public void disciplineAPIgetByUserIdTest() throws Exception{
-
-        Discipline discipline = new Discipline();
-        discipline.setId(1);
-        discipline.setName("discipline1");
-
-
-        ArrayList<Discipline>  list = new ArrayList<>();
-        list.add(discipline);
-        list.add(discipline);
-
-        when(disciplineServiceMock.getDisciplinesByUserId(1)).thenReturn(list);
-
-
-        mockMvc.perform(get("/api/disciplines/{userId}", 1))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$[0].id", is(1)))
-                .andExpect(jsonPath("$[0].name", is("discipline1")))
-
-                .andExpect(jsonPath("$[1].id", is(1)))
-                .andExpect(jsonPath("$[1].name", is("discipline1")));
-
-
-        verify(disciplineServiceMock, times(1)).getDisciplinesByUserId(1);
-        verifyNoMoreInteractions(disciplineServiceMock);
-
-    }
-   
-
     @Test
     public void feedbackAPIgetAllByUserIdTest () throws Exception{
 
@@ -157,7 +127,42 @@ public class ControllersTests {
         verify(feedbackServiceMock, times(1)).getFeedbacksByUserId(1);
         verifyNoMoreInteractions(feedbackServiceMock);
     }
+    //-----------------------------------------------------------------------
+    
+    
+    
+   // discipline api test
+    @Test
+    public void disciplineAPIgetByUserIdTest() throws Exception{
 
+        Discipline discipline = new Discipline();
+        discipline.setId(1);
+        discipline.setName("discipline1");
+
+
+        ArrayList<Discipline>  list = new ArrayList<>();
+        list.add(discipline);
+        list.add(discipline);
+
+        when(disciplineServiceMock.getDisciplinesByUserId(1)).thenReturn(list);
+
+
+        mockMvc.perform(get("/api/disciplines/{userId}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].name", is("discipline1")))
+
+                .andExpect(jsonPath("$[1].id", is(1)))
+                .andExpect(jsonPath("$[1].name", is("discipline1")));
+
+
+        verify(disciplineServiceMock, times(1)).getDisciplinesByUserId(1);
+        verifyNoMoreInteractions(disciplineServiceMock);
+
+    }
+   
+    //----------------------------------------------------------------
 
     @Test
     public void profileControllerTest() throws Exception  {
