@@ -57,6 +57,16 @@ body {
     height: 32px;"
 }
 
+#userAvatar {
+           display: inline-block;
+           width: 280px;
+           height: 280px;
+           border-radius: 50%;
+           background-repeat: no-repeat;
+           background-position: center center;
+           background-size: cover;
+}
+
 #description{
     padding-left: 2%;
 =======
