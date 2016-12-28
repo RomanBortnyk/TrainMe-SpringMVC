@@ -24,8 +24,6 @@ public class UserService {
     @Autowired
     DisciplineDao disciplineDao;
 
-    private String errorMessage;
-
     public User readById (int id){
         return userDao.read(id);
     }
@@ -33,6 +31,10 @@ public class UserService {
     public User readByLogin (String login){
 
         return userDao.read(login);
+    }
+    
+    public List readAll(){
+        return  userDao.readAll();
     }
 
     public ArrayList<String> getUsersFullNamesStartsWithParam(String parameter) {
