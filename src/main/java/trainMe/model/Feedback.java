@@ -34,7 +34,7 @@ public class Feedback implements Item {
     }
 
     @JsonProperty(value = "authorFirstName")
-    public String authorFirstNameId(){return this.author.getFirstName(); }
+    public String authorFirstName(){return this.author.getFirstName(); }
 
 
 

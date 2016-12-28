@@ -1,25 +1,26 @@
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
-import trainMe.config.app.WebConfig;
 import trainMe.config.test.WebTestConfiguration;
+import trainMe.model.Feedback;
 import trainMe.model.User;
+import trainMe.services.FeedbackService;
 import trainMe.services.UserService;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,6 +32,8 @@ public class ControllersTests {
 
     @Autowired
     private UserService userServiceMock;
+    @Autowired
+    private FeedbackService feedbackServiceMock;
 
     @Autowired
     private WebApplicationContext context;
@@ -42,6 +45,39 @@ public class ControllersTests {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
+    @Test
+    public void feedbackAPITest () throws Exception{
+
+        Feedback feedback = new Feedback();
+        feedback.setText("feedback");
+        feedback.setId(1);
+        User user = new User(
+                "firstName",
+                "lastName",
+                "10/10/2000",
+                "login",
+                "pass",
+                "email",
+                "coach"
+        );
+        user.setId(1);
+        feedback.setAuthor(user);
+
+
+        when(feedbackServiceMock.getFeedbackById(1)).thenReturn(feedback);
+
+
+        mockMvc.perform(get("/api/feedback/{id}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.text", is("feedback")))
+                .andExpect(jsonPath("$.authorId", is(1)))
+                .andExpect(jsonPath("$.authorFirstName", is("firstName")));
+
+        verify(feedbackServiceMock, times(1)).getFeedbackById(1);
+        verifyNoMoreInteractions(feedbackServiceMock);
+    }
 
 
     @Test
