@@ -73,8 +73,12 @@ public class ApiController {
     public User getUserById(@PathVariable ("id") int id) {
 
          return userService.readById(id);
+    }
+    
+    @RequestMapping(value="/users", method = RequestMethod.GET)
+    public List getUserById() {
 
-
+        return userService.readAll();
     }
 
     //feedback api's
