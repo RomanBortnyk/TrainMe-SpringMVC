@@ -2,6 +2,8 @@ package trainMe.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import trainMe.jsonObjects.TestObject;
 import trainMe.model.Feedback;
 import trainMe.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,15 +40,41 @@ public class ApiController {
     @Autowired
     private ChatService chatService;
     @Autowired
-    MessageService messageService;
+    private MessageService messageService;
 
 
-    @RequestMapping(value = "/test",method= RequestMethod.GET)
-    public TestObject getTest() {
 
-        TestObject test = new TestObject(3,"name","alias",213214);
+    @RequestMapping(value = "/expotential/{status}", method= RequestMethod.GET)
+    public User simulateExpotentialBackoff(@PathVariable String status, HttpServletResponse response) {
 
-        return test;
+        User user = new User(
+                "firstName",
+                "lastName",
+                "10/10/2000",
+                "login",
+                "pass",
+                "email",
+                "coach"
+        );
+        user.setId(1);
+
+        if ( status.equals("ok")) return user;
+        else if (status.equals("error")){
+
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return null;
+        }else return null;
+
+
+    }
+
+    //user api's
+    @RequestMapping(value="/user/{id}", method = RequestMethod.GET)
+    public User getUserById(@PathVariable ("id") int id) {
+
+         return userService.readById(id);
+
+
     }
 
     //feedback api's

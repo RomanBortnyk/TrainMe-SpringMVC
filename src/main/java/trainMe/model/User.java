@@ -1,5 +1,7 @@
 package trainMe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -18,11 +20,14 @@ public class User implements Item, Serializable {
     private String lastName;
     private String birthdayDate;
     private String login;
+
+    @JsonIgnore
     private String password;
     private String email;
     private String userType;
     private String description;
 
+    @JsonIgnore
     private Avatar avatar;
 
     public User(String firstName, String lastName, String birthdayDate,

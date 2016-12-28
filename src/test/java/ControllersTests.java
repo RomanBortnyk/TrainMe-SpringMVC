@@ -107,7 +107,7 @@ public class ControllersTests {
         when(feedbackServiceMock.getFeedbacksByUserId(1)).thenReturn(list);
 
 
-        mockMvc.perform(get("/api/feedbacks/{id}", 1))
+        mockMvc.perform(get("/api/feedbacks/{userId}", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].id", is(1)))

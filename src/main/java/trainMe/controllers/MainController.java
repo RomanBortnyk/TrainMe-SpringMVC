@@ -40,6 +40,11 @@ public class MainController {
     return "searchPage";
   }
 
+  @RequestMapping(value = "expotential-backoff",method = GET)
+  public String toExpotentialBackoffSimulation() {
+    return "expotentialBackoff";
+  }
+
 
   @RequestMapping(value = "login", method = POST)
   public String login (Model model){
