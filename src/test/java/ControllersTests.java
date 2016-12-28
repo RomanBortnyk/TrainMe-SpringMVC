@@ -15,13 +15,11 @@ import trainMe.model.Feedback;
 import trainMe.model.User;
 import trainMe.services.FeedbackService;
 import trainMe.services.UserService;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -193,12 +191,9 @@ public class ControllersTests {
                 .andExpect(redirectedUrl("/login?logout"));
 
 
-
-
-
-
-
     }
+
+
 
 
 }
