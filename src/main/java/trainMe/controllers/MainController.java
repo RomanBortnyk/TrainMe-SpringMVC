@@ -60,7 +60,7 @@ public class MainController {
     return "TEST";
   }
 
-  @RequestMapping(value="/logout", method = GET)
+  @RequestMapping(value="/logout", method = POST)
   public String logout (HttpServletRequest request, HttpServletResponse response) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
