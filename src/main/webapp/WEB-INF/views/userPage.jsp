@@ -31,11 +31,7 @@
             <div class="well">
 
                 <div class="col-lg-12 avatar">
-                    <div id="userAvatar" style="background-image: url('/image/avatar/${authenticatedUser.id}')">
-
-                    </div>
-                    <%--<img id="avatar" src="/image/avatar/${authenticatedUser.id}"--%>
-                         <%--width="265" height="265" class="img-circle" alt="Avatar">--%>
+                    <div id="userAvatar" style="background-image: url('/image/avatar/${authenticatedUser.id}')"></div>
                 </div>
 
                 <button type="button" id="addButton" class=" btn btn-default btn-sm" data-toggle="modal"
@@ -81,14 +77,7 @@
 
             <div class="well">
                 <h4>${authenticatedUser.userType.equals("customer") ? "Interests" : "Coach specialization"}</h4>
-                <ul id="disciplinesList" class="list-group">
-
-                    <%--<li class="list-group-item">--%>
-                        <%--<img src="/image/icon/${link.getDiscipline().getId()}" height="35" width="35" alt="icon">--%>
-                        <%--${link.getDiscipline().getName()}--%>
-                    <%--</li>--%>
-
-                </ul>
+                <ul id="disciplinesList" class="list-group"> </ul>
 
                 <button id="changeInterestsButton" type="button" style="margin-bottom: 15px;"
                         class="btn btn-default btn-sm" data-toggle="modal"
@@ -126,12 +115,7 @@
                                         <form action="/modify/discipline/remove" method="post">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                 <select id="discToRemove" name="disciplineToRemove" class="form-control">
-                                                    <option disabled selected hidden>--</option>
-                                                    <%--<c:forEach var="link" items="${disciplineLinks}">--%>
-                                                        <%--<option disabled selected hidden>--</option>--%>
-                                                        <%--<option>${link.getDiscipline().getName()}</option>--%>
-                                                    <%--</c:forEach>--%>
-
+                                                    <option disabled selected hidden>--</option>    
                                                 </select>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -199,7 +183,6 @@
             <div id="feedbacks" class="row">
 
             </div>
-
         </div>
     </div>
 </div>
