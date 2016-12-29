@@ -181,6 +181,52 @@ public class ControllersTests {
         verifyNoMoreInteractions(chatServiceMock);
     }
 
+    @Test
+    public void chatAPIgetAllByUserLoignTest () throws Exception{
+
+        User user = new User(
+                "firstname",
+                "lastname",
+                "10/10/2000",
+                "login",
+                "pass",
+                "email",
+                "coach"
+        );
+        user.setId(1);
+
+        Chat chat = new Chat();
+        chat.setId(1);
+        chat.setName("name");
+        chat.setUser1(user);
+        chat.setUser2(user);
+
+        ArrayList<Chat>  list = new ArrayList<>();
+        list.add(chat);
+        list.add(chat);
+
+        when(chatServiceMock.getUsersChatList("login")).thenReturn(list);
+
+
+        mockMvc.perform(get("/api/chats/byLogin/{userLogin}", "login"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].login", is("login")))
+                .andExpect(jsonPath("$[0].firstname", is("firstname")))
+                .andExpect(jsonPath("$[0].lastname", is("lastname")))
+                .andExpect(jsonPath("$[0].userId", is(1)))
+
+                .andExpect(jsonPath("$[1].id", is(1)))
+                .andExpect(jsonPath("$[1].login", is("login")))
+                .andExpect(jsonPath("$[1].firstname", is("firstname")))
+                .andExpect(jsonPath("$[1].lastname", is("lastname")))
+                .andExpect(jsonPath("$[1].userId", is(1)));
+
+        verify(chatServiceMock, times(1)).getUsersChatList("login");
+        verifyNoMoreInteractions(chatServiceMock);
+    }
+
    // discipline api test
     @Test
     public void disciplineAPIgetByUserIdTest() throws Exception{
