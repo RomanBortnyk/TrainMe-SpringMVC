@@ -39,13 +39,13 @@ public class ControllersTests {
     private UserService userServiceMock;
     @Autowired
     private FeedbackService feedbackServiceMock;
-    
+
     @Autowired
     private DisciplineService disciplineServiceMock;
 
     @Autowired
     private ChatService chatServiceMock;
-    
+
     @Autowired
     private WebApplicationContext context;
 
@@ -55,7 +55,7 @@ public class ControllersTests {
 
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
-    
+
     // feedback api tests
 
     @Test
@@ -79,7 +79,6 @@ public class ControllersTests {
 
         when(feedbackServiceMock.getFeedbackById(1)).thenReturn(feedback);
 
-
         mockMvc.perform(get("/api/feedback/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -91,7 +90,7 @@ public class ControllersTests {
         verify(feedbackServiceMock, times(1)).getFeedbackById(1);
         verifyNoMoreInteractions(feedbackServiceMock);
     }
-    
+
     @Test
     public void feedbackAPIgetAllByUserIdTest () throws Exception{
 
@@ -134,7 +133,6 @@ public class ControllersTests {
         verifyNoMoreInteractions(feedbackServiceMock);
     }
     //-----------------------------------------------------------------------
-    
 
     //chat api tests
     @Test
@@ -183,7 +181,7 @@ public class ControllersTests {
         verifyNoMoreInteractions(chatServiceMock);
     }
 
-   // discipline api test
+    // discipline api test
     @Test
     public void disciplineAPIgetByUserIdTest() throws Exception{
 
@@ -244,7 +242,6 @@ public class ControllersTests {
         verifyNoMoreInteractions(disciplineServiceMock);
 
     }
-    ////////////
 
     //----------------------------------------------------------------
 
@@ -299,8 +296,8 @@ public class ControllersTests {
                 .andExpect(status().isOk())
                 .andExpect(view().name("searchPage"))
                 .andExpect(forwardedUrl("/WEB-INF/views/searchPage.jsp"));
-        
-    
+
+
         mockMvc.perform(get("/expotential-backoff"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("expotentialBackoff"))
