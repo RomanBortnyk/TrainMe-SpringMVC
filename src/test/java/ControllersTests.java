@@ -11,9 +11,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import trainMe.config.test.WebTestConfiguration;
+import trainMe.model.Chat;
 import trainMe.model.Discipline;
 import trainMe.model.Feedback;
 import trainMe.model.User;
+import trainMe.services.ChatService;
 import trainMe.services.DisciplineService;
 import trainMe.services.FeedbackService;
 import trainMe.services.UserService;
@@ -40,6 +42,9 @@ public class ControllersTests {
     
     @Autowired
     private DisciplineService disciplineServiceMock;
+
+    @Autowired
+    private ChatService chatServiceMock;
     
     @Autowired
     private WebApplicationContext context;
@@ -130,8 +135,54 @@ public class ControllersTests {
     }
     //-----------------------------------------------------------------------
     
-    
-    
+
+    //chat api tests
+    @Test
+    public void chatAPIgetAllByUserIdTest () throws Exception{
+
+        User user = new User(
+                "firstname",
+                "lastname",
+                "10/10/2000",
+                "login",
+                "pass",
+                "email",
+                "coach"
+        );
+        user.setId(1);
+
+        Chat chat = new Chat();
+        chat.setId(1);
+        chat.setName("name");
+        chat.setUser1(user);
+        chat.setUser2(user);
+
+        ArrayList<Chat>  list = new ArrayList<>();
+        list.add(chat);
+        list.add(chat);
+
+        when(chatServiceMock.getUsersChatList(1)).thenReturn(list);
+
+
+        mockMvc.perform(get("/api/chats/byId/{userId}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].login", is("login")))
+                .andExpect(jsonPath("$[0].firstname", is("firstname")))
+                .andExpect(jsonPath("$[0].lastname", is("lastname")))
+                .andExpect(jsonPath("$[0].userId", is(1)))
+
+                .andExpect(jsonPath("$[1].id", is(1)))
+                .andExpect(jsonPath("$[1].login", is("login")))
+                .andExpect(jsonPath("$[1].firstname", is("firstname")))
+                .andExpect(jsonPath("$[1].lastname", is("lastname")))
+                .andExpect(jsonPath("$[1].userId", is(1)));
+
+        verify(chatServiceMock, times(1)).getUsersChatList(1);
+        verifyNoMoreInteractions(chatServiceMock);
+    }
+
    // discipline api test
     @Test
     public void disciplineAPIgetByUserIdTest() throws Exception{
@@ -162,8 +213,8 @@ public class ControllersTests {
         verifyNoMoreInteractions(disciplineServiceMock);
 
     }
-    
-    //////////////////
+
+
     @Test
     public void disciplineAPIgetSortedDisciplinesToAddByUserIdTest() throws Exception{
 
@@ -194,7 +245,7 @@ public class ControllersTests {
 
     }
     ////////////
-   
+
     //----------------------------------------------------------------
 
     @Test
