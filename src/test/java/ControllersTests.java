@@ -11,14 +11,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import trainMe.config.test.WebTestConfiguration;
-import trainMe.model.Chat;
-import trainMe.model.Discipline;
-import trainMe.model.Feedback;
-import trainMe.model.User;
-import trainMe.services.ChatService;
-import trainMe.services.DisciplineService;
-import trainMe.services.FeedbackService;
-import trainMe.services.UserService;
+import trainMe.model.*;
+import trainMe.services.*;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.*;
@@ -45,13 +41,20 @@ public class ControllersTests {
 
     @Autowired
     private ChatService chatServiceMock;
-    
+
+    @Autowired
+    private MessageService messageServiceMock;
+
     @Autowired
     private WebApplicationContext context;
 
     @Before
     public void setup() {
         Mockito.reset(userServiceMock);
+        Mockito.reset(chatServiceMock);
+        Mockito.reset(messageServiceMock);
+        Mockito.reset(disciplineServiceMock);
+        Mockito.reset(feedbackServiceMock);
 
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
@@ -201,6 +204,7 @@ public class ControllersTests {
         chat.setUser1(user);
         chat.setUser2(user);
 
+
         ArrayList<Chat>  list = new ArrayList<>();
         list.add(chat);
         list.add(chat);
@@ -226,6 +230,64 @@ public class ControllersTests {
         verify(chatServiceMock, times(1)).getUsersChatList("login");
         verifyNoMoreInteractions(chatServiceMock);
     }
+
+    @Test
+    public void messageAPIgetAllByChatId () throws Exception{
+
+        User user = new User(
+                "firstname",
+                "lastname",
+                "10/10/2000",
+                "login",
+                "pass",
+                "email",
+                "coach"
+        );
+        user.setId(1);
+
+        Chat chat = new Chat();
+        chat.setId(1);
+        chat.setName("name");
+        chat.setUser1(user);
+        chat.setUser2(user);
+
+        Message message = new Message();
+
+        message.setId(1);
+        message.setChat(chat);
+        message.setText("text");
+        message.setAuthor(user);
+        message.setCreatedAt(new Timestamp(23543));
+
+
+        ArrayList<Message>  list = new ArrayList<>();
+        list.add(message);
+        list.add(message);
+
+        when(messageServiceMock.getChatMessages(1)).thenReturn(list);
+
+
+        mockMvc.perform(get("/api/messages/{chatId}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].text", is("text")))
+                .andExpect(jsonPath("$[0].authorId", is(1)))
+                .andExpect(jsonPath("$[0].authorFirstName", is("firstname")))
+                .andExpect(jsonPath("$[0].authorLastName", is("lastname")))
+                .andExpect(jsonPath("$[0].chatId", is(1)))
+                .andExpect(jsonPath("$[0].authorLogin", is("login")))
+
+                .andExpect(jsonPath("$[1].text", is("text")))
+                .andExpect(jsonPath("$[1].authorId", is(1)))
+                .andExpect(jsonPath("$[1].authorFirstName", is("firstname")))
+                .andExpect(jsonPath("$[1].authorLastName", is("lastname")))
+                .andExpect(jsonPath("$[1].chatId", is(1)))
+                .andExpect(jsonPath("$[1].authorLogin", is("login")));
+
+        verify(messageServiceMock, times(1)).getChatMessages(1);
+        verifyNoMoreInteractions(messageServiceMock);
+    }
+
 
    // discipline api test
     @Test
