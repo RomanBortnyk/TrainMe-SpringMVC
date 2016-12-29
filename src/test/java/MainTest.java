@@ -32,6 +32,8 @@ public class MainTest {
         String describe  = resource.getString("describe");
         System.out.println(describe);
 
+        //comment just for merge
+
 
 
     }
