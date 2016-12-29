@@ -31,7 +31,5 @@ public class MainTest {
 
         String describe = resource.getString("describe");
 
-        // comment to revert
-
     }
 }

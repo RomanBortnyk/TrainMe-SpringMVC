@@ -320,7 +320,6 @@ public class ControllersTests {
 
     }
 
-
     @Test
     public void disciplineAPIgetSortedDisciplinesToAddByUserIdTest() throws Exception{
 
@@ -350,7 +349,6 @@ public class ControllersTests {
         verifyNoMoreInteractions(disciplineServiceMock);
 
     }
-
 
     //----------------------------------------------------------------
 
