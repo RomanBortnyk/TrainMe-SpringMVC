@@ -25,16 +25,11 @@ public class MainTest {
         Date date = new Date(timestamp.getTime());
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 
-
         System.out.println(sdf.format(date));
 
         ResourceBundle resource = ResourceBundle.getBundle("project");
-        String describe  = resource.getString("describe");
-        System.out.println(describe);
 
-        //comment just for merge
-
-
+        String describe = resource.getString("describe");
 
     }
 }
