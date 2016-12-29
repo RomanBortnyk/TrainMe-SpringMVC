@@ -79,7 +79,6 @@ public class ControllersTests {
 
         when(feedbackServiceMock.getFeedbackById(1)).thenReturn(feedback);
 
-
         mockMvc.perform(get("/api/feedback/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -134,7 +133,6 @@ public class ControllersTests {
         verifyNoMoreInteractions(feedbackServiceMock);
     }
     //-----------------------------------------------------------------------
-    
 
     //chat api tests
     @Test
@@ -244,7 +242,7 @@ public class ControllersTests {
         verifyNoMoreInteractions(disciplineServiceMock);
 
     }
-    ////////////
+
 
     //----------------------------------------------------------------
 
