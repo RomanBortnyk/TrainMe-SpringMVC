@@ -64,14 +64,13 @@ public class DisciplineDao extends AbstractDao {
     public Discipline read (String name){
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
 
         Query q = session.createQuery("from Discipline where name = :name");
         q.setString("name", name);
 
         Discipline newDiscipline = (Discipline)q.uniqueResult();
 
-        session.getTransaction().commit();
+        session.close();
 
         return newDiscipline;
     }

@@ -60,17 +60,18 @@ public class FeedbackDao extends AbstractDao {
     public boolean isExist(Feedback feedback) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+
 
         Query q = session.createQuery("from Feedback where " +
                     "author.id = :authorId and user.id = :userId");
         q.setInteger("authorId", feedback.getAuthor().getId());
         q.setInteger("userId", feedback.getUser().getId());
-        Feedback newDeal = (Feedback) q.uniqueResult();
 
-        session.getTransaction().commit();
+        Feedback newFeedback = (Feedback) q.uniqueResult();
 
-        if (newDeal == null) return false;
+        session.close();
+
+        if (newFeedback == null) return false;
             else return true;
     }
 
@@ -80,11 +81,11 @@ public class FeedbackDao extends AbstractDao {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
+
             Query query = session.createQuery("from Feedback where user.id =:userId");
             query.setInteger("userId", userId);
             result = query.list();
-            session.getTransaction().commit();
+
 
         }catch (Exception e){
             System.out.println(e.getMessage());

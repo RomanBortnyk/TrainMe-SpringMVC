@@ -51,11 +51,11 @@ public class DisciplineUserLinkDao extends AbstractDao {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
+
             Query query = session.createQuery("from DisciplineUserLink where user.id =:userId");
             query.setInteger("userId", userId);
             result = query.list();
-            session.getTransaction().commit();
+
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -76,13 +76,11 @@ public class DisciplineUserLinkDao extends AbstractDao {
         DisciplineUserLink result = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
             Query query = session.createQuery("from DisciplineUserLink where user.id =:userId " +
                     "and discipline.id =:disciplineId ");
             query.setInteger("userId", user.getId());
             query.setInteger("disciplineId", discipline.getId());
             result = (DisciplineUserLink) query.uniqueResult();
-            session.getTransaction().commit();
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -104,7 +102,7 @@ public class DisciplineUserLinkDao extends AbstractDao {
         Discipline discipline = disciplineDao.read(disciplineName);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+
 
         Query q = session.createQuery("from DisciplineUserLink where " +
                 "discipline.id =:disciplineId");
@@ -113,7 +111,6 @@ public class DisciplineUserLinkDao extends AbstractDao {
 
         tempList =  q.list();
 
-        session.getTransaction().commit();
 
         if( !userType.equals("all") ){
 

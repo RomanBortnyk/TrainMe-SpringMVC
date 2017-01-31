@@ -137,7 +137,6 @@ public class UserDao extends AbstractDao {
         if (user == null) return false;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
 
         Query q = session.createQuery("from User where " +
                 "login = :login or email = :email");
@@ -145,7 +144,6 @@ public class UserDao extends AbstractDao {
         q.setString("email",user.getEmail());
         User newUser = (User)q.uniqueResult();
 
-        session.getTransaction().commit();
 
         session.close();
         if (newUser == null) return false; else return true;

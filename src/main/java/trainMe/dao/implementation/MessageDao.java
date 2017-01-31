@@ -42,14 +42,14 @@ public class MessageDao extends AbstractDao {
         List<Message> result;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+
 
         Query q = session.createQuery("from Message where chat.id = :chatId");
         q.setInteger("chatId",chatId);
 
         result = q.list();
 
-        session.getTransaction().commit();
+        session.close();
 
 
         return result;

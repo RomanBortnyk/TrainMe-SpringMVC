@@ -32,7 +32,7 @@ public class ChatDao extends AbstractDao {
         List<Chat> result;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+
 
         Query q = session.createQuery("from Chat where user1.id =:userId " +
                 "or user2.id =:userId");
@@ -41,7 +41,7 @@ public class ChatDao extends AbstractDao {
 
         result = q.list();
 
-        session.getTransaction().commit();
+        session.close();
 
         // every user with current userId parameter will be in second place in chat object
         for (Chat chat : result) {
@@ -61,7 +61,6 @@ public class ChatDao extends AbstractDao {
         List<Chat> result;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
 
         Query q = session.createQuery("from Chat where user1.login =:login " +
                 "or user2.login =:login");
@@ -70,7 +69,7 @@ public class ChatDao extends AbstractDao {
 
         result = q.list();
 
-        session.getTransaction().commit();
+        session.close();
 
         // every user with current login parameter will be in second place in chat object
         for (Chat chat : result) {
@@ -87,7 +86,7 @@ public class ChatDao extends AbstractDao {
 
     public Chat readByUsersIds(int user1Id, int user2Id){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+
 
         Query q = session.createQuery("from Chat where " +
                 "(user1.id = :user1Id and user2.id = :user2Id) or " +
@@ -97,7 +96,7 @@ public class ChatDao extends AbstractDao {
         q.setInteger("user2Id", user2Id);
         Chat resultChat = (Chat) q.uniqueResult();
 
-        session.getTransaction().commit();
+        session.close();
 
         return resultChat;
     }
@@ -106,7 +105,7 @@ public class ChatDao extends AbstractDao {
 
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+
 
         Query q = session.createQuery("from Chat where " +
                 "(user1.id = :user1Id and user2.id = :user2Id) or " +
@@ -115,7 +114,7 @@ public class ChatDao extends AbstractDao {
         q.setInteger("user2Id", user2Id);
         Chat resultChat = (Chat) q.uniqueResult();
 
-        session.getTransaction().commit();
+        session.close();
         if (resultChat == null) return false;
         else return true;
 
