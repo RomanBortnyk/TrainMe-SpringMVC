@@ -39,9 +39,8 @@ public abstract class AbstractDao implements GenericDao,Serializable{
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
             item = (Item) session.get(clazz, id);
-            session.getTransaction().commit();
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }finally {
@@ -102,10 +101,10 @@ public abstract class AbstractDao implements GenericDao,Serializable{
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
+
             Query query = session.createQuery("from " + clazz.getName());
             items = query.list();
-            session.getTransaction().commit();
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }finally {
