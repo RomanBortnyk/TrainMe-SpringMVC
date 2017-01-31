@@ -77,9 +77,7 @@ public class UserDao extends AbstractDao {
     public boolean isPasswordCorrect (User user, String password){
 
         User chekedUser = read(user.getId());
-
         if (chekedUser.getPassword().equals(password)) return true; else return false;
-
 
     }
 
@@ -87,10 +85,8 @@ public class UserDao extends AbstractDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-
         Query q = session.createQuery("from User where login = :login");
         q.setString("login",login);
-
 
         User newUser = (User)q.uniqueResult();
 
@@ -106,7 +102,6 @@ public class UserDao extends AbstractDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-
         if (userType.equals("all")){
             Query q = session.createQuery("from User where firstName =:firstName " +
                     "and lastName =:lastName");
@@ -115,7 +110,6 @@ public class UserDao extends AbstractDao {
             q.setString("lastName", lastName);
 
             result = q.list();
-
 
         }else {
             Query q = session.createQuery("from User where firstName =:firstName " +
@@ -127,7 +121,6 @@ public class UserDao extends AbstractDao {
 
             result = q.list();
         }
-
         session.close();
 
         return result;
@@ -144,7 +137,6 @@ public class UserDao extends AbstractDao {
         q.setString("email",user.getEmail());
         User newUser = (User)q.uniqueResult();
 
-
         session.close();
         if (newUser == null) return false; else return true;
 
@@ -153,14 +145,12 @@ public class UserDao extends AbstractDao {
     public boolean isExist (String login){
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
 
         Query q = session.createQuery("from User where " +
                 "login = :login");
         q.setString("login",login);
         User newUser = (User)q.uniqueResult();
 
-        session.getTransaction().commit();
         session.close();
         if (newUser == null) return false; else return true;
 
