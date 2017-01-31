@@ -19,6 +19,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/")
 public class MainController {
 
+  @RequestMapping(value = {""}, method = GET)
+  public String logpage() {
+    return "index";
+  }
 
   @RequestMapping(value = {"login"}, method = GET)
   public String home() {

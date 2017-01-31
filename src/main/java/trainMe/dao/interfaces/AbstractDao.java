@@ -85,6 +85,7 @@ public abstract class AbstractDao implements GenericDao,Serializable{
             session.beginTransaction();
             session.delete(item);
             session.getTransaction().commit();
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }finally {

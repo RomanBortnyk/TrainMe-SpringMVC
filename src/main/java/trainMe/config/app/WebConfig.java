@@ -18,7 +18,7 @@ import java.util.List;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"trainMe.controllers", "trainMe.api", "trainMe.config.app"})
+@ComponentScan(basePackages = {"trainMe.controllers", "trainMe.config.app"})
 @EnableAsync
 
 public class WebConfig extends WebMvcConfigurerAdapter {
