@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
+import trainMe.model.Chat;
 import trainMe.model.Message;
 import trainMe.model.User;
 
@@ -40,18 +41,17 @@ public class MessageDao extends AbstractDao {
         return super.readAll(Message.class);
     }
 
-    public List getChatMessages(int chatId){
+    public List getChatMessages(Chat chat){
 
-        List result = null;
+        List result ;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         Criteria criteria = session.createCriteria(Message.class);
 
-        result = criteria.add(Restrictions.eq("chatId", chatId)).list();
+        result = criteria.add(Restrictions.eq("chat", chat)).list();
 
         session.close();
-
 
         return result;
 

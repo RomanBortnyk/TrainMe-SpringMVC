@@ -81,21 +81,6 @@ public class DaoTests {
 
 
     @Test
-    public void messageDaoTest(){
-
-        Message message = new Message();
-        message.setText("text");
-
-        messageDao.create(message);
-
-        List<Message> messages = messageDao.readAll();
-
-        assertEquals("text",messageDao.read(1).getText());
-//        assertEquals("text", messages.get(1).getText());
-
-    }
-
-    @Test
     public void feedbackDaoTest(){
 
         Feedback feedback = new Feedback();
@@ -133,9 +118,9 @@ public class DaoTests {
         assertTrue( !messages.isEmpty() && messages.size()==2);
 
         assertEquals("text1",messageDao.read(1).getText());
-        assertEquals("text1",messageDao.read(2).getText());
+        assertEquals("text2",messageDao.read(2).getText());
 
-        messages = messageDao.getChatMessages(chat.getId());
+        messages = messageDao.getChatMessages(chat);
 
         assertTrue( !messages.isEmpty() && messages.size() == 2);
 
