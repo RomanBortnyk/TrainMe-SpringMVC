@@ -1,8 +1,10 @@
 package trainMe.dao.implementation;
 
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
@@ -11,7 +13,9 @@ import trainMe.model.DisciplineUserLink;
 import trainMe.model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 ;
 
@@ -33,7 +37,7 @@ public class DisciplineUserLinkDao extends AbstractDao {
     }
 
     public void delete(DisciplineUserLink link) {
-         super.delete(link);
+        super.delete(link);
     }
 
     public DisciplineUserLink read(int id) {
@@ -44,89 +48,70 @@ public class DisciplineUserLinkDao extends AbstractDao {
         return super.readAll(DisciplineUserLink.class);
     }
 
-    public List getUsersDisciplineLinks (int userId){
+    public List getUsersDisciplineLinks(int userId) {
 
-        List result = null;
+        List result;
 
-        Session session = null;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
-            Query query = session.createQuery("from DisciplineUserLink where user.id =:userId");
-            query.setInteger("userId", userId);
-            result = query.list();
+        Criteria criteria = session.createCriteria(DisciplineUserLink.class);
 
+        result = criteria.add(Restrictions.eq("userId", userId)).list();
 
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }finally {
-            if(session.isOpen()){
-//                System.out.println("Closing session");
-                session.close();
-            }
-        }
+        session.close();
 
         return result;
 
     }
 
-    public DisciplineUserLink read (User user, Discipline discipline){
+    public DisciplineUserLink read(User user, Discipline discipline) {
 
-        Session session = null;
-        DisciplineUserLink result = null;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from DisciplineUserLink where user.id =:userId " +
-                    "and discipline.id =:disciplineId ");
-            query.setInteger("userId", user.getId());
-            query.setInteger("disciplineId", discipline.getId());
-            result = (DisciplineUserLink) query.uniqueResult();
+        DisciplineUserLink result;
 
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }finally {
-            if(session.isOpen()){
-//                System.out.println("Closing session");
-                session.close();
-            }
-        }
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Criteria criteria = session.createCriteria(DisciplineUserLink.class);
+
+        Map<String, Integer> propertyNameValues = new HashMap<>();
+        propertyNameValues.put("userId", user.getId());
+        propertyNameValues.put("disciplineId", discipline.getId());
+
+        result = (DisciplineUserLink) criteria.add(Restrictions.allEq(propertyNameValues)).uniqueResult();
+
+        session.close();
 
         return result;
     }
 
-    public List find (String userType, String disciplineName){
+    public List find(String userType, String disciplineName, DisciplineDao disciplineDao) {
+
         List result = new ArrayList();
-        List <DisciplineUserLink> tempList = null;
+        List<DisciplineUserLink> tempList;
 
-        DisciplineDao disciplineDao = new DisciplineDao();
         Discipline discipline = disciplineDao.read(disciplineName);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
+        Criteria criteria = session.createCriteria(DisciplineUserLink.class);
 
-        Query q = session.createQuery("from DisciplineUserLink where " +
-                "discipline.id =:disciplineId");
+        tempList = (List<DisciplineUserLink>) criteria.add(Restrictions.eq("disciplineId", discipline.getId())).list();
 
-        q.setInteger("disciplineId",discipline.getId());
+        if (!userType.equals("all")) {
 
-        tempList =  q.list();
-
-
-        if( !userType.equals("all") ){
-
-            for (DisciplineUserLink discUsrLink: tempList){
+            //add to result only user with "userType" parameter type
+            for (DisciplineUserLink discUsrLink : tempList) {
                 User currentUser = discUsrLink.getUser();
                 if (currentUser.getUserType().equals(userType))
                     result.add(currentUser);
             }
 
-
-        }else {
-            for (DisciplineUserLink discUsrLink: tempList){
-                User currentUser = discUsrLink.getUser();
-                result.add(currentUser);
-            }
         }
+
+        // add to result all type users
+        for (DisciplineUserLink discUsrLink : tempList) {
+            result.add(discUsrLink.getUser());
+        }
+
 
         return result;
     }

@@ -86,7 +86,6 @@ public class DaoTests {
         Message message = new Message();
         message.setText("text");
 
-
         messageDao.create(message);
 
         List<Message> messages = messageDao.readAll();

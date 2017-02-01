@@ -2,6 +2,7 @@ package trainMe.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import trainMe.dao.implementation.DisciplineDao;
 import trainMe.dao.implementation.DisciplineUserLinkDao;
 import trainMe.dao.implementation.UserDao;
 import trainMe.jsonObjects.SearchRequestObject;
@@ -23,6 +24,8 @@ public class SearchService {
     UserDao userDao;
     @Autowired
     DisciplineUserLinkDao discUsrLnkDao;
+    @Autowired
+    DisciplineDao disciplineDao;
 
     public ArrayList<SearchResponseObject> search(SearchRequestObject requestObject) {
 
@@ -37,7 +40,7 @@ public class SearchService {
         } else if (requestObject.getSearchOption().equals("byDiscipline")) {
 
 
-            List<User> users = discUsrLnkDao.find(requestObject.getUserTypeOption(), requestObject.getSearchString());
+            List<User> users = discUsrLnkDao.find(requestObject.getUserTypeOption(), requestObject.getSearchString(),disciplineDao );
 
             return generateResultList(users);
         }else return null;

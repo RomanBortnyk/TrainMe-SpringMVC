@@ -66,7 +66,7 @@ public class FeedbackDao extends AbstractDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Criteria criteria = session.createCriteria(User.class);
+        Criteria criteria = session.createCriteria(Feedback.class);
 
         Map<String, Integer> propertyNameValues = new HashMap<>();
         propertyNameValues.put("authorId", feedback.getAuthor().getId());
@@ -80,11 +80,10 @@ public class FeedbackDao extends AbstractDao {
     }
 
     public List getUsersFeedbacks (int userId){
-        List result = null;
 
-        Session session = null;
+        List result;
 
-        session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
         Criteria criteria = session.createCriteria(Feedback.class);
 
