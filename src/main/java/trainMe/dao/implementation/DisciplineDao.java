@@ -4,13 +4,13 @@ package trainMe.dao.implementation;//package dao.implementation;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Discipline;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
@@ -74,6 +74,27 @@ public class DisciplineDao extends AbstractDao {
         session.close();
 
         return newDiscipline;
+    }
+
+    /**
+     * Read all disciplines if their names contains param value
+     * @param param - discipline name can contains this string
+     */
+    public List readAllWithParamMatch (String param){
+
+        List result;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Criteria criteria = session.createCriteria(Discipline.class);
+
+        Criterion firstName = Restrictions.like("firstName", param, MatchMode.ANYWHERE);
+
+        result = criteria.add(Restrictions.like("name", param, MatchMode.ANYWHERE)).list();
+
+        return result;
+
+
     }
 
 }

@@ -2,22 +2,16 @@ package trainMe.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import trainMe.model.Chat;
-import trainMe.model.Message;
 import trainMe.services.*;
 import trainMe.jsonObjects.NewFeedbackRequest;
 import trainMe.jsonObjects.SearchRequestObject;
 import trainMe.jsonObjects.SearchResponseObject;
-import trainMe.jsonObjects.TestObject;
 import trainMe.model.Feedback;
 import trainMe.model.User;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,7 +141,7 @@ public class ApiController {
     @RequestMapping(value = "/autocomplete/disciplines/{param}",method= RequestMethod.GET)
     public ArrayList<String> getDisciplines(@PathVariable("param") String parameter) {
 
-        return disciplineService.getDisciplinesNamesStartsWithParam(parameter);
+        return disciplineService.getDisciplinesNamesContainsParam(parameter);
     }
 
     @RequestMapping(value = "/autocomplete/full_names/{param}",method= RequestMethod.GET)

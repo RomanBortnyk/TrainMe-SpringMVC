@@ -78,20 +78,15 @@ public class DisciplineService {
         return result;
     }
 
-    public ArrayList<String> getDisciplinesNamesStartsWithParam(String parameter) {
+    public ArrayList<String> getDisciplinesNamesContainsParam(String parameter) {
 
-        List<Discipline> disciplineList = disciplineDao.readAll();
+        List<Discipline> disciplineList = disciplineDao.readAllWithParamMatch(parameter.toLowerCase());
+
         ArrayList<String> result = new ArrayList<String>();
 
-        //create result list
-        Iterator it = disciplineList.iterator();
-        while (it.hasNext()) {
-            Discipline current = (Discipline) it.next();
-            if (parameter != null) {
-                if (current.getName().startsWith(parameter.toLowerCase())) {
-                    result.add(current.getName());
-                }
-            }
+        for (Discipline discipline: disciplineList){
+
+            result.add(discipline.getName());
         }
 
         return result;
