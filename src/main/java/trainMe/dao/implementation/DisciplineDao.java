@@ -1,8 +1,10 @@
 package trainMe.dao.implementation;//package dao.implementation;
 
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
@@ -65,10 +67,9 @@ public class DisciplineDao extends AbstractDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Query q = session.createQuery("from Discipline where name = :name");
-        q.setString("name", name);
+        Criteria criteria = session.createCriteria(Discipline.class);
 
-        Discipline newDiscipline = (Discipline)q.uniqueResult();
+        Discipline newDiscipline = (Discipline)criteria.add(Restrictions.eq("name", name));
 
         session.close();
 
