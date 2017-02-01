@@ -13,7 +13,9 @@ import trainMe.model.User;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by romab on 10/2/16.
@@ -91,6 +93,7 @@ public class UserDao extends AbstractDao {
 
         User newUser = (User) criteria.add(Restrictions.eq("login",login)).uniqueResult();
 
+
         session.close();
 
         if (newUser != null) return newUser; else return null;
@@ -103,25 +106,22 @@ public class UserDao extends AbstractDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        if (userType.equals("all")){
-            Query q = session.createQuery("from User where firstName =:firstName " +
-                    "and lastName =:lastName");
+        Criteria criteria = session.createCriteria(User.class);
 
-            q.setString("firstName",firstName);
-            q.setString("lastName", lastName);
+        Map<String, String> propertyNameValues = new HashMap<>();
+        propertyNameValues.put("firstName", firstName);
+        propertyNameValues.put("lastName", lastName);
 
-            result = q.list();
+        if ( !userType.equals("all") ){
 
-        }else {
-            Query q = session.createQuery("from User where firstName =:firstName " +
-                    "and lastName =:lastName and userType =:userType");
+            propertyNameValues.put("userType", userType);
+            result = criteria.add(Restrictions.allEq(propertyNameValues)).list();
+            session.close();
 
-            q.setString("firstName",firstName);
-            q.setString("lastName", lastName);
-            q.setString("userType", userType);
-
-            result = q.list();
+            return result;
         }
+
+        result = criteria.add(Restrictions.allEq(propertyNameValues)).list();
         session.close();
 
         return result;

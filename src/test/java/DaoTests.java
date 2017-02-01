@@ -66,6 +66,9 @@ public class DaoTests {
         userFromDB = userDao.read("Test");
         assertEquals(user.getLogin(), userFromDB.getLogin());
 
+        List list = userDao.read("Test", "Test", "test");
+        assertTrue( !list.isEmpty() && list.size() == 1);
+
         assertTrue(userDao.isExist(user));
 
         assertFalse(userDao.isPasswordCorrect(user,"password1"));
