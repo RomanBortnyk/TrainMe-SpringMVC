@@ -48,7 +48,7 @@ public class DisciplineUserLinkDao extends AbstractDao {
         return super.readAll(DisciplineUserLink.class);
     }
 
-    public List getUsersDisciplineLinks(int userId) {
+    public List getUsersDisciplineLinks(User user) {
 
         List result;
 
@@ -56,7 +56,7 @@ public class DisciplineUserLinkDao extends AbstractDao {
 
         Criteria criteria = session.createCriteria(DisciplineUserLink.class);
 
-        result = criteria.add(Restrictions.eq("userId", userId)).list();
+        result = criteria.add(Restrictions.eq("user", user)).list();
 
         session.close();
 
@@ -83,18 +83,16 @@ public class DisciplineUserLinkDao extends AbstractDao {
         return result;
     }
 
-    public List find(String userType, String disciplineName, DisciplineDao disciplineDao) {
+    public List find(String userType, Discipline discipline) {
 
         List result = new ArrayList();
         List<DisciplineUserLink> tempList;
-
-        Discipline discipline = disciplineDao.read(disciplineName);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         Criteria criteria = session.createCriteria(DisciplineUserLink.class);
 
-        tempList = (List<DisciplineUserLink>) criteria.add(Restrictions.eq("disciplineId", discipline.getId())).list();
+        tempList = (List<DisciplineUserLink>) criteria.add(Restrictions.eq("discipline", discipline)).list();
 
         if (!userType.equals("all")) {
 

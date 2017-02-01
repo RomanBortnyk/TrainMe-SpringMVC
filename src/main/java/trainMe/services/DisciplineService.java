@@ -45,10 +45,10 @@ public class DisciplineService {
         return disciplineDao.read(id);
     }
 
-    public List getDisciplinesByUserId(int id) {
+    public List getDisciplinesByUserId(int userId) {
 
         ArrayList<Discipline> result = new ArrayList<Discipline>();
-        List disciplinesLinks = discUsrLnkDao.getUsersDisciplineLinks(id);
+        List disciplinesLinks = discUsrLnkDao.getUsersDisciplineLinks(userDao.read(userId));
 
         for (Object discLink : disciplinesLinks) {
             Discipline discipline = ((DisciplineUserLink) discLink).getDiscipline();

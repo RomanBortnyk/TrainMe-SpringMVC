@@ -40,7 +40,7 @@ public class SearchService {
         } else if (requestObject.getSearchOption().equals("byDiscipline")) {
 
 
-            List<User> users = discUsrLnkDao.find(requestObject.getUserTypeOption(), requestObject.getSearchString(),disciplineDao );
+            List<User> users = discUsrLnkDao.find(requestObject.getUserTypeOption(), disciplineDao.read(requestObject.getSearchString()) );
 
             return generateResultList(users);
         }else return null;
@@ -54,7 +54,7 @@ public class SearchService {
 
         for (User user: usersList){
 
-            List<DisciplineUserLink> links = discUsrLnkDao.getUsersDisciplineLinks(user.getId());
+            List<DisciplineUserLink> links = discUsrLnkDao.getUsersDisciplineLinks(user);
 
             SearchResponseObject searchResponseObject = new SearchResponseObject();
             ArrayList<Discipline> disciplines = new ArrayList<Discipline>();

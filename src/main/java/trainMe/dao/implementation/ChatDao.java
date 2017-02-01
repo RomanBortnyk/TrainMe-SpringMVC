@@ -1,7 +1,10 @@
 package trainMe.dao.implementation;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
@@ -22,58 +25,28 @@ public class ChatDao extends AbstractDao {
         return (Chat) super.create(chat);
     }
 
-
     public Chat read(int id) {
         return (Chat) super.read(Chat.class, id);
     }
 
-    public List<Chat> getUserChats(int userId) {
+    public List<Chat> getUserChats(User user) {
 
         List<Chat> result;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
+        Criteria criteria = session.createCriteria(Chat.class);
 
-        Query q = session.createQuery("from Chat where user1.id =:userId " +
-                "or user2.id =:userId");
+        Criterion user1 = Restrictions.eq("user1", user);
+        Criterion user2 = Restrictions.eq("user2", user);
 
-        q.setInteger("userId", userId);
-
-        result = q.list();
-
-        session.close();
-
-        // every user with current userId parameter will be in second place in chat object
-        for (Chat chat : result) {
-            if (chat.getUser2().getId() != (userId)) {
-                User tempUser = chat.getUser1();
-                chat.setUser1(chat.getUser2());
-                chat.setUser2(tempUser);
-            }
-        }
-
-        return result;
-
-    }
-
-    public List<Chat> getUserChats(String login) {
-
-        List<Chat> result;
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        Query q = session.createQuery("from Chat where user1.login =:login " +
-                "or user2.login =:login");
-
-        q.setString("login", login);
-
-        result = q.list();
+        result = (List<Chat>) criteria.add(Restrictions.or(user1, user2)).list();
 
         session.close();
 
-        // every user with current login parameter will be in second place in chat object
+        // every user with current "user" parameter will be in a second place in chat object
         for (Chat chat : result) {
-            if ( !chat.getUser2().getLogin().equals(login) ) {
+            if ( !chat.getUser2().getLogin().equals(user.getLogin()) ) {
                 User tempUser = chat.getUser1();
                 chat.setUser1(chat.getUser2());
                 chat.setUser2(tempUser);
@@ -86,7 +59,6 @@ public class ChatDao extends AbstractDao {
 
     public Chat readByUsersIds(int user1Id, int user2Id){
         Session session = HibernateUtil.getSessionFactory().openSession();
-
 
         Query q = session.createQuery("from Chat where " +
                 "(user1.id = :user1Id and user2.id = :user2Id) or " +
@@ -106,15 +78,16 @@ public class ChatDao extends AbstractDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-
         Query q = session.createQuery("from Chat where " +
                 "(user1.id = :user1Id and user2.id = :user2Id) or " +
                 "(user1.id = :user2Id and user2.id = :user1Id)");
+
         q.setInteger("user1Id", user1Id);
         q.setInteger("user2Id", user2Id);
         Chat resultChat = (Chat) q.uniqueResult();
 
         session.close();
+
         if (resultChat == null) return false;
         else return true;
 
@@ -125,11 +98,9 @@ public class ChatDao extends AbstractDao {
         return super.update(item);
     }
 
-
     public void delete(Item item) {
         super.delete(item);
     }
-
 
     public List readAll(Class clazz) {
         return super.readAll(clazz);
