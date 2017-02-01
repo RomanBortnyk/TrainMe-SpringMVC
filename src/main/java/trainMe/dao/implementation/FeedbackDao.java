@@ -1,14 +1,19 @@
 package trainMe.dao.implementation;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Feedback;
+import trainMe.model.User;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by romab on 9/21/16.
@@ -61,40 +66,31 @@ public class FeedbackDao extends AbstractDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
+        Criteria criteria = session.createCriteria(User.class);
 
-        Query q = session.createQuery("from Feedback where " +
-                    "author.id = :authorId and user.id = :userId");
-        q.setInteger("authorId", feedback.getAuthor().getId());
-        q.setInteger("userId", feedback.getUser().getId());
+        Map<String, Integer> propertyNameValues = new HashMap<>();
+        propertyNameValues.put("authorId", feedback.getAuthor().getId());
+        propertyNameValues.put("userId", feedback.getUser().getId());
 
-        Feedback newFeedback = (Feedback) q.uniqueResult();
+        Feedback newFeedback = (Feedback) criteria.add(Restrictions.allEq(propertyNameValues)).uniqueResult();
 
         session.close();
 
-        if (newFeedback == null) return false;
-            else return true;
+        if (newFeedback == null) return false; else return true;
     }
 
     public List getUsersFeedbacks (int userId){
         List result = null;
 
         Session session = null;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
 
-            Query query = session.createQuery("from Feedback where user.id =:userId");
-            query.setInteger("userId", userId);
-            result = query.list();
+        session = HibernateUtil.getSessionFactory().openSession();
 
+        Criteria criteria = session.createCriteria(Feedback.class);
 
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }finally {
-            if(session.isOpen()){
-//                System.out.println("Closing session");
-                session.close();
-            }
-        }
+        result = criteria.add(Restrictions.eq("userId", userId)).list();
+
+        session.close();
 
         return result;
     }

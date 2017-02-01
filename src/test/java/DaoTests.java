@@ -71,7 +71,7 @@ public class DaoTests {
 
         assertTrue(userDao.isExist(user));
 
-        assertFalse(userDao.isPasswordCorrect(user,"password1"));
+
 
         userDao.delete(user);
 

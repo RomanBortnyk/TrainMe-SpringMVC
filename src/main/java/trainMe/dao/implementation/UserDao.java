@@ -79,12 +79,6 @@ public class UserDao extends AbstractDao {
         return super.readAll(User.class);
     }
 
-    public boolean isPasswordCorrect (User user, String password){
-
-        User chekedUser = read(user.getId());
-        if (chekedUser.getPassword().equals(password)) return true; else return false;
-
-    }
 
     public User read (String login){
 
