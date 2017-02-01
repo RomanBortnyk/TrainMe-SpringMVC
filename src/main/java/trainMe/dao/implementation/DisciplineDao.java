@@ -1,5 +1,4 @@
-package trainMe.dao.implementation;//package dao.implementation;
-
+package trainMe.dao.implementation;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -69,7 +68,7 @@ public class DisciplineDao extends AbstractDao {
 
         Criteria criteria = session.createCriteria(Discipline.class);
 
-        Discipline newDiscipline = (Discipline)criteria.add(Restrictions.eq("name", name));
+        Discipline newDiscipline = (Discipline)criteria.add(Restrictions.eq("name", name)).uniqueResult();
 
         session.close();
 

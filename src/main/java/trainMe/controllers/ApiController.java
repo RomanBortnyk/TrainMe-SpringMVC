@@ -147,7 +147,7 @@ public class ApiController {
     @RequestMapping(value = "/autocomplete/full_names/{param}",method= RequestMethod.GET)
     public ArrayList<String> getUsersFullNames(@PathVariable("param") String parameter) {
 
-        return userService.getUsersFullNamesStartsWithParam(parameter);
+        return userService.getUsersFullNamesContainsParam(parameter);
 
     }
 

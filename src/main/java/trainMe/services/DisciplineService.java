@@ -28,20 +28,20 @@ public class DisciplineService {
     @Autowired
     UserDao userDao;
 
-    public void addDiscipline (String login, String discipline){
+    public void addDiscipline(String login, String discipline) {
 
 
-        discUsrLnkDao.create(new DisciplineUserLink(userDao.read(login),disciplineDao.read(discipline)));
-
-    }
-
-    public void removeDiscipline (String login, String discipline){
-
-        discUsrLnkDao.delete(discUsrLnkDao.read(userDao.read(login),disciplineDao.read(discipline)));
+        discUsrLnkDao.create(new DisciplineUserLink(userDao.read(login), disciplineDao.read(discipline)));
 
     }
 
-    public Discipline readById (int id){
+    public void removeDiscipline(String login, String discipline) {
+
+        discUsrLnkDao.delete(discUsrLnkDao.read(userDao.read(login), disciplineDao.read(discipline)));
+
+    }
+
+    public Discipline readById(int id) {
         return disciplineDao.read(id);
     }
 
@@ -80,16 +80,23 @@ public class DisciplineService {
 
     public ArrayList<String> getDisciplinesNamesContainsParam(String parameter) {
 
-        List<Discipline> disciplineList = disciplineDao.readAllWithParamMatch(parameter.toLowerCase());
+        if (parameter.length() > 1){
 
-        ArrayList<String> result = new ArrayList<String>();
+            ArrayList<String> result = new ArrayList<String>();
 
-        for (Discipline discipline: disciplineList){
+            List<Discipline> disciplineList = disciplineDao.readAllWithParamMatch(parameter.toLowerCase());
 
-            result.add(discipline.getName());
+            for (Discipline discipline : disciplineList) {
+
+                result.add(discipline.getName());
+            }
+
+            return result;
         }
 
-        return result;
+        return null;
+
+
     }
 
 }

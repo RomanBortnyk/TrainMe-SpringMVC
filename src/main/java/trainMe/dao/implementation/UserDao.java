@@ -4,6 +4,8 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
@@ -141,24 +143,21 @@ public class UserDao extends AbstractDao {
 
     }
 
-    public List readAllFullNames (){
+    public List readAllFullNamesWithParam (String param){
 
-        List result = null;
+        List result;
 
-        try {
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
-            Session session = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = session.createCriteria(User.class);
 
-            Query q = session.createQuery("select firstName, lastName from User");
-            result = q.list();
+        Criterion firstNameMatch = Restrictions.like("firstName", param, MatchMode.ANYWHERE);
+        Criterion lastNameMatch = Restrictions.like("lastName", param, MatchMode.ANYWHERE);
 
-            session.close();
-
-        }catch (HibernateException e){
-            e.printStackTrace();
-        }
+        result = criteria.add(Restrictions.or(firstNameMatch, lastNameMatch)).list();
 
         return result;
+
     }
 
 }

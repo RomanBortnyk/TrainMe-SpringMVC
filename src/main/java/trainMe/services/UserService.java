@@ -37,26 +37,24 @@ public class UserService {
         return  userDao.readAll();
     }
 
-    public ArrayList<String> getUsersFullNamesStartsWithParam(String parameter) {
+    public ArrayList<String> getUsersFullNamesContainsParam(String parameter) {
 
-        List<Discipline> disciplineList = disciplineDao.readAll();
-        ArrayList<String> result = new ArrayList<String>();
+        if (parameter.length() > 1){
 
-        List usersFullNamesList = userDao.readAllFullNames();
+            ArrayList<String> result = new ArrayList<String>();
 
-        //create list of users  full names
-        for (Object listObject: usersFullNamesList){
-            Object[] oarray = (Object[]) listObject;
-            String[] names = Arrays.asList(oarray).toArray(new String[oarray.length]);
+            List<User> usersList = (List<User>) userDao.readAllFullNamesWithParam(parameter);
 
-            if ( names[0].toLowerCase().startsWith(parameter.toLowerCase() )
-                    || names[1].toLowerCase().startsWith(parameter.toLowerCase() )){
-                result.add(names[1]+" "+ names[0]);
+            for (User user: usersList){
+                result.add(user.getFirstName() +" " +user.getLastName());
             }
+
+            return result;
 
         }
 
-        return result;
+        return null;
+
     }
 
 }
