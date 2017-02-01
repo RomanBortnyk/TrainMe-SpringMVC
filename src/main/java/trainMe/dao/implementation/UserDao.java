@@ -1,8 +1,10 @@
 package trainMe.dao.implementation;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
@@ -85,10 +87,9 @@ public class UserDao extends AbstractDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Query q = session.createQuery("from User where login = :login");
-        q.setString("login",login);
+        Criteria criteria = session.createCriteria(User.class);
 
-        User newUser = (User)q.uniqueResult();
+        User newUser = (User) criteria.add(Restrictions.eq("login",login)).uniqueResult();
 
         session.close();
 
