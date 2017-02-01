@@ -13,6 +13,7 @@ import trainMe.model.Feedback;
 import trainMe.model.Message;
 import trainMe.model.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -72,6 +73,7 @@ public class DaoTests {
         assertTrue(userDao.isExist(user));
 
         assertFalse(userDao.isPasswordCorrect(user,"password1"));
+
         userDao.delete(user);
 
         assertNull(userDao.read(1));

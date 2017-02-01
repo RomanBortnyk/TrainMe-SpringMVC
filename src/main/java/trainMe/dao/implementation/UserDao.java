@@ -93,7 +93,6 @@ public class UserDao extends AbstractDao {
 
         User newUser = (User) criteria.add(Restrictions.eq("login",login)).uniqueResult();
 
-
         session.close();
 
         if (newUser != null) return newUser; else return null;
@@ -128,31 +127,21 @@ public class UserDao extends AbstractDao {
     }
 
     public boolean isExist (User user){
+
         if (user == null) return false;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Query q = session.createQuery("from User where " +
-                "login = :login or email = :email");
-        q.setString("login",user.getLogin());
-        q.setString("email",user.getEmail());
-        User newUser = (User)q.uniqueResult();
+        Criteria criteria = session.createCriteria(User.class);
+
+        Map<String, String> propertyNameValues = new HashMap<>();
+        propertyNameValues.put("login", user.getLogin());
+        propertyNameValues.put("email", user.getEmail());
+
+        User newUser = (User)criteria.add(Restrictions.allEq(propertyNameValues)).uniqueResult();
 
         session.close();
-        if (newUser == null) return false; else return true;
 
-    }
-
-    public boolean isExist (String login){
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        Query q = session.createQuery("from User where " +
-                "login = :login");
-        q.setString("login",login);
-        User newUser = (User)q.uniqueResult();
-
-        session.close();
         if (newUser == null) return false; else return true;
 
     }
@@ -165,17 +154,14 @@ public class UserDao extends AbstractDao {
 
             Session session = HibernateUtil.getSessionFactory().openSession();
 
-
             Query q = session.createQuery("select firstName, lastName from User");
             result = q.list();
-
 
             session.close();
 
         }catch (HibernateException e){
             e.printStackTrace();
         }
-
 
         return result;
     }
