@@ -50,6 +50,7 @@ public class UserDao extends AbstractDao {
 
         Avatar currentAvatar = user.getAvatar();
         AvatarDao avatarDao = new AvatarDao();
+
         if (currentAvatar == null){
             user.setAvatar(avatarDao.create(newAvatar));
             update(user);

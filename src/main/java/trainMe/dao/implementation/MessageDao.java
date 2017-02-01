@@ -1,12 +1,16 @@
 package trainMe.dao.implementation;
 
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Message;
+import trainMe.model.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,18 +40,15 @@ public class MessageDao extends AbstractDao {
         return super.readAll(Message.class);
     }
 
-    public List <Message> getChatMessages(int chatId){
+    public List getChatMessages(int chatId){
 
-//        List<Message> result = new ArrayList<Message>();
-        List<Message> result;
+        List result = null;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
+        Criteria criteria = session.createCriteria(Message.class);
 
-        Query q = session.createQuery("from Message where chat.id = :chatId");
-        q.setInteger("chatId",chatId);
-
-        result = q.list();
+        result = criteria.add(Restrictions.eq("chatId", chatId)).list();
 
         session.close();
 

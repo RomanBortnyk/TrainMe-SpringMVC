@@ -53,7 +53,6 @@ public class DaoTests {
         user.setEmail("email");
         user.setPassword("password");
 
-
         userDao.create(user);
 
         User userFromDB = userDao.read(1);
@@ -87,6 +86,7 @@ public class DaoTests {
         Message message = new Message();
         message.setText("text");
 
+
         messageDao.create(message);
 
         List<Message> messages = messageDao.readAll();
@@ -108,13 +108,37 @@ public class DaoTests {
     }
 
     @Test
-    public void chatDaoTest(){
+    public void chatDaoAndMessageDaoTest(){
 
         Chat chat = new Chat();
         chat.setName("name");
         chatDao.create(chat);
 
         assertEquals("name", chatDao.read(1).getName());
+
+
+        Message message1 = new Message();
+        message1.setText("text1");
+        message1.setChat(chat);
+
+        Message message2 = new Message();
+        message2.setText("text2");
+        message2.setChat(chat);
+
+
+        messageDao.create(message1);
+        messageDao.create(message2);
+
+        List messages = messageDao.readAll();
+
+        assertTrue( !messages.isEmpty() && messages.size()==2);
+
+        assertEquals("text1",messageDao.read(1).getText());
+        assertEquals("text1",messageDao.read(2).getText());
+
+        messages = messageDao.getChatMessages(chat.getId());
+
+        assertTrue( !messages.isEmpty() && messages.size() == 2);
 
     }
 

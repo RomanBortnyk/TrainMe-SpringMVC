@@ -18,9 +18,7 @@ public class MessageService {
 
     public List getChatMessages(int id) {
 
-        List<Message> result = messageDao.getChatMessages(id);
-
-        return result;
+        return messageDao.getChatMessages(id);
 
     }
 }
