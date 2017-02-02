@@ -1,4 +1,9 @@
 language: java
 jdk:
   - oraclejdk8
-script: mvn package
+script: mvn install
+
+deploy:
+  provider: heroku
+  api_key: b58e8125-2550-40ef-8c43-2203221d9525
+  skip_cleanup: true

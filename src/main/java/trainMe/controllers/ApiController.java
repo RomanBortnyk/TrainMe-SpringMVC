@@ -128,7 +128,6 @@ public class ApiController {
 
     // message api's
 
-
     @RequestMapping(value = "/messages/{chatId}",method= RequestMethod.GET)
     public List getChatMessages(@PathVariable("chatId") int chatId) {
 
