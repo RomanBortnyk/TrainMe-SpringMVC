@@ -8,11 +8,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import trainMe.config.test.DAOTestConfig;
 
 import trainMe.dao.implementation.*;
-import trainMe.model.Chat;
-import trainMe.model.Feedback;
-import trainMe.model.Message;
-import trainMe.model.User;
+import trainMe.model.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,6 +37,7 @@ public class DaoTests {
     FeedbackDao feedbackDao;
     @Autowired
     AvatarDao avatarDao;
+
 
     @Test
     public void userDaoTest (){

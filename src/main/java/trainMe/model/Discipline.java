@@ -7,9 +7,9 @@ import javax.persistence.*;
 /**
  * Created by romab on 9/24/16.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "discipline")
-public class Discipline implements Item {
+public class Discipline implements Entity {
 
     private int id;
     private String name;
@@ -55,5 +55,14 @@ public class Discipline implements Item {
         this.icon = icon;
     }
 
+    @Override
+    public boolean equals(Object discipline) {
 
+
+        return discipline instanceof Discipline &&
+                this.getName().equals( ((Discipline)discipline).getName()) &&
+                this.getId() == ((Discipline) discipline).getId();
+
+
+    }
 }

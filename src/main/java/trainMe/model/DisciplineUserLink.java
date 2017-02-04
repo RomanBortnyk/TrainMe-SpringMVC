@@ -5,9 +5,9 @@ import javax.persistence.*;
 /**
  * Created by romab on 9/24/16.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "discipline_user_link")
-public class DisciplineUserLink  implements Item {
+public class DisciplineUserLink  implements Entity {
 
     private int id;
     private User user;

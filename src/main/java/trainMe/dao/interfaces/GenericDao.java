@@ -1,6 +1,6 @@
 package trainMe.dao.interfaces;
 
-import trainMe.model.Item;
+import trainMe.model.Entity;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  * Created by romab on 10/2/16.
  */
 
-public interface GenericDao<T extends Item> {
+public interface GenericDao<T extends Entity> {
 
 //    /** Persist the newInstance object into database */
 //    void create(T newObject) throws DataAccessLayerException;
@@ -25,6 +25,6 @@ public interface GenericDao<T extends Item> {
     /** Remove an object from persistent storage in the database */
     void delete(T persistentObject);
 
-    List readAll(Class<T> clazz);
+    List<T> readAll(Class<T> clazz);
 
 }

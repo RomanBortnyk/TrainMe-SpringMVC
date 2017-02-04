@@ -8,12 +8,12 @@ import java.io.Serializable;
 /**
  * Created by romab on 10/2/16.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email"),
         @UniqueConstraint(columnNames = "login")
 })
-public class User implements Item, Serializable {
+public class User implements Entity, Serializable {
 
     private int id;
     private String firstName;

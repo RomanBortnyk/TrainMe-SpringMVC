@@ -66,19 +66,15 @@ public class DisciplineService {
         List<String> result = new ArrayList<String>();
 
         //create list of disciplines names which user can add
-        allDisciplinesList.forEach(discipline -> {
-            if ( !currentDisciplines.contains(discipline) ) result.add(discipline.getName());
-        });
 
-//
-//        for (Discipline discipline : allDisciplinesList) {
-//            int i = 0;
-//            for (Discipline currentDiscipline : currentDisciplines) {
-//                if ( discipline.getName().equals(currentDiscipline.getName()) ) i++;
-//
-//            }
-//            if (i == 0) result.add(discipline.getName());
-//        }
+        for (Discipline discipline : allDisciplinesList) {
+            int i = 0;
+            for (Discipline currentDiscipline : currentDisciplines) {
+                if ( discipline.getName().equals(currentDiscipline.getName()) ) i++;
+
+            }
+            if (i == 0) result.add(discipline.getName());
+        }
         Collections.sort(result);
         return result;
     }

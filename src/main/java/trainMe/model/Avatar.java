@@ -8,9 +8,9 @@ import java.io.IOException;
 /**
  * Created by romab on 10/2/16.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "avatar")
-public class Avatar implements Item {
+public class Avatar implements Entity {
 
     private int id;
     private byte[] image;

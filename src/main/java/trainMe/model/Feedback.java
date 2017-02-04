@@ -11,11 +11,11 @@ import javax.persistence.*;
 /**
  * Created by romab on 9/24/16.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "feedback")
 //@JsonIgnoreProperties({"author","user"})
 @JsonIgnoreProperties({"author","user"})
-public class Feedback implements Item {
+public class Feedback implements Entity {
 
 
     private int id;

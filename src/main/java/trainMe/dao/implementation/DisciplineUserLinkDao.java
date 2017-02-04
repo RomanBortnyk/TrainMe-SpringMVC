@@ -12,10 +12,7 @@ import trainMe.model.Discipline;
 import trainMe.model.DisciplineUserLink;
 import trainMe.model.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 ;
 
@@ -57,6 +54,8 @@ public class DisciplineUserLinkDao extends AbstractDao {
         Criteria criteria = session.createCriteria(DisciplineUserLink.class);
 
         result = criteria.add(Restrictions.eq("user", user)).list();
+
+//        Collections.checkedList(result, DisciplineUserLink.class);
 
         session.close();
 

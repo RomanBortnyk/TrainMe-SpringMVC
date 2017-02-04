@@ -6,10 +6,7 @@ import trainMe.model.Discipline;
 import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.ResourceBundle;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.function.Consumer;
 
 
@@ -21,30 +18,25 @@ public class MainTest {
 
     public static void main(String[] args) {
 
-        Date today = new Date();
-        Timestamp timestamp = new Timestamp(today.getTime());
+        Discipline discipline1 = new Discipline("name1", null);
+        discipline1.setId(1);
 
-        Date date = new Date(timestamp.getTime());
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Discipline discipline2 = new Discipline("name1", null);
+        discipline2.setId(1);
 
-        System.out.println(sdf.format(date));
+        boolean equals = discipline1.equals(discipline2);
 
-        ResourceBundle resource = ResourceBundle.getBundle("project");
+        System.out.println(equals);
 
-        String describe = resource.getString("describe");
+        ArrayList<Discipline> list1 = new ArrayList<>();
+        ArrayList<Discipline> list2 = new ArrayList<>();
 
-        ArrayList<String> list = new ArrayList<>();
+        list1.add(discipline1);
+        list2.add(discipline2);
 
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
+        boolean contains = list1.contains(discipline2);
 
-
-        list.forEach(element -> {
-            System.out.println(element);
-            System.out.println(1+1);
-        });
+        System.out.println(contains);
 
     }
 }

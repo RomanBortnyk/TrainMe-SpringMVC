@@ -1,6 +1,6 @@
 package trainMe.dao.interfaces;
 
-import trainMe.model.Item;
+import trainMe.model.Entity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import trainMe.hibernate.HibernateUtil;
@@ -12,13 +12,13 @@ import java.util.List;
  */
 public abstract class AbstractDao implements GenericDao,Serializable{
 
-    public Item create (Item item){
+    public Entity create (Entity entity){
 
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(item);
+            session.save(entity);
             session.getTransaction().commit();
 
         }catch (Exception e){
@@ -30,16 +30,16 @@ public abstract class AbstractDao implements GenericDao,Serializable{
                 }
         }
 
-        return item;
+        return entity;
     }
 
-    public Item read(Class clazz, int id) {
+    public Entity read(Class clazz, int id) {
 
-        Item item = null;
+        Entity entity = null;
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            item = (Item) session.get(clazz, id);
+            entity = (Entity) session.get(clazz, id);
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -50,18 +50,18 @@ public abstract class AbstractDao implements GenericDao,Serializable{
             }
         }
 
-        return item;
+        return entity;
 
     }
 
-    public Item update(Item item) {
+    public Entity update(Entity entity) {
 
         Session session = null;
         try {
 
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.update(item);
+            session.update(entity);
             session.getTransaction().commit();
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -72,17 +72,17 @@ public abstract class AbstractDao implements GenericDao,Serializable{
             }
         }
 
-        return item;
+        return entity;
 
     }
 
-    public void delete(Item item) {
+    public void delete(Entity entity) {
         Session session = null;
         try {
 
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.delete(item);
+            session.delete(entity);
             session.getTransaction().commit();
 
         }catch (Exception e){

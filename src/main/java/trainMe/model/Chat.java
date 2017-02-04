@@ -8,9 +8,9 @@ import javax.persistence.*;
 /**
  * Created by romab on 9/24/16.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "chat")
-public class Chat implements Item{
+public class Chat implements Entity {
 
     private int id;
     @JsonIgnore

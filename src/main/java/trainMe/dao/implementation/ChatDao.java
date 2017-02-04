@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import trainMe.dao.interfaces.AbstractDao;
 import trainMe.hibernate.HibernateUtil;
 import trainMe.model.Chat;
-import trainMe.model.Item;
+import trainMe.model.Entity;
 import trainMe.model.User;
 
 import java.util.List;
@@ -94,12 +94,12 @@ public class ChatDao extends AbstractDao {
     }
 
 
-    public Item update(Item item) {
-        return super.update(item);
+    public Entity update(Entity entity) {
+        return super.update(entity);
     }
 
-    public void delete(Item item) {
-        super.delete(item);
+    public void delete(Entity entity) {
+        super.delete(entity);
     }
 
     public List readAll(Class clazz) {

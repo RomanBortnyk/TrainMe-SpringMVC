@@ -12,9 +12,9 @@ import java.util.Date;
 /**
  * Created by romab on 9/24/16.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "message")
-public class Message implements Item{
+public class Message implements Entity {
 
     @JsonIgnore
     private int id;
