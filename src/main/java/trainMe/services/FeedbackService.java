@@ -34,9 +34,10 @@ public class FeedbackService {
         return feedbackDao.read(feedbackId);
     }
 
-    public ArrayList<Feedback> getFeedbacksByUserId(int id) {
+    public ArrayList<Feedback> getFeedbacksByUserId(int userId) {
 
-        ArrayList<Feedback> feedbacks = (ArrayList<Feedback>) feedbackDao.getUsersFeedbacks(id);
+
+        ArrayList<Feedback> feedbacks = (ArrayList<Feedback>) feedbackDao.getUsersFeedbacks(userDao.read(userId));
 
         return feedbacks;
     }

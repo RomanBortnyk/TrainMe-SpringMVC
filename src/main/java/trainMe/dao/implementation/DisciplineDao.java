@@ -20,7 +20,6 @@ import java.util.List;
 @Repository
 public class DisciplineDao extends AbstractDao {
 
-
     public Discipline create(Discipline obj) {
         return (Discipline) super.create(obj);
     }

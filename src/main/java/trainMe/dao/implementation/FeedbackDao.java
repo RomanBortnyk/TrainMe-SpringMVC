@@ -79,7 +79,7 @@ public class FeedbackDao extends AbstractDao {
         if (newFeedback == null) return false; else return true;
     }
 
-    public List getUsersFeedbacks (int userId){
+    public List getUsersFeedbacks (User user){
 
         List result;
 
@@ -87,7 +87,7 @@ public class FeedbackDao extends AbstractDao {
 
         Criteria criteria = session.createCriteria(Feedback.class);
 
-        result = criteria.add(Restrictions.eq("userId", userId)).list();
+        result = criteria.add(Restrictions.eq("user", user)).list();
 
         session.close();
 
