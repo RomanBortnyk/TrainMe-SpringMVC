@@ -6,9 +6,11 @@ import trainMe.model.Discipline;
 import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
+import java.util.function.Consumer;
 
 
 /**
@@ -30,6 +32,19 @@ public class MainTest {
         ResourceBundle resource = ResourceBundle.getBundle("project");
 
         String describe = resource.getString("describe");
+
+        ArrayList<String> list = new ArrayList<>();
+
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+
+
+        list.forEach(element -> {
+            System.out.println(element);
+            System.out.println(1+1);
+        });
 
     }
 }

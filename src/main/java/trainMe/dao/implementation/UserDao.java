@@ -96,7 +96,7 @@ public class UserDao extends AbstractDao {
 
     }
 
-    public List read (String lastName, String firstName, String userType){
+    public List read (String firstName, String lastName, String userType){
 
         List result ;
 

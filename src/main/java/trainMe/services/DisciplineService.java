@@ -60,20 +60,25 @@ public class DisciplineService {
     }
 
     public List getSortedDisciplinesNamesToAdd(int id) {
-        List currentDisciplines = getDisciplinesByUserId(id);
-        List allDisciplinesList = disciplineDao.readAll();
+        List<Discipline> currentDisciplines = (List<Discipline>) getDisciplinesByUserId(id);
+        List<Discipline> allDisciplinesList = (List<Discipline>) disciplineDao.readAll();
 
-        ArrayList<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<String>();
 
-        //create list of disciplines names
-        for (Object discipline : allDisciplinesList) {
-            int i = 0;
-            for (Object currentDiscipline : currentDisciplines) {
-                if (((Discipline) discipline).getName().equals(((Discipline) currentDiscipline).getName())) i++;
+        //create list of disciplines names which user can add
+        allDisciplinesList.forEach(discipline -> {
+            if ( !currentDisciplines.contains(discipline) ) result.add(discipline.getName());
+        });
 
-            }
-            if (i == 0) result.add(((Discipline) discipline).getName());
-        }
+//
+//        for (Discipline discipline : allDisciplinesList) {
+//            int i = 0;
+//            for (Discipline currentDiscipline : currentDisciplines) {
+//                if ( discipline.getName().equals(currentDiscipline.getName()) ) i++;
+//
+//            }
+//            if (i == 0) result.add(discipline.getName());
+//        }
         Collections.sort(result);
         return result;
     }
@@ -86,10 +91,7 @@ public class DisciplineService {
 
             List<Discipline> disciplineList = disciplineDao.readAllWithParamMatch(parameter.toLowerCase());
 
-            for (Discipline discipline : disciplineList) {
-
-                result.add(discipline.getName());
-            }
+            disciplineList.forEach(discipline -> result.add(discipline.getName()));
 
             return result;
         }

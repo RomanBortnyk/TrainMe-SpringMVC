@@ -45,9 +45,7 @@ public class UserService {
 
             List<User> usersList = (List<User>) userDao.readAllFullNamesWithParam(parameter);
 
-            for (User user: usersList){
-                result.add(user.getFirstName() +" " +user.getLastName());
-            }
+            usersList.forEach(user -> result.add(user.getFirstName() +" " +user.getLastName()));
 
             return result;
 

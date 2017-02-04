@@ -62,6 +62,7 @@ public class SearchService {
             for (DisciplineUserLink link: links){
                 disciplines.add(link.getDiscipline());
             }
+
             searchResponseObject.setDisciplines(disciplines);
             searchResponseObject.setId(user.getId());
             searchResponseObject.setFirstName(user.getFirstName());

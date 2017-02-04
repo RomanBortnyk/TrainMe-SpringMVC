@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import trainMe.dao.implementation.DisciplineDao;
 import trainMe.dao.implementation.UserDao;
+import trainMe.model.Avatar;
 import trainMe.model.Discipline;
 import trainMe.model.User;
 import trainMe.services.DisciplineService;
@@ -35,10 +36,12 @@ public class ImageController {
 
         User user = userService.readById(id);
 
-        byte[] content = user.getAvatar().getImage();
-        if (content == null) return;
-        response.setContentLength(content.length);
-        response.getOutputStream().write(content);
+//        byte[] content = user.getAvatar().getImage();
+        Avatar avatar = user.getAvatar();
+        if (avatar == null) return;
+
+        response.setContentLength(avatar.getImage().length);
+        response.getOutputStream().write(avatar.getImage());
 
     }
 
